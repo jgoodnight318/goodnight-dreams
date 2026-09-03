@@ -1,3 +1,9 @@
 {
-  "tools": []
+  "tools": [
+    {
+      "file": "freelance-rate-calculator.html",
+      "title": "Freelance Rate Calculator",
+      "description": ""
+    }
+  ]
 }

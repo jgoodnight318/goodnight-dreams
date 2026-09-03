@@ -42,6 +42,10 @@
   <p class="section-label">Ambient loops &amp; wallpapers</p>
   <div id="wallpaper"></div>
 
+  <p class="section-label">Business &amp; freelance kits</p>
+  <p class="section-sub">Spreadsheets and templates built from real complaints people posted, not guesses.</p>
+  <div id="kits"></div>
+
   <p class="section-label">In the pipeline</p>
   <p class="section-sub">Finished, not yet listed — check back soon.</p>
   <div id="soon"></div>
@@ -100,15 +104,17 @@
       var featured = products.filter(function (p) { return p.featured; });
       var sleep = products.filter(function (p) { return p.category === 'sleep'; });
       var wallpaper = products.filter(function (p) { return p.category === 'wallpaper' && p.status === 'live'; });
+      var kits = products.filter(function (p) { return p.category === 'kits' && p.status === 'live'; });
       var soon = products.filter(function (p) { return p.status === 'coming_soon'; });
 
       document.getElementById('featured').innerHTML = featured.map(function (p) { return fmtCard(p, true); }).join('') || '<div class="empty">Nothing featured right now.</div>';
       document.getElementById('sleep').innerHTML = sleep.map(function (p) { return fmtCard(p, false); }).join('') || '<div class="empty">No sleep-sound packs listed yet.</div>';
       document.getElementById('wallpaper').innerHTML = wallpaper.map(function (p) { return fmtCard(p, false); }).join('') || '<div class="empty">No wallpaper packs listed yet.</div>';
+      document.getElementById('kits').innerHTML = kits.map(function (p) { return fmtCard(p, false); }).join('') || '<div class="empty">No kits listed yet.</div>';
       document.getElementById('soon').innerHTML = soon.map(function (p) { return fmtCard(p, false); }).join('') || '<div class="empty">Nothing in the pipeline right now.</div>';
     })
     .catch(function () {
-      ['featured', 'sleep', 'wallpaper', 'soon'].forEach(function (id) {
+      ['featured', 'sleep', 'wallpaper', 'kits', 'soon'].forEach(function (id) {
         document.getElementById(id).innerHTML = '<div class="empty">Could not load products.json.</div>';
       });
     });

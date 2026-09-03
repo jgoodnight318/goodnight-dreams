@@ -1,102 +1,138 @@
 {
-  "_comment": "Registry read by index.html and wallpapers/index.html. Append a new object to add a product to the storefront — no HTML edit needed. See README.md 'Registering a new product' for the field contract.",
-  "updated": "2026-09-02",
-  "products": [
-    {
-      "key": "ambient-bundle",
-      "name": "The Full Bundle",
-      "category": "bundle",
-      "tagline": "Every pack below, together — loops, wallpapers, stills, and sleep sounds.",
-      "price": "$19.99",
-      "url": "https://goodnightdreams32.gumroad.com/l/ambient-bundle",
-      "cover": null,
-      "badge": "Best Value",
-      "featured": true,
-      "status": "live"
-    },
-    {
-      "key": "sleep-sounds-vol1",
-      "name": "Sleep Sounds Vol. 1",
-      "category": "sleep",
-      "tagline": "Ten hour-long ambient tracks — rain, ocean, fire, wind, and noise colors.",
-      "price": "$7.99",
-      "url": "https://goodnightdreams32.gumroad.com/l/sleep-sounds-vol1",
-      "cover": "assets/covers/sleep-sounds-vol1.png",
-      "badge": null,
-      "featured": false,
-      "status": "live"
-    },
-    {
-      "key": "sleep-sounds-vol2",
-      "name": "Sleep Sounds Vol. 2",
-      "category": "sleep",
-      "tagline": "Ten more hour-long tracks — thunderstorm, mountain stream, airplane cabin, and more.",
-      "price": "$9.99",
-      "url": "https://goodnightdreams32.gumroad.com/l/sleep-sounds-vol2",
-      "cover": "assets/covers/sleep-sounds-vol2.png",
-      "badge": "New",
-      "featured": false,
-      "status": "live"
-    },
-    {
-      "key": "noise-trio-8h",
-      "name": "8-Hour Noise Trio",
-      "category": "sleep",
-      "tagline": "White, pink, and brown noise as three full 8-hour tracks — no loop restart all night.",
-      "price": "$6.99",
-      "url": "https://goodnightdreams32.gumroad.com/l/noise-trio-8h",
-      "cover": "assets/covers/noise-trio-8h.png",
-      "badge": "New",
-      "featured": false,
-      "status": "live"
-    },
-    {
-      "key": "ambient-loops-vol1",
-      "name": "Ambient Loops Vol. 1",
-      "category": "wallpaper",
-      "tagline": "7 seamless 4K video wallpapers — aurora, beach, fireplace, nebula, and more.",
-      "price": "$9.99",
-      "url": "https://goodnightdreams32.gumroad.com/l/ambient-loops-vol1",
-      "cover": "assets/covers/ambient-loops-vol1.jpg",
-      "badge": null,
-      "featured": false,
-      "status": "live"
-    },
-    {
-      "key": "ambient-phone-wallpapers-vol1",
-      "name": "Ambient Phone Wallpapers Vol. 1",
-      "category": "wallpaper",
-      "tagline": "21 AI stills across 7 scenes, in iPhone, Android, and Story sizes — 91 files.",
-      "price": "$7.99",
-      "url": "https://goodnightdreams32.gumroad.com/l/ambient-phone-wallpapers-vol1",
-      "cover": "assets/covers/ambient-phone-wallpapers-vol1.jpg",
-      "badge": null,
-      "featured": false,
-      "status": "live"
-    },
-    {
-      "key": "ambient-desktop-stills-vol1",
-      "name": "Ambient Desktop Stills Vol. 1",
-      "category": "wallpaper",
-      "tagline": "21 4K desktop wallpapers across 7 scenes, with 5K upscales included.",
-      "price": "$7.99",
-      "url": "https://goodnightdreams32.gumroad.com/l/ambient-desktop-stills-vol1",
-      "cover": "assets/covers/ambient-desktop-stills-vol1.jpg",
-      "badge": null,
-      "featured": false,
-      "status": "live"
-    },
-    {
-      "key": "cyberpunk-neon-rain-city",
-      "name": "Cyberpunk Neon Rain City",
-      "category": "wallpaper",
-      "tagline": "55 AI wallpapers — rain-slicked neon megacity streets, phone + desktop sizes.",
-      "price": "$6.99",
-      "url": null,
-      "cover": "assets/covers/cyberpunk-neon-rain-city.jpg",
-      "badge": "Coming soon",
-      "featured": false,
-      "status": "coming_soon"
-    }
-  ]
+ "_comment": "Registry read by index.html and wallpapers/index.html. Append a new object to add a product to the storefront — no HTML edit needed. See README.md 'Registering a new product' for the field contract.",
+ "updated": "2026-09-02",
+ "products": [
+  {
+   "key": "ambient-bundle",
+   "name": "The Full Bundle",
+   "category": "bundle",
+   "tagline": "Every pack below, together — loops, wallpapers, stills, and sleep sounds.",
+   "price": "$19.99",
+   "url": "https://goodnightdreams32.gumroad.com/l/ambient-bundle",
+   "cover": null,
+   "badge": "Best Value",
+   "featured": true,
+   "status": "live"
+  },
+  {
+   "key": "sleep-sounds-vol1",
+   "name": "Sleep Sounds Vol. 1",
+   "category": "sleep",
+   "tagline": "Ten hour-long ambient tracks — rain, ocean, fire, wind, and noise colors.",
+   "price": "$7.99",
+   "url": "https://goodnightdreams32.gumroad.com/l/sleep-sounds-vol1",
+   "cover": "assets/covers/sleep-sounds-vol1.png",
+   "badge": null,
+   "featured": false,
+   "status": "live"
+  },
+  {
+   "key": "sleep-sounds-vol2",
+   "name": "Sleep Sounds Vol. 2",
+   "category": "sleep",
+   "tagline": "Ten more hour-long tracks — thunderstorm, mountain stream, airplane cabin, and more.",
+   "price": "$9.99",
+   "url": "https://goodnightdreams32.gumroad.com/l/sleep-sounds-vol2",
+   "cover": "assets/covers/sleep-sounds-vol2.png",
+   "badge": "New",
+   "featured": false,
+   "status": "live"
+  },
+  {
+   "key": "noise-trio-8h",
+   "name": "8-Hour Noise Trio",
+   "category": "sleep",
+   "tagline": "White, pink, and brown noise as three full 8-hour tracks — no loop restart all night.",
+   "price": "$6.99",
+   "url": "https://goodnightdreams32.gumroad.com/l/noise-trio-8h",
+   "cover": "assets/covers/noise-trio-8h.png",
+   "badge": "New",
+   "featured": false,
+   "status": "live"
+  },
+  {
+   "key": "ambient-loops-vol1",
+   "name": "Ambient Loops Vol. 1",
+   "category": "wallpaper",
+   "tagline": "7 seamless 4K video wallpapers — aurora, beach, fireplace, nebula, and more.",
+   "price": "$9.99",
+   "url": "https://goodnightdreams32.gumroad.com/l/ambient-loops-vol1",
+   "cover": "assets/covers/ambient-loops-vol1.jpg",
+   "badge": null,
+   "featured": false,
+   "status": "live"
+  },
+  {
+   "key": "ambient-phone-wallpapers-vol1",
+   "name": "Ambient Phone Wallpapers Vol. 1",
+   "category": "wallpaper",
+   "tagline": "21 AI stills across 7 scenes, in iPhone, Android, and Story sizes — 91 files.",
+   "price": "$7.99",
+   "url": "https://goodnightdreams32.gumroad.com/l/ambient-phone-wallpapers-vol1",
+   "cover": "assets/covers/ambient-phone-wallpapers-vol1.jpg",
+   "badge": null,
+   "featured": false,
+   "status": "live"
+  },
+  {
+   "key": "ambient-desktop-stills-vol1",
+   "name": "Ambient Desktop Stills Vol. 1",
+   "category": "wallpaper",
+   "tagline": "21 4K desktop wallpapers across 7 scenes, with 5K upscales included.",
+   "price": "$7.99",
+   "url": "https://goodnightdreams32.gumroad.com/l/ambient-desktop-stills-vol1",
+   "cover": "assets/covers/ambient-desktop-stills-vol1.jpg",
+   "badge": null,
+   "featured": false,
+   "status": "live"
+  },
+  {
+   "key": "cyberpunk-neon-rain-city",
+   "name": "Cyberpunk Neon Rain City",
+   "category": "wallpaper",
+   "tagline": "55 AI wallpapers — rain-slicked neon megacity streets, phone + desktop sizes.",
+   "price": "$6.99",
+   "url": null,
+   "cover": "assets/covers/cyberpunk-neon-rain-city.jpg",
+   "badge": "Coming soon",
+   "featured": false,
+   "status": "coming_soon"
+  },
+  {
+   "key": "charge-audit-kit",
+   "name": "Subscription & Unauthorized Charge Audit Kit",
+   "category": "kits",
+   "tagline": "Log every charge, auto-flag unrecognized recurring ones, and send ready-to-use dispute letters. Excel + Sheets.",
+   "price": "$8.99",
+   "url": "https://goodnightdreams32.gumroad.com/l/charge-audit-kit",
+   "cover": "assets/covers/charge-audit-kit.png",
+   "badge": null,
+   "featured": false,
+   "status": "live"
+  },
+  {
+   "key": "legal-template-pack",
+   "name": "Small Business Legal Template Pack",
+   "category": "kits",
+   "tagline": "Fill-in-the-blank Terms & Conditions and GDPR-ready Privacy Policy for a SaaS, blog, or small business.",
+   "price": "$14.99",
+   "url": "https://goodnightdreams32.gumroad.com/l/legal-template-pack",
+   "cover": "assets/covers/legal-template-pack.png",
+   "badge": null,
+   "featured": false,
+   "status": "live"
+  },
+  {
+   "key": "freelance-rate-kit",
+   "name": "Freelance Rate & Proposal Kit",
+   "category": "kits",
+   "tagline": "3-scenario rate calculator plus cold-outreach, proposal, and follow-up templates. Free web calculator included.",
+   "price": "$9.99",
+   "url": "https://goodnightdreams32.gumroad.com/l/freelance-rate-kit",
+   "cover": "assets/covers/freelance-rate-kit.png",
+   "badge": null,
+   "featured": false,
+   "status": "live"
+  }
+ ]
 }

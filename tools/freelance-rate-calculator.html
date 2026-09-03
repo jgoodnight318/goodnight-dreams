@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Freelance Rate Calculator</title>
+<meta name="description" content="Free freelance hourly rate calculator. Enter your target income, expenses, and billable hours to get a real hourly, day, and project rate.">
+<style>
+  :root {
+    --bg: #0f1418; --panel: #171d24; --border: #2a333c; --text: #eef1f4;
+    --muted: #93a0ac; --accent: #5ad9a0; --accent-dark: #2f8f66;
+    --danger: #f4a3a3;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+  h1 { font-size: 1.7rem; margin: 0 0 0.35rem; }
+  p.lede { color: var(--muted); margin: 0 0 2rem; max-width: 60ch; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
+  .panel {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.5rem;
+  }
+  .panel h2 { font-size: 1rem; margin: 0 0 1.1rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  label { display: block; font-size: 0.88rem; margin: 0 0 0.3rem; color: var(--text); }
+  .field { margin-bottom: 1.1rem; }
+  .field .hint { color: var(--muted); font-size: 0.78rem; margin-top: 0.25rem; }
+  input[type=number], input[type=range] { width: 100%; }
+  input[type=number] {
+    background: #0c1116; border: 1px solid var(--border); color: var(--text);
+    border-radius: 8px; padding: 0.55rem 0.7rem; font-size: 1rem;
+  }
+  input[type=range] { accent-color: var(--accent); }
+  .range-row { display: flex; align-items: center; gap: 0.75rem; }
+  .range-row output { min-width: 3.2rem; text-align: right; font-variant-numeric: tabular-nums; }
+  .results { display: flex; flex-direction: column; gap: 1rem; }
+  .stat { text-align: center; padding: 1rem; }
+  .stat .value { font-size: 2.1rem; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .stat.big .value { font-size: 2.6rem; }
+  .stat .label { color: var(--muted); font-size: 0.85rem; margin-top: 0.15rem; }
+  .divider { border-top: 1px solid var(--border); margin: 0.25rem 0; }
+  .row3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+  .row3 .stat { background: #0c1116; border-radius: 10px; padding: 0.85rem 0.5rem; }
+  .row3 .value { font-size: 1.25rem; }
+  .warn { color: var(--danger); font-size: 0.82rem; margin-top: 0.5rem; display: none; }
+  .upsell {
+    margin-top: 2rem; background: linear-gradient(135deg, #16241d, #10241f);
+    border: 1px solid var(--accent-dark); border-radius: 14px; padding: 1.5rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  }
+  .upsell h3 { margin: 0 0 0.35rem; font-size: 1.05rem; }
+  .upsell p { margin: 0; color: var(--muted); font-size: 0.88rem; max-width: 46ch; }
+  .upsell a.btn {
+    background: var(--accent); color: #06231a; font-weight: 700; text-decoration: none;
+    padding: 0.75rem 1.3rem; border-radius: 10px; white-space: nowrap; font-size: 0.92rem;
+  }
+  footer { color: var(--muted); font-size: 0.78rem; margin-top: 2.5rem; text-align: center; }
+  footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Freelance Rate Calculator</h1>
+  <p class="lede">Figure out the hourly rate you actually need to charge -- based on your income goal, real expenses, and how many hours a year you can actually bill (not just work).</p>
+
+  <div class="grid">
+    <div class="panel">
+      <h2>Your numbers</h2>
+
+      <div class="field">
+        <label for="income">Target annual take-home income</label>
+        <input type="number" id="income" value="80000" min="0" step="1000">
+        <div class="hint">What you want left over after taxes and business expenses.</div>
+      </div>
+
+      <div class="field">
+        <label for="expenses">Annual business expenses</label>
+        <input type="number" id="expenses" value="6000" min="0" step="100">
+        <div class="hint">Software, insurance, equipment, coworking, etc.</div>
+      </div>
+
+      <div class="field">
+        <label for="hours">Billable hours per week: <output id="hoursOut">25</output></label>
+        <input type="range" id="hours" min="5" max="50" value="25" step="1">
+        <div class="hint">Not the same as hours worked -- admin, sales, and unpaid time don't count.</div>
+      </div>
+
+      <div class="field">
+        <label for="weeks">Weeks worked per year: <output id="weeksOut">46</output></label>
+        <input type="range" id="weeks" min="30" max="52" value="46" step="1">
+        <div class="hint">52 minus vacation, sick days, and time between contracts.</div>
+      </div>
+
+      <div class="field">
+        <label for="taxbuffer">Tax + self-employment buffer: <output id="taxOut">30</output>%</label>
+        <input type="range" id="taxbuffer" min="15" max="45" value="30" step="1">
+        <div class="hint">US self-employment tax alone is ~15.3%; add income tax on top. Adjust for your country.</div>
+      </div>
+
+      <div class="warn" id="warnLow">These billable hours + weeks give you very little room -- double check the number is realistic.</div>
+    </div>
+
+    <div class="panel results">
+      <h2>What to charge</h2>
+      <div class="stat big">
+        <div class="value" id="hourlyRate">$0</div>
+        <div class="label">per billable hour</div>
+      </div>
+      <div class="divider"></div>
+      <div class="row3">
+        <div class="stat">
+          <div class="value" id="dayRate">$0</div>
+          <div class="label">day rate (8h)</div>
+        </div>
+        <div class="stat">
+          <div class="value" id="weekRate">$0</div>
+          <div class="label">week rate</div>
+        </div>
+        <div class="stat">
+          <div class="value" id="annualRevenue">$0</div>
+          <div class="label">revenue needed</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="field" style="margin-bottom:0;">
+        <label for="projHours">Quick project estimate: hours for this project</label>
+        <input type="number" id="projHours" value="40" min="0" step="1">
+        <div class="stat" style="padding-top:0.6rem;">
+          <div class="value" id="projRate" style="font-size:1.6rem;">$0</div>
+          <div class="label">suggested project price</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="upsell">
+    <div>
+      <h3>Want the full kit?</h3>
+      <p>Cold-outreach email templates, a client proposal template, and a downloadable spreadsheet version of this calculator with multi-scenario planning -- the Freelance Rate &amp; Proposal Kit.</p>
+    </div>
+    <a class="btn" href="https://goodnightdreams32.gumroad.com/l/freelance-rate-kit" target="_blank" rel="noopener">Get the Pro Kit &rarr;</a>
+  </div>
+
+  <footer>
+    Free tool, no account needed. Nothing you enter is sent anywhere -- everything runs in your browser.
+  </footer>
+</div>
+
+<script>
+(function () {
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => "$" + Math.round(n).toLocaleString("en-US");
+
+  const income = $("income"), expenses = $("expenses"), hours = $("hours"),
+        weeks = $("weeks"), taxbuffer = $("taxbuffer"), projHours = $("projHours");
+
+  function calc() {
+    const inc = Math.max(0, parseFloat(income.value) || 0);
+    const exp = Math.max(0, parseFloat(expenses.value) || 0);
+    const hrsPerWeek = parseFloat(hours.value);
+    const wks = parseFloat(weeks.value);
+    const taxPct = parseFloat(taxbuffer.value);
+
+    $("hoursOut").textContent = hrsPerWeek;
+    $("weeksOut").textContent = wks;
+    $("taxOut").textContent = taxPct;
+
+    const taxFraction = Math.min(0.9, taxPct / 100);
+    const revenueNeeded = (inc + exp) / (1 - taxFraction);
+    const billableHoursPerYear = hrsPerWeek * wks;
+    const hourly = billableHoursPerYear > 0 ? revenueNeeded / billableHoursPerYear : 0;
+
+    $("hourlyRate").textContent = fmt(hourly) + "/hr";
+    $("dayRate").textContent = fmt(hourly * 8);
+    $("weekRate").textContent = fmt(hourly * hrsPerWeek);
+    $("annualRevenue").textContent = fmt(revenueNeeded);
+
+    const ph = Math.max(0, parseFloat(projHours.value) || 0);
+    $("projRate").textContent = fmt(hourly * ph);
+
+    $("warnLow").style.display = billableHoursPerYear < 600 ? "block" : "none";
+  }
+
+  [income, expenses, hours, weeks, taxbuffer, projHours].forEach((el) =>
+    el.addEventListener("input", calc)
+  );
+  calc();
+})();
+</script>
+</body>
+</html>
