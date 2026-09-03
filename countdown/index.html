@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GTA 6 Countdown &mdash; Neon Coast Countdown</title>
+<meta name="description" content="Independent GTA 6 countdown and news tracker. Original AI-generated artwork, no trademarked art or logos.">
+<link rel="canonical" href="https://jgoodnight318.github.io/goodnight-dreams/countdown/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GTA 6 Countdown — Neon Coast Countdown">
+<meta property="og:description" content="Independent GTA 6 countdown and news tracker. Not affiliated with Rockstar Games or Take-Two Interactive.">
+<meta property="og:url" content="https://jgoodnight318.github.io/goodnight-dreams/countdown/">
+<meta property="og:image" content="https://jgoodnight318.github.io/goodnight-dreams/countdown/bg.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:,">
+<style>
+  * { box-sizing: border-box; }
+  body { margin:0; background:#0a0e1c; color:#eef0fa; font-family:-apple-system,Helvetica,Arial,sans-serif; }
+  .topnav { display:flex; justify-content:space-between; align-items:center; max-width:640px; margin:0 auto;
+             padding:16px 20px 0; font-size:0.82rem; }
+  .topnav a { color:#8fa3e0; text-decoration:none; font-weight:600; }
+  .hero { position:relative; min-height:70vh; display:flex; flex-direction:column; align-items:center;
+           justify-content:center; text-align:center; padding:40px 20px; overflow:hidden; }
+  .hero img.bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:brightness(0.55); z-index:0; }
+  .hero .content { position:relative; z-index:1; max-width:640px; }
+  .kicker { font-size:0.8rem; letter-spacing:0.14em; text-transform:uppercase; color:#ff5abe;
+             font-weight:700; margin:0 0 14px; }
+  h1 { font-size:clamp(1.8rem, 5vw, 3rem); margin:0 0 6px; text-shadow:0 2px 20px rgba(0,0,0,0.6); }
+  .date { color:#c9d0f0; font-size:1.05rem; margin:0 0 28px; }
+  .clock { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-bottom:26px; }
+  .clock .unit { background:rgba(10,10,20,0.72); border:1px solid #3a2f57; border-radius:14px;
+                  padding:14px 18px; min-width:76px; backdrop-filter:blur(4px); }
+  .clock .num { font-size:1.9rem; font-weight:800; color:#7ef7ff; line-height:1; }
+  .clock .lbl { font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color:#a9b3e0; margin-top:4px; }
+  .disclosure { font-size:0.76rem; color:#c9d0f0; background:rgba(20,15,35,0.65); border:1px solid #3a2f57;
+                 border-radius:10px; padding:10px 16px; max-width:520px; margin:0 auto; line-height:1.5; }
+  main { max-width:640px; margin:0 auto; padding:36px 20px 60px; }
+  .section-label { color:#ff5abe; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase;
+                     font-weight:700; margin:0 0 14px; }
+  .card { display:block; background:#141024; border:1px solid #2a2350; border-radius:12px;
+           padding:14px 16px; margin-bottom:10px; text-decoration:none; color:#eef0fa; }
+  .card:hover { background:#1b1733; }
+  .card .t { font-weight:700; font-size:0.95rem; display:block; margin-bottom:3px; }
+  .card .s { color:#8fa3e0; font-size:0.78rem; }
+  .wp-link { display:block; background:linear-gradient(135deg,#ff5abe,#7ef7ff); color:#0a0e1c;
+              text-decoration:none; font-weight:800; text-align:center; border-radius:14px;
+              padding:18px; margin:30px 0; font-size:1.05rem; }
+  footer { text-align:center; color:#5c689a; font-size:0.74rem; line-height:1.6; padding:0 20px 40px; }
+  .empty { color:#6e78a8; font-size:0.85rem; }
+</style>
+</head>
+<body>
+<div class="topnav">
+  <a href="../">&larr; Goodnight Dreams</a>
+  <a href="../wallpapers/">Wallpapers</a>
+</div>
+<div class="hero">
+  <img class="bg" src="bg.jpg" alt="Original neon retro-Miami coastline artwork, no trademarked characters or logos">
+  <div class="content">
+    <p class="kicker">Neon Coast Countdown</p>
+    <h1 id="days-headline">-- days to go</h1>
+    <p class="date">GTA 6 launches November 19, 2026</p>
+    <div class="clock" id="clock">
+      <div class="unit"><div class="num" id="c-d">--</div><div class="lbl">Days</div></div>
+      <div class="unit"><div class="num" id="c-h">--</div><div class="lbl">Hours</div></div>
+      <div class="unit"><div class="num" id="c-m">--</div><div class="lbl">Min</div></div>
+      <div class="unit"><div class="num" id="c-s">--</div><div class="lbl">Sec</div></div>
+    </div>
+    <p class="disclosure">Independent fan project. Not affiliated with, endorsed by, or sponsored by Rockstar Games or Take-Two Interactive. All artwork on this page is original (AI-generated, no logos or trademarked characters).</p>
+  </div>
+</div>
+<main>
+  <p class="section-label">Latest GTA 6 news</p>
+  <a class="card" href="https://news.google.com/rss/articles/CBMiiAFBVV95cUxPemFIOThEcHhrSllPWWFaaUgyNVpxS2V4Tkw4NkFQMUhRTGdtV2hmQkRnOTRNMXdLa1dQVjFySVNGTEJmRFV0UW9sdWhKWlZSeFJPU2I5c3pKcEhDdERWTDFhb3F5QlA2RTlJS1JYbk9Jb05Tdy10OWFuX04ycm04WFNDN3ZRejJp?oc=5" target="_blank" rel="noopener"><span class="t">One GTA 6 Preview Stunned Rockstar With Something It Had Never Seen Before</span><span class="s">Polygon.com</span></a>
+  <a class="card" href="https://news.google.com/rss/articles/CBMihAFBVV95cUxObDAybmN0LWRuNmRZaFFtQXN1SUd5em5RN3hLYkthNGdfMHo0eVRJRWVaN3h2ZzgycWlzbHVYWjVodWRfekk1WWJiMDV6SHFsMC1zSkhyRk15RWg1elVFem15OFlHWEFyUzZGTllIV0JpSHQ3eXFoVEg0c2M1RHNCaTY3eU8?oc=5" target="_blank" rel="noopener"><span class="t">A Bunch Of Old GTA 6 Leaks Turned Out To Be True</span><span class="s">Kotaku</span></a>
+  <a class="card" href="https://news.google.com/rss/articles/CBMihwFBVV95cUxOczBMbTFEMmVwei1lLW1iMTh6MkJLRnV5T1MtOTVpN3d2QVR1ZDFGV1phSElkNE4zbEdIWnRSSTNnMUJVWWhwVVhMa2FUaV81UzhMZ1B3NlI5NzMxSlV1N20xb0lNVll6NHdRb3EtMnNJa1plVkZwXzVkWmNpUXJlZm80MC1xaE0?oc=5" target="_blank" rel="noopener"><span class="t">I modded GTA 6 leak-accurate car fuelling into GTA 5</span><span class="s">Yahoo Tech</span></a>
+  <a class="card" href="https://news.google.com/rss/articles/CBMinAFBVV95cUxNQnd2QlZsY25jZEhjREV3M2wyRVZuWTVXSEJwc2pmU0FYZnNYZVRoX1FsZlJvX20wXzNlNTJhcU5ub3NzR0UtTUVESjdsbU1LQWFWS2ZUblNBcVdjOTg2UUoxaFdmb3dCbU5LYVBaMENZUVJHdllmbElTYm8tWEZybVFxdS1EYXNrWVhDZGVGVUN5Z1oxUmdMUkpnMzE?oc=5" target="_blank" rel="noopener"><span class="t">A Huge 'GTA 6' Change From 'GTA 5' Comes To Light</span><span class="s">Forbes</span></a>
+  <a class="card" href="https://news.google.com/rss/articles/CBMifEFVX3lxTE9hWnZ1LTFtcWx5NVBIRWRSYlZQNHFHVjBvUjB6aDRXUnZyRzVtMUhVSmVKZGE0RmUtTjJ6bjlVclVJRzE4Y1dRSXlYODhVOXRMWFFHUVpFTzFaQ1NJbW1ESlRzSVZpUnZSUy1MTlZVOHRlNW1WbEUxMDFuMXg?oc=5" target="_blank" rel="noopener"><span class="t">GTA 6's Lucia And Jason Are Already Sparking TikTok Arguments</span><span class="s">svg.com</span></a>
+  <a class="card" href="https://news.google.com/rss/articles/CBMilAFBVV95cUxOZlR3bGJDTk9MNmRIYmJHZlVzNjFqdGlNWnZDNE00anZhYjFsdVMyc0lNMFlxZ3JnM0c0UE9nRm4yWG5MRGhJdkdiT0ZPcGlYMUduNHhFMm9OUURrQkV6WmI1N09iZV9vcFJCQ2xoWWdZQnk4TGhic01fdWd3bmdGbmRGbjc3R0l5c0NMZW1sRW0tN0I5?oc=5" target="_blank" rel="noopener"><span class="t">GTA 6 Finally Fixes Control Mechanic That Wrecked Controllers</span><span class="s">HotHardware</span></a>
+  <a class="card" href="https://news.google.com/rss/articles/CBMikAFBVV95cUxOaGktZUU1WjdjNmo0ZHd2aVpKOWZiWDJvaTJONlVYN1RvQVFsVEpLUFpYNTZCWnIxb25RdnozMHMxZEVBT2NMOU1sMVl3b1Fxcko3LTJZUWZkR3NUNllSOW10YWpjODl0VTZpYWVLT3FuNU02ZkNseWJJOFZMcVNXN21sUXhVRTdTRks4RXgxblM?oc=5" target="_blank" rel="noopener"><span class="t">'GTA 6' Is Changing the Sprint Button After Decades of Using the Same One</span><span class="s">player.one</span></a>
+  <a class="card" href="https://news.google.com/rss/articles/CBMieEFVX3lxTE5sOWxES3hpdzJhbWRmMkowYVA5cDNETUZNTEs0QTBPejNpWTZlLWpNV18tT1hHdVJOTVY5YlByazYtRGgySlp3aUhUREtSbDItNGR3ZFZENlhvVnRGZVQzXzhybDVXQmlfTGhMOWp3WkN4a0xpWGVvUg?oc=5" target="_blank" rel="noopener"><span class="t">CD Projekt CEO: Witcher 4, GTA 6 Reject $81M Model [2026] - tech-insider.org</span><span class="s">tech-insider.org</span></a>
+
+  <a class="wp-link" href="../wallpapers/">Neon Coast wallpapers &rarr; see the gallery</a>
+
+  <p class="section-label">About this page</p>
+  <p style="color:#c4cae0; font-size:0.9rem; line-height:1.6;">
+    This is a fan-made countdown and news tracker for GTA 6, built and hosted independently.
+    The news list above links out to the original outlets that reported each story &mdash;
+    nothing here is republished from Rockstar Games or Take-Two. Release date and delay
+    history: originally teased for 2025 (Dec 2023 reveal trailer), delayed to May 26, 2026
+    (announced May 2025), delayed again to November 19, 2026 (announced on a Take-Two
+    earnings call, November 2025).
+  </p>
+</main>
+<footer>
+  Neon Coast Countdown &middot; independent fan project &middot; GTA, Grand Theft Auto, and
+  related marks are trademarks of Take-Two Interactive / Rockstar Games.<br>
+  <span id="built">Page served statically from GitHub Pages.</span>
+</footer>
+<script>
+  var release = new Date("2026-11-19T00:00:00-05:00").getTime();
+  function tick() {
+    var now = new Date().getTime();
+    var diff = Math.max(release - now, 0);
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    document.getElementById("c-d").textContent = d;
+    document.getElementById("c-h").textContent = String(h).padStart(2,"0");
+    document.getElementById("c-m").textContent = String(m).padStart(2,"0");
+    document.getElementById("c-s").textContent = String(s).padStart(2,"0");
+    document.getElementById("days-headline").textContent = d + " days to go";
+  }
+  tick();
+  setInterval(tick, 1000);
+</script>
+</body>
+</html>

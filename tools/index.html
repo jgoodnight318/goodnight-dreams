@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Tools — Goodnight Dreams</title>
+<meta name="description" content="Small, free, single-page web tools from Goodnight Dreams. Nothing live yet — check back soon.">
+<link rel="canonical" href="https://jgoodnight318.github.io/goodnight-dreams/tools/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Free Tools — Goodnight Dreams">
+<meta property="og:description" content="Small, free, single-page web tools. Nothing live yet — check back soon.">
+<meta property="og:url" content="https://jgoodnight318.github.io/goodnight-dreams/tools/">
+<meta property="og:image" content="https://jgoodnight318.github.io/goodnight-dreams/assets/quiet-hours-cover.png">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<nav class="nav">
+  <a class="brand" href="/">Goodnight <span>Dreams</span></a>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../link/">Link</a>
+    <a href="../wallpapers/">Wallpapers</a>
+  </div>
+</nav>
+<div class="wrap">
+  <div class="hero">
+    <p class="kicker">Free Tools</p>
+    <h1>Small web tools, free to use</h1>
+    <p>No sign-up, no tracking, single-page tools. This list is empty for now — nothing has shipped yet.</p>
+  </div>
+
+  <p class="section-label">Available now</p>
+  <div id="tool-list"></div>
+
+  <p class="section-label">How this gets filled in</p>
+  <p>Any single-file HTML tool dropped into <code>~/Projects/digital_products/public/tools/</code> gets copied here and listed above the next time <code>./deploy.sh</code> runs — no HTML edit needed. See the site README for the exact contract.</p>
+
+  <footer class="site">© Goodnight Dreams.</footer>
+</div>
+<script>
+  fetch('tools.json')
+    .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+    .then(function (data) {
+      var tools = data.tools || [];
+      if (!tools.length) throw 0;
+      document.getElementById('tool-list').innerHTML = tools.map(function (t) {
+        return '<a class="linkrow" href="' + t.file + '"><span class="title">' + t.title + '</span>' +
+               (t.description ? '<span class="sub">' + t.description + '</span>' : '') + '</a>';
+      }).join('');
+    })
+    .catch(function () {
+      document.getElementById('tool-list').innerHTML = '<div class="empty">Nothing published yet. This page lists tools automatically the moment one ships.</div>';
+    });
+</script>
+</body>
+</html>

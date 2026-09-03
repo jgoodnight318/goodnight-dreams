@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jgoodnight318.github.io/goodnight-dreams/sitemap.xml
