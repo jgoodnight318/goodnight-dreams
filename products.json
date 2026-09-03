@@ -133,6 +133,18 @@
    "badge": null,
    "featured": false,
    "status": "live"
+  },
+  {
+   "key": "neon-coast-wallpapers",
+   "name": "Neon Coast",
+   "category": "wallpaper",
+   "tagline": "55 retro 80s Miami synthwave wallpapers, 40 phone + 15 desktop. Pairs with the GTA 6 countdown page.",
+   "price": "$6.99",
+   "url": "https://goodnightdreams32.gumroad.com/l/neon-coast-wallpapers",
+   "cover": "assets/covers/neon-coast-wallpapers.jpg",
+   "badge": "New",
+   "featured": false,
+   "status": "live"
   }
  ]
 }
