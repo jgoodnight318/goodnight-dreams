@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Missed-Call Text-Back for Local Businesses</title>
+<meta name="description" content="When you can't pick up, the caller gets a text from your business within seconds with your booking link. Optional receptionist that answers and books. 14-day free trial, no contract.">
+<link rel="canonical" href="https://jgoodnight318.github.io/goodnight-dreams/receptionist/">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+  .plans { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  @media (min-width: 560px) { .plans { grid-template-columns: 1fr 1fr; } }
+  .plan { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; }
+  .plan.featured { border-color: #3a4f8f; background: #1b2f5c; }
+  .plan h2 { margin: 0 0 4px; font-size: 1.05rem; }
+  .plan .price { color: var(--cyan); font-weight: 800; font-size: 1.5rem; margin: 6px 0 2px; }
+  .plan .per { color: var(--text-dim); font-size: 0.8rem; margin: 0 0 12px; }
+  .plan ul { padding-left: 1.1rem; margin: 0 0 16px; color: var(--text-muted); font-size: 0.9rem; }
+  .plan li { margin-bottom: 5px; }
+  .plan .btn { width: 100%; }
+  .steps { list-style: none; padding: 0; margin: 0; counter-reset: s; }
+  .steps li { position: relative; padding: 12px 14px 12px 50px; margin-bottom: 8px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; color: var(--text-muted); font-size: 0.92rem; }
+  .steps li::before { counter-increment: s; content: counter(s); position: absolute; left: 14px; top: 11px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--bg); font-weight: 800; font-size: 0.8rem; line-height: 26px; text-align: center; }
+  .faq dt { font-weight: 700; color: var(--text); margin: 16px 0 4px; font-size: 0.95rem; }
+  .faq dd { margin: 0; color: var(--text-muted); font-size: 0.9rem; }
+  .stat { font-size: 2rem; font-weight: 800; color: var(--pink); margin: 0; }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a class="brand" href="../">Goodnight <span>Dreams</span></a>
+  <div class="links"><a href="#pricing">Pricing</a><a href="#how">How it works</a><a href="#faq">FAQ</a></div>
+</nav>
+<div class="wrap">
+  <div class="hero">
+    <p class="kicker">For plumbers, electricians, HVAC, dentists, shops</p>
+    <h1>Miss the call, keep the customer</h1>
+    <p>When you can't pick up, the caller gets a text from your business within seconds with your booking link. They stop scrolling to the next listing. You see every call you would have lost.</p>
+  </div>
+
+  <p class="section-label">Why it matters</p>
+  <p class="stat">1 in 3</p>
+  <p class="section-sub">calls to a small service business go unanswered, and most of those callers never leave a voicemail. They phone the next result instead.</p>
+
+  <p class="section-label" id="pricing">Pricing</p>
+  <div class="plans">
+    <div class="plan">
+      <h2>Text-back</h2>
+      <p class="price">$149</p>
+      <p class="per">per month · 14-day free trial · no contract</p>
+      <ul>
+        <li>Instant text to every missed caller, with your booking link</li>
+        <li>Different wording after hours</li>
+        <li>Log of every missed call you can review</li>
+        <li>Your number stays the same</li>
+      </ul>
+      <a class="btn" href="GUMROAD_TEXTBACK_URL">Start free trial</a>
+    </div>
+    <div class="plan featured">
+      <h2>Receptionist</h2>
+      <p class="price">$349</p>
+      <p class="per">per month · 14-day free trial · no contract</p>
+      <ul>
+        <li>Everything in Text-back</li>
+        <li>A natural-sounding receptionist answers, takes name, number and need</li>
+        <li>Books into your calendar or booking page</li>
+        <li>Summary text to you after every call</li>
+      </ul>
+      <a class="btn" href="GUMROAD_RECEPTIONIST_URL">Start free trial</a>
+    </div>
+  </div>
+
+  <p class="section-label" id="how">How it works</p>
+  <ol class="steps">
+    <li><strong>Start the trial.</strong> You get an email with three quick questions: your business number, hours, and booking link.</li>
+    <li><strong>Dial one code</strong> on your business phone to forward unanswered calls to your new line. Ten seconds, reversible, and your advertised number does not change.</li>
+    <li><strong>Test it.</strong> Call yourself and don't pick up. A text arrives in about five seconds.</li>
+  </ol>
+
+  <p class="section-label" id="faq">Questions</p>
+  <dl class="faq">
+    <dt>Do you record calls?</dt><dd>No. We log the caller's number, time and outcome so you can see what you were missing.</dd>
+    <dt>What if I answer the call?</dt><dd>Nothing happens. The system only sees calls you didn't pick up.</dd>
+    <dt>Which carriers work?</dt><dd>Any. We send forwarding codes for AT&amp;T, T-Mobile, Verizon, and office or VoIP systems.</dd>
+    <dt>How do I cancel?</dt><dd>Reply "cancel" to any email. No calls, no forms.</dd>
+    <dt>Who runs this?</dt><dd>James Goodnight, a solo developer. The service runs on Twilio with automated monitoring around the clock.</dd>
+  </dl>
+
+  <footer class="site">© James Goodnight. No analytics, no trackers, no cookies. Questions: reply to any email from us.</footer>
+</div>
+</body>
+</html>

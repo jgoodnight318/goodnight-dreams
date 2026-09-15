@@ -1,0 +1,9 @@
+- Price: text-back $149/month; receptionist tier (answers, takes details, books) $349/month. 14-day free trial, cancel any time by email, no contract.
+- Setup: we provide a number; you set your phone to forward unanswered or busy calls to it (10 seconds, reversible). Your advertised number does not change.
+- What the caller gets: within seconds, a text from your business with your booking link or a promise of a call back. On the receptionist tier, a natural-sounding assistant answers, takes name, number and need, and books into your calendar.
+- Recording: none. We log the caller's number, time and outcome so you can see what you were missing.
+- After hours: yes, with different wording after hours.
+- Carriers: any; forwarding codes provided for AT&T, T-Mobile, Verizon, and office/VoIP systems.
+- Data: caller numbers and texts live in a Twilio account you can export or delete any time.
+- Cancel: reply "cancel" to any email; the number is released at the end of the billing month.
+- Who: James Goodnight, solo developer. Runs on Twilio and n8n with automated monitoring.
