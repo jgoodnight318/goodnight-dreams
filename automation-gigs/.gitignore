@@ -2,3 +2,5 @@
 orders/*
 !orders/.gitkeep
 !orders/example-shopify-low-stock-alert/
+__pycache__/
+*.pyc
