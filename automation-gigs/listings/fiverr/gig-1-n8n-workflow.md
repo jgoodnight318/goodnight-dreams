@@ -1,52 +1,34 @@
-# Gig 1 — n8n workflow build
+# First launch gig — scoped n8n workflow
 
-**Title (80 chars max):**
-I will build a custom n8n automation workflow with AI steps for your business
+Title: I will build and test an n8n workflow connecting your business apps
+Category: Programming & Tech → AI Development → AI Agents & Automations (confirm available categories in the editor)
+Tags: n8n, automation, api integration, google sheets, shopify
 
-**Category:** Programming & Tech → AI Development → AI Agents & Automations
-(fallback: Programming & Tech → Software Development → Automations & Workflows)
+| Package | Price | Scope | Delivery | Revisions |
+|---|---:|---|---|---:|
+| Basic | $120 | One existing workflow repair, one documented issue, up to 5 nodes | 3 days | 1 |
+| Standard | $400 | One new workflow, one trigger, up to 3 apps and 12 nodes, one optional AI drafting/extraction step | 5 days | 1 |
+| Premium | $750 | Up to 2 connected workflows, 3 apps total, error alerts, setup walkthrough | 7 days | 2 |
 
-**Search tags (5):** n8n, automation, ai agent, workflow automation, zapier alternative
+## Description (paste this section)
+I build n8n workflows for a specific job: send a daily inventory report, log a lead, or turn incoming information into a structured sheet.
 
-**Gig metadata:** Automation platform: n8n · Expertise: API integration, AI/LLM, Data processing
+You receive the workflow JSON, setup instructions, and test results for the agreed cases. Before starting, we confirm the trigger, apps, sample input, expected output, and what the workflow must never do.
 
-## Packages
+Standard includes one workflow, up to three apps and 12 nodes, plus one optional AI drafting or extraction step. Testing covers a normal run, empty input, and a failure case. Your n8n hosting and API charges are separate.
 
-| | Basic — Single Flow | Standard — Connected System | Premium — AI Operations |
-|---|---|---|---|
-| Price | **$120** | **$400** | **$950** |
-| Delivery | 2 days | 4 days | 7 days |
-| Revisions | 1 | 2 | 3 |
-| Scope | 1 workflow, 1 trigger, up to 2 apps | 1–2 workflows, up to 3 apps, **1 AI step** (Claude) for scoring, extraction or drafting | Up to 4 workflows, unlimited apps, multiple AI steps, error handling and alerting, 30 days of fixes |
-| Includes | Importable JSON, setup README, test cases | + Claude prompt tuned to your data, Slack/email alerts on failure | + Architecture doc, monitoring workflow, 30-min handover call |
+Portfolio examples are independent demos, not client testimonials. Please message me before ordering so I can check API access and confirm the scope. Complex migrations, custom apps and changes to the agreed process need a separate quote.
 
-## Description (Fiverr limit 1,200 chars — this is 1,140)
-
-Stop doing the same 20 minutes of copy-paste every day. I build n8n workflows that connect the tools you already use (Gmail, Slack, Shopify, Google Sheets, HubSpot, Stripe, Twilio, Notion, Airtable, any REST API) and add an AI step where a human used to be: qualifying leads, extracting invoice fields, drafting replies, summarising tickets, tagging orders.
-
-What you get:
-• An importable n8n workflow JSON, built and tested
-• A plain-English README with exact setup steps and every credential you need to create
-• A test sheet with sample inputs and expected results, so you can prove it works
-• Error handling so a failed API call alerts you instead of silently dropping data
-
-How it works: send me your process in plain words ("when X happens I want Y"). I confirm scope within 12 hours, build it, and deliver with a walkthrough. One round of feedback is included in every package.
-
-I run my own business on a fleet of automations that operate 24/7 with zero babysitting, so I know what breaks at 3am and I build against it.
-
-Self-hosted or n8n Cloud both fine. AI steps use Claude by Anthropic on your own API key, so you own everything.
+## Requirements
+1. When should it run, and exactly what output do you want?
+2. Your n8n version and the apps involved.
+3. Two or three anonymized input examples and expected outputs.
+4. Approximate records per run; store products/variants if using Shopify.
+5. Available API access and a safe test account or test destination. Never paste passwords/API keys into order requirements.
+6. Timezone, error notification destination, and actions it must never take.
 
 ## FAQ
-
-**Q: Do I need an n8n account?** A: Yes, n8n Cloud (from $20/mo) or self-hosted. I can set up self-hosting on your server as a Premium add-on.
-**Q: Which AI model do you use?** A: Claude (Anthropic) via your own API key. Typical cost is a few cents per run.
-**Q: Can you connect an app that isn't in n8n?** A: If it has a REST API, yes, via HTTP Request nodes.
-**Q: Will I be able to edit it myself later?** A: Yes. Every node is named in plain English and the README explains the flow.
-
-## Buyer requirements (shown after purchase)
-
-1. Describe the process in plain words: "When ___ happens, I want ___ to happen." Include the apps involved.
-2. Which n8n are you on: Cloud or self-hosted? (Version if you know it.)
-3. Paste 2–3 real examples of the input data (an email, a row, a webhook payload) with anything private removed.
-4. Where should alerts go if something fails? (Slack channel, email)
-5. Anything it must NOT do (e.g. never send email automatically).
+Do I need n8n? Yes, an existing n8n Cloud or self-hosted instance. Hosting and app subscriptions are separate.
+Is AI necessary? No. Simple rules are preferable when they solve the job reliably.
+What's a revision? A correction within the agreed scope. Added apps, triggers or features need a new quote.
+What happens if access is missing? We confirm access before starting and agree the next step through the platform if it changes.

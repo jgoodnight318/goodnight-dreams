@@ -41,7 +41,7 @@ drafts instead of just showing the text in Slack, that's a small add-on.
    variants into one item per supplier, with a formatted list of items for
    each.
 8. **Draft reorder email with Claude** (HTTP Request) — calls the Claude
-   API (`claude-sonnet-5`) once per supplier to draft a short reorder email
+   API (`YOUR_ANTHROPIC_MODEL`) once per supplier to draft a short reorder email
    listing that supplier's low items. If this call fails for a supplier,
    the workflow doesn't stop — it flows through to step 9 with the error
    attached so a fallback note can be used instead.
@@ -71,7 +71,7 @@ drafts instead of just showing the text in Slack, that's a small add-on.
    - Open the **Get products from Shopify** node, select that credential,
      and replace `YOUR_SHOP_NAME` in the URL with your store's
      `.myshopify.com` name.
-   - Check that the API version in the URL (`2024-01`) is still a
+   - Check that the API version in the URL (`2026-07`) is still a
      currently-supported Shopify API version when you set this up, and
      update it if not.
 
@@ -117,3 +117,8 @@ want a location-specific low-stock check instead, the GraphQL query in the
 **Get products from Shopify** node will need to be extended to query
 `inventoryItem.inventoryLevels` per location — let us know if that's your
 setup and we can adjust the query.
+
+## Verification and scope (2026-09-15)
+This is a synthetic portfolio brief, not a paid customer order. The original generation cost was $1.1782; that is not the full cost of sale or delivery. No customer Shopify, Slack or Anthropic credentials have been tested. Set a currently available Anthropic model ID and a Slack channel ID before testing.
+
+This example supports at most 250 products and 100 variants per product. It detects pagination and fails with an alert instead of silently skipping stock. Larger stores need pagination implemented and tested before purchase/delivery. Inventory quantity is store-wide; location-specific replenishment needs a separately agreed definition. Set the customer's timezone before activation. Keep workflow inactive until the customer's test succeeds.

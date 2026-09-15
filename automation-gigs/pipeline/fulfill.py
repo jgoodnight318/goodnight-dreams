@@ -1,123 +1,150 @@
 #!/usr/bin/env python3
-"""Fulfill one order: brief.md -> deliverable/ via headless Claude Code.
+"""Build a private, reviewed order; structural validation is never delivery approval."""
+import argparse, fcntl, glob, json, os, re, shutil, subprocess, sys, tempfile, time
+from pathlib import Path
+from validate_n8n import validate, SECRET_PATTERNS
+HERE = Path(__file__).resolve().parent
+PROMPT = (HERE / "prompts/fulfillment.md").read_text()
 
-Usage:
-  fulfill.py <order_dir> [--mock] [--model MODEL]
-
-Reads  <order_dir>/brief.md (buyer's requirements + any notes).
-Writes <order_dir>/deliverable/*  and  <order_dir>/STATUS.json.
-
-Loop: build -> validate any *.workflow.json -> if invalid, one repair pass
-with the validator errors -> final validate. Exit 0 when READY.
-"""
-import json, os, re, subprocess, sys, time, glob, shutil
-
-HERE = os.path.dirname(os.path.abspath(__file__))
-PROMPT = open(os.path.join(HERE, "prompts", "fulfillment.md")).read()
-VALIDATOR = os.path.join(HERE, "validate_n8n.py")
-
-def run_claude(prompt, model=None, timeout=900):
-    cmd = ["claude", "-p", prompt, "--output-format", "json"]
-    if model:
-        cmd += ["--model", model]
-    t0 = time.time()
-    r = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
-    if r.returncode != 0:
-        raise RuntimeError(f"claude exited {r.returncode}: {r.stderr[-2000:]}")
-    outer = json.loads(r.stdout)
-    text = outer.get("result", "") if isinstance(outer, dict) else str(outer)
-    return text, time.time() - t0, outer.get("total_cost_usd") if isinstance(outer, dict) else None
+def atomic_json(path, value):
+    temp = path.with_suffix(".tmp")
+    temp.write_text(json.dumps(value, indent=2))
+    temp.replace(path)
 
 def parse_files_json(text):
     text = text.strip()
-    m = re.search(r"\{.*\}", text, re.S)
-    if not m:
-        raise ValueError("no JSON object in model output")
-    obj = json.loads(m.group(0))
-    if "files" not in obj or not isinstance(obj["files"], dict):
-        raise ValueError("model output has no 'files' map")
+    if text.startswith("```"):
+        text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text)
+    obj = json.loads(text)
+    if not isinstance(obj, dict) or not isinstance(obj.get("files"), dict):
+        raise ValueError("Response must contain a files object")
+    if obj.get("status") not in {"READY", "NEEDS_INFO"}:
+        raise ValueError("Invalid response status")
+    if not isinstance(obj.get("questions_for_buyer", []), list):
+        raise ValueError("questions_for_buyer must be a list")
     return obj
 
 def write_files(files, out_dir):
+    root = Path(out_dir).resolve()
+    if len(files) > 100:
+        raise ValueError("More than 100 files")
+    total = 0
     for rel, content in files.items():
-        rel = rel.lstrip("/").replace("..", "")
-        p = os.path.join(out_dir, rel)
-        os.makedirs(os.path.dirname(p), exist_ok=True)
-        with open(p, "w") as f:
-            f.write(content if isinstance(content, str) else json.dumps(content, indent=2))
+        name = Path(rel)
+        if not rel or name.is_absolute() or ".." in name.parts or "\\" in rel:
+            raise ValueError("Unsafe output path")
+        dest = root / name
+        if not dest.resolve().is_relative_to(root) or dest.is_symlink():
+            raise ValueError("Output escapes delivery directory")
+        if not isinstance(content, str):
+            content = json.dumps(content, indent=2)
+        total += len(content.encode())
+        if total > 10_000_000:
+            raise ValueError("Deliverable exceeds 10 MB")
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_text(content)
 
-def validate_all(out_dir):
-    wfs = glob.glob(os.path.join(out_dir, "**", "*.workflow.json"), recursive=True)
-    if not wfs:
-        return True, ""
-    r = subprocess.run([sys.executable, VALIDATOR] + wfs, capture_output=True, text=True)
-    return r.returncode == 0, r.stdout
+def validate_all(out_dir, kind="n8n"):
+    root = Path(out_dir)
+    errors = []
+    for required in ["README.md", "TESTING.md", "DELIVERY_MESSAGE.md"]:
+        if not (root / required).is_file() or not (root / required).read_text().strip():
+            errors.append("Missing " + required)
+    wfs = list(root.rglob("*.workflow.json"))
+    if kind == "n8n" and not wfs:
+        errors.append("No workflow file produced")
+    for wf in wfs:
+        errors.extend(str(wf.relative_to(root)) + ": " + e for e in validate(wf))
+    for file in root.rglob("*"):
+        if file.is_symlink():
+            errors.append("Symlink in deliverable")
+        elif file.is_file():
+            raw = file.read_text(errors="replace")
+            if any(p.search(raw) for p in SECRET_PATTERNS):
+                errors.append(str(file.relative_to(root)) + ": possible embedded credential")
+    return not errors, errors
 
-def mock_build(order_dir, out_dir):
-    """Offline plumbing test: copies a portfolio workflow as the deliverable."""
-    src = os.path.join(HERE, "..", "portfolio", "lead-qualifier")
-    for f in os.listdir(src):
-        shutil.copy(os.path.join(src, f), out_dir)
-    open(os.path.join(out_dir, "DELIVERY_MESSAGE.md"), "w").write("(mock) delivery message\n")
-    return {"summary": "mock build", "status": "READY", "questions_for_buyer": [], "files": {}}
+def run_claude(prompt, model, budget):
+    # The buyer brief is untrusted data. No shell, file, network, MCP or plugin tools.
+    cmd = ["claude", "-p", "--output-format", "json", "--tools", "", "--strict-mcp-config",
+           "--mcp-config", '{"mcpServers":{}}', "--disable-slash-commands",
+           "--no-session-persistence", "--permission-mode", "dontAsk",
+           "--setting-sources", "", "--settings", '{"disableAllHooks":true}',
+           "--max-budget-usd", str(budget)]
+    if model:
+        cmd += ["--model", model]
+    start = time.monotonic()
+    with tempfile.TemporaryDirectory(prefix="gigs-build-") as cwd:
+        r = subprocess.run(cmd, input=prompt, text=True, capture_output=True, cwd=cwd, timeout=900)
+    if r.returncode:
+        raise RuntimeError("Claude build failed; exit " + str(r.returncode))
+    result = json.loads(r.stdout)
+    if result.get("is_error"):
+        raise RuntimeError("Claude reported an unsuccessful build")
+    return result.get("result", ""), round(time.monotonic()-start, 2), result.get("total_cost_usd")
 
 def main():
-    if len(sys.argv) < 2:
-        print(__doc__); sys.exit(2)
-    order_dir = os.path.abspath(sys.argv[1])
-    mock = "--mock" in sys.argv
-    model = None
-    if "--model" in sys.argv:
-        model = sys.argv[sys.argv.index("--model") + 1]
-    brief_path = os.path.join(order_dir, "brief.md")
-    if not os.path.exists(brief_path):
-        print(f"no brief.md in {order_dir}"); sys.exit(2)
-    brief = open(brief_path).read()
-    out_dir = os.path.join(order_dir, "deliverable")
-    if os.path.isdir(out_dir):
-        shutil.rmtree(out_dir)
-    os.makedirs(out_dir)
-
-    status = {"order": os.path.basename(order_dir), "started": time.strftime("%Y-%m-%dT%H:%M:%S"), "passes": []}
-    if mock:
-        obj = mock_build(order_dir, out_dir)
-    else:
-        prompt = PROMPT + "\n\n## Buyer brief\n\n" + brief
-        text, secs, cost = run_claude(prompt, model)
-        status["passes"].append({"kind": "build", "seconds": round(secs), "cost_usd": cost})
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("order_dir", type=Path)
+    parser.add_argument("--mock", action="store_true")
+    parser.add_argument("--model", default=os.getenv("GIGS_MODEL", "sonnet"))
+    args = parser.parse_args()
+    order = args.order_dir.resolve()
+    order.mkdir(parents=True, exist_ok=True, mode=0o700)
+    os.umask(0o077)
+    with (order / ".build.lock").open("w") as lock:
+        try: fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            print("Build already running"); return 2
+        status = {"state": "BUILDING", "started": time.time(), "passes": [], "live_services_tested": False}
         try:
-            obj = parse_files_json(text)
-        except Exception as e:
-            # one retry asking for the contract to be honoured
-            text, secs, cost = run_claude(prompt + "\n\nYour previous reply was not a single JSON object. Reply with ONLY the JSON object.", model)
-            status["passes"].append({"kind": "build-retry", "seconds": round(secs), "cost_usd": cost, "reason": str(e)})
-            obj = parse_files_json(text)
-        write_files(obj["files"], out_dir)
-
-    ok, report = validate_all(out_dir)
-    status["validation"] = report
-    if not ok and not mock:
-        repair = (PROMPT + "\n\n## Buyer brief\n\n" + brief +
-                  "\n\n## Repair pass\nA previous build produced files that failed validation:\n" + report +
-                  "\nReturn the full corrected file set (all files, not just the fixed one).")
-        text, secs, cost = run_claude(repair, model)
-        status["passes"].append({"kind": "repair", "seconds": round(secs), "cost_usd": cost})
-        obj2 = parse_files_json(text)
-        shutil.rmtree(out_dir); os.makedirs(out_dir)
-        write_files(obj2["files"], out_dir)
-        obj["summary"] = obj2.get("summary", obj["summary"])
-        obj["questions_for_buyer"] = obj2.get("questions_for_buyer", obj.get("questions_for_buyer", []))
-        ok, report = validate_all(out_dir)
-        status["validation"] = report
-
-    status["state"] = "READY" if ok and obj.get("status", "READY") == "READY" else ("NEEDS_INFO" if ok else "FAILED_VALIDATION")
-    status["summary"] = obj.get("summary", "")
-    status["questions_for_buyer"] = obj.get("questions_for_buyer", [])
-    status["files"] = sorted(os.path.relpath(p, out_dir) for p in glob.glob(os.path.join(out_dir, "**", "*"), recursive=True) if os.path.isfile(p))
-    status["finished"] = time.strftime("%Y-%m-%dT%H:%M:%S")
-    json.dump(status, open(os.path.join(order_dir, "STATUS.json"), "w"), indent=2)
-    print(json.dumps({k: status[k] for k in ("order", "state", "summary", "questions_for_buyer", "files")}, indent=2))
-    sys.exit(0 if status["state"] in ("READY", "NEEDS_INFO") else 1)
-
+            brief = (order / "brief.md").read_text()
+            approval = {} if args.mock else json.loads((order / "approval.json").read_text())
+            if not args.mock and not (approval.get("funding_verified") is True and approval.get("scope_reviewed") is True and approval.get("platform_order_url")):
+                raise ValueError("Verify the funded order and scope in approval.json first")
+            budget = float(approval.get("max_build_cost_usd", 0))
+            if not args.mock and not (0 < budget <= 10):
+                raise ValueError("Set a total build budget between $0 and $10")
+            kind = approval.get("kind", "n8n")
+            atomic_json(order / "STATUS.json", status)
+            with tempfile.TemporaryDirectory(prefix=".staging-", dir=order) as staging:
+                out = Path(staging)
+                if args.mock:
+                    shutil.copytree(HERE.parent / "portfolio/lead-qualifier", out, dirs_exist_ok=True)
+                    (out / "DELIVERY_MESSAGE.md").write_text("Synthetic plumbing test; do not deliver.\n")
+                    obj = {"status":"READY", "summary":"Synthetic plumbing test", "questions_for_buyer":[]}
+                    ok, errors = validate_all(out, kind)
+                else:
+                    prompt = PROMPT + "\n\n<untrusted_buyer_brief>\n" + brief[:60000] + "\n</untrusted_buyer_brief>"
+                    previous = ""
+                    for attempt in range(2):
+                        text, secs, cost = run_claude(prompt + previous, args.model, budget / 2)
+                        status["passes"].append({"seconds":secs, "cost_usd":cost})
+                        try:
+                            obj = parse_files_json(text)
+                            for child in out.iterdir():
+                                shutil.rmtree(child) if child.is_dir() else child.unlink()
+                            write_files(obj["files"], out)
+                            ok, errors = validate_all(out, kind)
+                        except (ValueError, TypeError) as exc:
+                            ok, errors = False, [str(exc)]
+                        if ok: break
+                        previous = "\n\nRepair these errors and return ALL files: " + json.dumps(errors) + "\nPrevious output:\n" + text[:80000]
+                    if not ok:
+                        obj = {"status":"NEEDS_INFO", "summary":"Build failed validation", "questions_for_buyer":[]}
+                status.update({"state":"MOCK_PASSED" if args.mock and ok else "NEEDS_REVIEW" if ok and obj["status"] == "READY" and not obj.get("questions_for_buyer") else "NEEDS_INFO" if ok else "FAILED_VALIDATION",
+                               "summary":obj.get("summary", ""), "questions_for_buyer":obj.get("questions_for_buyer", []),
+                               "validation_errors":errors, "files":sorted(str(f.relative_to(out)) for f in out.rglob("*") if f.is_file())})
+                if ok:
+                    delivery = order / "deliverable"
+                    if delivery.exists():
+                        delivery.rename(order / ("previous-deliverable-" + str(time.time_ns())))
+                    shutil.copytree(out, delivery)
+            status["finished"] = time.time()
+        except Exception as exc:
+            status.update(state="FAILED", error=str(exc), finished=time.time())
+        atomic_json(order / "STATUS.json", status)
+        print(json.dumps(status, indent=2))
+        return 0 if status["state"] in {"NEEDS_REVIEW", "NEEDS_INFO", "MOCK_PASSED"} else 1
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

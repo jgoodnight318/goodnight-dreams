@@ -1,51 +1,51 @@
-# Your part: 30 minutes, once
+# Setup and launch gates
 
-Platforms require a verified human to open a seller account and to press
-"Deliver" on each order. Everything else is automated in this folder.
+The build is a starting point for a service business. There are no verified sales from this system. Setup time depends on account checks and live integration testing.
 
-## A. Fiverr seller account (15 min)
-1. fiverr.com → Join → use jms.goodnight@gmail.com (the intake poller
-   reads this inbox). Become a Seller → complete the profile:
-   - Display name: James G. · Occupation: Programming & Tech / AI Development
-   - Description: paste the **Overview** from `listings/upwork/profile.md`
-   - Skills: n8n, Automation, AI Agents, Python, API Integration
-   - Phone verification: your cell.
-2. Create Gig 1 → copy title, category, tags, packages, description, FAQ
-   and requirements from `listings/fiverr/gig-1-n8n-workflow.md`.
-   Gig image: use `../assets/covers/automation-gigs.png` once generated,
-   or a plain dark image with the gig title (Fiverr requires 3 images;
-   screenshots of the three portfolio workflows work).
-3. Repeat for `gig-2-claude-agent.md` and `gig-3-automation-audit.md`.
-4. Fiverr → Settings → Notifications: email ON for orders and messages.
+## Account status on the Mini
+- Upwork already exists. Do not create a duplicate account. The latest ID submission is awaiting review; existing proposals remain separate from Project Catalog setup.
+- Fiverr: account @jgoodnight318 created with jms.goodnight@gmail.com. Seller onboarding is in progress. Phone/identity checks may require James.
+- The portfolio page in this draft PR is not deployed to main yet. Do not advertise links as live before deployment.
 
-## B. Upwork (10 min)
-1. upwork.com → create freelancer profile with the same email.
-   Paste title, rate, skills, overview from `listings/upwork/profile.md`.
-   Add the 3 portfolio items (link each to its folder on GitHub).
-2. Project Catalog → create the 3 projects in `listings/upwork/project-catalog.md`.
-3. Turn on email notifications for messages and offers.
+## Local intake
 
-## C. Wire the poller to the Mac mini (5 min)
-1. Google Account → Security → App passwords → create one named "gigs".
-2. Create `~/.config/automation-gigs.env`:
-   ```
-   GIGS_IMAP_USER=jms.goodnight@gmail.com
-   GIGS_IMAP_PASS=<the 16-char app password>
-   GIGS_NOTIFY_TO=jms.goodnight@gmail.com
-   ```
-3. From this repo on the mini:
-   ```
-   cp automation-gigs/launchd/com.james.automation-gigs.plist ~/Library/LaunchAgents/
-   launchctl load ~/Library/LaunchAgents/com.james.automation-gigs.plist
-   ```
-   It polls every 15 minutes. Test: `python3 automation-gigs/pipeline/intake.py`.
+Real order data is kept OUTSIDE this public repository at `~/.local/share/automation-gigs/orders/`. The inbox is read-only: no unread flags are changed. A notification creates an unverified candidate; it does not prove a funded order or trigger model spending.
 
-## Per order (2 minutes, from your phone)
-You get an email "[gigs] READY: <order>" with the delivery message and a
-`deliverable.zip`. Open the order on Fiverr/Upwork → Deliver → paste the
-message → attach the zip → send. If the email says NEEDS_INFO, forward the
-listed questions to the buyer first; the poller re-runs when they answer.
+Create `~/.config/automation-gigs.env` with mode 600:
+```
+GIGS_IMAP_USER=jms.goodnight@gmail.com
+GIGS_IMAP_PASS=<Google app password>
+GIGS_NOTIFY_TO=jms.goodnight@gmail.com
+GIGS_NOTIFY_ENABLED=1
+```
+Do not paste this credential into chat or commit it. If Google does not allow an app password, use the existing signed-in browser to inspect orders and download their notifications as `.eml` files; `intake.py --eml /path/to/order.eml` provides local intake without mail credentials.
 
-Why this can't be zero: Fiverr and Upwork terms forbid bots operating a
-seller account, and enforcement bans the account. The paste is the price
-of keeping the account.
+```
+python3 automation-gigs/pipeline/intake.py --check
+python3 automation-gigs/pipeline/install.py
+python3 automation-gigs/pipeline/install.py --enable
+```
+The installer prepares an absolute-path launch agent and enables it only after mail is configured. It does not claim the mail connection is tested. Run intake once to validate real IMAP/SMTP access before relying on the schedule.
+
+## From candidate to fulfillment
+1. Open the actual platform order. Confirm funding, deadline, purchased scope, actual requirements and permission to use any supplied data. Email subjects alone are not sufficient.
+2. Replace the candidate `brief.md` with the agreed brief and save `approval.json`:
+```
+{"funding_verified":true,"scope_reviewed":true,"platform_order_url":"<actual order URL>","kind":"n8n","max_build_cost_usd":4}
+```
+3. Run `python3 automation-gigs/pipeline/fulfill.py /absolute/private/order-directory`. No tool access is given to the model. There are at most two calls sharing the total budget.
+4. `NEEDS_REVIEW` means structure and basic credential scanning passed. Import into the target n8n version, connect test credentials, run the agreed acceptance cases, and record actual evidence. Do not activate sending actions without testing and authorization.
+5. Resolve NEEDS_INFO with the buyer. Replies are NOT automatically merged or rerun. Update the same verified order; don't create a new paid build from each email.
+6. Deliver only after acceptance tests and attachment review. Sending a ZIP is not the completion of testing.
+
+## Local verification
+```
+python3 -m unittest discover -s automation-gigs/tests -v
+node automation-gigs/tests/test_shopify.mjs
+```
+Mock runs validate plumbing only. The historical $400 brief is synthetic, with no $400 sale. Its original reported model cost was $1.1782; fees, sales work, setup, tests, revisions and support are additional costs.
+
+## Local n8n verification runtime
+n8n 2.39.5 with Node 24 is installed separately at `~/.local/share/automation-gigs-runtime`. Its private test database is under `~/.local/share/automation-gigs/n8n`. Four inactive workflow imports succeeded. `python3 automation-gigs/tests/n8n_smoke.py` ran the Shopify graph for multiple suppliers, no low stock, and GraphQL errors; external API and messaging nodes were replaced with stubs. These tests sent no messages and do not prove real credentials work.
+
+Claude Code is signed into the owner's Max subscription on this Mini. Local runs may consume subscription usage; the sample API-dollar estimate is not a cash-profit calculation. The CLI is configured with a per-call API budget and at most two calls; verify usage behavior for the selected authentication method before unattended paid builds.

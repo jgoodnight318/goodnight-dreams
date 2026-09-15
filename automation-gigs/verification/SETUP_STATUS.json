@@ -1,0 +1,29 @@
+{
+  "fiverr": {
+    "username": "jgoodnight318",
+    "account_created": true,
+    "seller_profile": "in_progress",
+    "listing_live": false
+  },
+  "upwork": {
+    "existing_account": true,
+    "identity_review": "pending_last_check",
+    "new_catalog_published": false
+  },
+  "mail": {
+    "configured": false,
+    "imap_tested": false,
+    "smtp_tested": false,
+    "launchd_loaded": false
+  },
+  "tests": {
+    "python_regressions": 7,
+    "shopify_logic_scenarios": 10,
+    "n8n_imports": 4,
+    "n8n_stubbed_execution_scenarios": 3,
+    "live_customer_integrations": false
+  },
+  "orders": {
+    "verified_paid": 0
+  }
+}
