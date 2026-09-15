@@ -13,6 +13,7 @@ Live: https://jgoodnight318.github.io/goodnight-dreams/
 | `/`             | Storefront — every live Gumroad product, the podcast, YouTube, wallpaper teasers |
 | `/link/`        | Link-in-bio page (Wren Ashby persona) for Instagram/TikTok/YouTube bios |
 | `/wallpapers/`  | Gallery of wallpaper-pack preview covers (no full-res files) |
+| `/vivid-walls/` | Landing page for Ambient Loops Vol. 1 as a Vivid Walls (Mac) content pack — import steps + buy link. Link target for the Vivid Walls site/app "more scenes" |
 | `/tools/`       | Free single-page tools (empty until the problem-miner pipeline ships one) |
 | `/countdown/`   | GTA 6 countdown + news tracker (independent fan project, original art only) |
 | `/podcast/`     | Quiet Hours podcast info + episode list (feed not yet on Spotify/Apple) |
