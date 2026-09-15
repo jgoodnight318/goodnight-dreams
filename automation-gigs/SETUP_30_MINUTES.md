@@ -4,7 +4,7 @@ The build is a starting point for a service business. There are no verified sale
 
 ## Account status on the Mini
 - Upwork already exists. Do not create a duplicate account. The latest ID submission was awaiting review at last check. Catalog project 2099999933366679169 is now approved and visible; existing proposals remain separate.
-- Fiverr: account @jgoodnight318 created with jms.goodnight@gmail.com. Seller profile and first gig are complete. The gig is saved; phone and identity verification are complete. The actual Form W-9 requires the owner’s tax number and certification before publication.
+- Fiverr: account @jgoodnight318 created with jms.goodnight@gmail.com. Seller profile and first gig are complete. The gig is saved; phone and identity verification are complete. The W-9 was submitted September 15; Fiverr confirmed receipt and is reviewing the details. Publication is locked pending that review.
 - The portfolio page in this draft PR is not deployed to main yet. Do not advertise links as live before deployment.
 
 ## Local intake
