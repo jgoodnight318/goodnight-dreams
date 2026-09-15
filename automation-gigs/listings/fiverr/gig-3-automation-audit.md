@@ -1,3 +1,5 @@
+> NOT LAUNCH-READY: retained planning draft. Claims, pricing and delivery need review; do not paste or publish this draft.
+
 # Gig 3 — Automation audit (lead magnet for gigs 1 and 2)
 
 **Title:**
