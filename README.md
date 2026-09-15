@@ -18,6 +18,7 @@ Live: https://jgoodnight318.github.io/goodnight-dreams/
 | `/countdown/`   | GTA 6 countdown + news tracker (independent fan project, original art only) |
 | `/podcast/`     | Quiet Hours podcast info + episode list (feed not yet on Spotify/Apple) |
 | `/privacy/`     | Privacy policy — no analytics, no cookies, no tracking |
+| `/automation-gigs/` | Public automation portfolio page. The folder also holds the agent-run Fiverr/Upwork services business: listings, order-fulfillment pipeline, launchd poller. See `automation-gigs/README.md` |
 
 Analytics: **none**. No Plausible, no GA, no pixel of any kind — this
 repo intentionally ships zero analytics rather than a paid or

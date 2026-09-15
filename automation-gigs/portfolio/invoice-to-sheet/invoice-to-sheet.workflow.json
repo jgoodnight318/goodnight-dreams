@@ -1,0 +1,100 @@
+{
+  "name": "Invoice PDF -> structured row in Google Sheets",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": { "item": [ { "mode": "everyMinute" } ] },
+        "simple": false,
+        "filters": { "labelIds": [ "INBOX" ], "q": "has:attachment filename:pdf (invoice OR receipt OR bill)" },
+        "options": { "downloadAttachments": true, "dataPropertyAttachmentsPrefixName": "attachment_" }
+      },
+      "name": "Invoice email arrives",
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.2,
+      "position": [ 0, 300 ],
+      "credentials": { "gmailOAuth2": { "id": "YOUR_GMAIL_CREDENTIAL", "name": "Gmail account" } }
+    },
+    {
+      "parameters": { "operation": "pdf", "binaryPropertyName": "attachment_0", "options": {} },
+      "name": "Extract PDF text",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [ 260, 300 ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [ { "name": "anthropic-version", "value": "2023-06-01" }, { "name": "content-type", "value": "application/json" } ] },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ model: 'claude-sonnet-5', max_tokens: 500, system: 'Extract invoice fields. Reply with ONLY JSON: {\"vendor\":\"\",\"invoice_number\":\"\",\"invoice_date\":\"YYYY-MM-DD\",\"due_date\":\"YYYY-MM-DD or empty\",\"currency\":\"\",\"subtotal\":0,\"tax\":0,\"total\":0,\"line_items_summary\":\"\"}. Use empty string or 0 when a field is absent.', messages: [ { role: 'user', content: ($json.text || '').slice(0, 20000) } ] }) }}",
+        "options": { "timeout": 45000 }
+      },
+      "name": "Extract fields with Claude",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 520, 300 ],
+      "credentials": { "httpHeaderAuth": { "id": "YOUR_ANTHROPIC_HEADER_CREDENTIAL", "name": "Anthropic x-api-key" } },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const mail = $('Invoice email arrives').item.json;\nlet f = {};\ntry { const t = $json.content?.[0]?.text ?? ''; const m = t.match(/\\{[\\s\\S]*\\}/); if (m) f = JSON.parse(m[0]); } catch (e) {}\nreturn [{ json: {\n  received: mail.date || new Date().toISOString(),\n  from: mail.from?.value?.[0]?.address || mail.from,\n  subject: mail.subject,\n  vendor: f.vendor || '', invoice_number: f.invoice_number || '', invoice_date: f.invoice_date || '', due_date: f.due_date || '',\n  currency: f.currency || '', subtotal: Number(f.subtotal) || 0, tax: Number(f.tax) || 0, total: Number(f.total) || 0,\n  line_items_summary: f.line_items_summary || '',\n  needs_review: (!f.total || !f.vendor) ? 'YES' : ''\n}}];"
+      },
+      "name": "Shape the row",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 780, 300 ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": { "__rl": true, "mode": "id", "value": "YOUR_SHEET_ID" },
+        "sheetName": { "__rl": true, "mode": "name", "value": "Invoices" },
+        "columns": { "mappingMode": "autoMapInputData", "value": {}, "matchingColumns": [], "schema": [] },
+        "options": {}
+      },
+      "name": "Append to Invoices sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [ 1040, 300 ],
+      "credentials": { "googleSheetsOAuth2Api": { "id": "YOUR_SHEETS_CREDENTIAL", "name": "Google Sheets account" } }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Invoice email arrives').item.json.id }}",
+        "labelIds": [ "YOUR_PROCESSED_LABEL_ID" ]
+      },
+      "name": "Label email as processed",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [ 1300, 300 ],
+      "credentials": { "gmailOAuth2": { "id": "YOUR_GMAIL_CREDENTIAL", "name": "Gmail account" } }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Invoice email arrives').item.json.id }}",
+        "labelIds": [ "YOUR_NEEDS_REVIEW_LABEL_ID" ]
+      },
+      "name": "Label email needs-review",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [ 780, 520 ],
+      "credentials": { "gmailOAuth2": { "id": "YOUR_GMAIL_CREDENTIAL", "name": "Gmail account" } }
+    }
+  ],
+  "connections": {
+    "Invoice email arrives": { "main": [ [ { "node": "Extract PDF text", "type": "main", "index": 0 } ] ] },
+    "Extract PDF text": { "main": [ [ { "node": "Extract fields with Claude", "type": "main", "index": 0 } ] ] },
+    "Extract fields with Claude": { "main": [ [ { "node": "Shape the row", "type": "main", "index": 0 } ], [ { "node": "Label email needs-review", "type": "main", "index": 0 } ] ] },
+    "Shape the row": { "main": [ [ { "node": "Append to Invoices sheet", "type": "main", "index": 0 } ] ] },
+    "Append to Invoices sheet": { "main": [ [ { "node": "Label email as processed", "type": "main", "index": 0 } ] ] }
+  },
+  "settings": { "executionOrder": "v1" }
+}

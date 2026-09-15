@@ -1,0 +1,101 @@
+{
+  "name": "Missed call -> instant SMS follow-up + log",
+  "nodes": [
+    {
+      "parameters": { "httpMethod": "POST", "path": "twilio-call-status", "responseMode": "onReceived", "options": {} },
+      "name": "Twilio call status webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [ 0, 300 ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            { "id": "missed", "leftValue": "={{ $json.body.CallStatus }}", "rightValue": "no-answer", "operator": { "type": "string", "operation": "equals" } },
+            { "id": "busy", "leftValue": "={{ $json.body.CallStatus }}", "rightValue": "busy", "operator": { "type": "string", "operation": "equals" } },
+            { "id": "failed", "leftValue": "={{ $json.body.CallStatus }}", "rightValue": "failed", "operator": { "type": "string", "operation": "equals" } }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "name": "Was the call missed?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [ 260, 300 ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [ { "id": "hours", "leftValue": "={{ $now.setZone('YOUR_TIMEZONE').hour }}", "rightValue": 8, "operator": { "type": "number", "operation": "gte" } }, { "id": "hours2", "leftValue": "={{ $now.setZone('YOUR_TIMEZONE').hour }}", "rightValue": 18, "operator": { "type": "number", "operation": "lt" } } ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "name": "Business hours?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [ 520, 300 ]
+    },
+    {
+      "parameters": {
+        "from": "YOUR_TWILIO_NUMBER",
+        "to": "={{ $('Twilio call status webhook').item.json.body.From }}",
+        "message": "Hi, this is YOUR_BUSINESS_NAME. Sorry we missed your call! Reply here with what you need and we'll get right back to you, or book online: YOUR_BOOKING_LINK",
+        "options": {}
+      },
+      "name": "Text back (open hours)",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [ 780, 200 ],
+      "credentials": { "twilioApi": { "id": "YOUR_TWILIO_CREDENTIAL", "name": "Twilio account" } }
+    },
+    {
+      "parameters": {
+        "from": "YOUR_TWILIO_NUMBER",
+        "to": "={{ $('Twilio call status webhook').item.json.body.From }}",
+        "message": "Hi, this is YOUR_BUSINESS_NAME. We're closed right now but saw your call. Reply here with what you need and we'll answer first thing in the morning. Book online any time: YOUR_BOOKING_LINK",
+        "options": {}
+      },
+      "name": "Text back (after hours)",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [ 780, 420 ],
+      "credentials": { "twilioApi": { "id": "YOUR_TWILIO_CREDENTIAL", "name": "Twilio account" } }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": { "__rl": true, "mode": "id", "value": "YOUR_SHEET_ID" },
+        "sheetName": { "__rl": true, "mode": "name", "value": "Missed calls" },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "when": "={{ $now.toISO() }}",
+            "caller": "={{ $('Twilio call status webhook').item.json.body.From }}",
+            "status": "={{ $('Twilio call status webhook').item.json.body.CallStatus }}",
+            "texted": "yes"
+          },
+          "matchingColumns": [], "schema": []
+        },
+        "options": {}
+      },
+      "name": "Log missed call",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [ 1040, 300 ],
+      "credentials": { "googleSheetsOAuth2Api": { "id": "YOUR_SHEETS_CREDENTIAL", "name": "Google Sheets account" } }
+    }
+  ],
+  "connections": {
+    "Twilio call status webhook": { "main": [ [ { "node": "Was the call missed?", "type": "main", "index": 0 } ] ] },
+    "Was the call missed?": { "main": [ [ { "node": "Business hours?", "type": "main", "index": 0 } ], [] ] },
+    "Business hours?": { "main": [ [ { "node": "Text back (open hours)", "type": "main", "index": 0 } ], [ { "node": "Text back (after hours)", "type": "main", "index": 0 } ] ] },
+    "Text back (open hours)": { "main": [ [ { "node": "Log missed call", "type": "main", "index": 0 } ] ] },
+    "Text back (after hours)": { "main": [ [ { "node": "Log missed call", "type": "main", "index": 0 } ] ] }
+  },
+  "settings": { "executionOrder": "v1" }
+}

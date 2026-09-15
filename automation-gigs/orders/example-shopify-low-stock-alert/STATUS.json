@@ -1,0 +1,22 @@
+{
+  "order": "example-shopify-low-stock-alert",
+  "started": "2026-09-15T22:14:06",
+  "passes": [
+    {
+      "kind": "build",
+      "seconds": 512,
+      "cost_usd": 1.1782121999999997
+    }
+  ],
+  "validation": "OK   /home/user/goodnight-dreams/automation-gigs/orders/example-shopify-low-stock-alert/deliverable/shopify-low-stock-slack-report.workflow.json\n",
+  "state": "READY",
+  "summary": "Built an n8n workflow that runs every morning, pulls Shopify product variants below 10 units via the Admin GraphQL API, groups them by the custom.supplier metafield, and posts one Slack message with the low-stock list plus a Claude-drafted reorder email per supplier (or an 'all good' message if nothing is low). Since the brief only needs the reorder email drafted inside Slack rather than actually sent, Gmail was left out of the integrations, keeping the build to Shopify + Slack plus the one Claude AI step.",
+  "questions_for_buyer": [],
+  "files": [
+    "DELIVERY_MESSAGE.md",
+    "README.md",
+    "TESTING.md",
+    "shopify-low-stock-slack-report.workflow.json"
+  ],
+  "finished": "2026-09-15T22:22:37"
+}

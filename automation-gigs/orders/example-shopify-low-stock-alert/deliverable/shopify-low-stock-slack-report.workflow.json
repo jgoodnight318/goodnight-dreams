@@ -1,0 +1,284 @@
+{
+  "name": "Shopify Low-Stock Slack Report",
+  "nodes": [
+    {
+      "name": "Every morning at 8am",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 300],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "daysInterval": 1,
+              "triggerAtHour": 8,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get products from Shopify",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [280, 300],
+      "parameters": {
+        "method": "POST",
+        "url": "https://YOUR_SHOP_NAME.myshopify.com/admin/api/2024-01/graphql.json",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "content-type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ query: `query GetProducts($ns: String!, $key: String!) { products(first: 250) { edges { node { title metafield(namespace: $ns, key: $key) { value } variants(first: 100) { edges { node { title sku inventoryQuantity } } } } } } }`, variables: { ns: 'custom', key: 'supplier' } }) }}",
+        "options": {}
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "shopify-admin-api",
+          "name": "Shopify Admin API"
+        }
+      },
+      "onError": "continueErrorOutput",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 5000
+    },
+    {
+      "name": "Alert: inventory check failed",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [560, 500],
+      "parameters": {
+        "resource": "message",
+        "operation": "post",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "YOUR_SLACK_CHANNEL",
+          "mode": "name"
+        },
+        "text": "={{ '⚠️ Morning inventory check failed while contacting Shopify.\\nError: ' + ($json.error && $json.error.message ? $json.error.message : JSON.stringify($json.error)) + '\\n\\nCheck the Shopify Admin API credential and the store URL in the Get products from Shopify node.' }}",
+        "otherOptions": {}
+      },
+      "credentials": {
+        "slackApi": {
+          "id": "slack-account",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "name": "Flatten and filter low stock (<10)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [560, 220],
+      "parameters": {
+        "jsCode": "const response = $input.first().json;\nconst products = (response.data && response.data.products && response.data.products.edges) || [];\nconst threshold = 10;\nconst lowStockItems = [];\n\nfor (const productEdge of products) {\n  const product = productEdge.node;\n  const supplier = (product.metafield && product.metafield.value) || 'Unknown supplier';\n  const variantEdges = (product.variants && product.variants.edges) || [];\n  for (const variantEdge of variantEdges) {\n    const variant = variantEdge.node;\n    const qty = variant.inventoryQuantity;\n    if (typeof qty === 'number' && qty < threshold) {\n      lowStockItems.push({\n        supplier,\n        product: product.title,\n        variant: variant.title,\n        sku: variant.sku || 'N/A',\n        quantity: qty,\n      });\n    }\n  }\n}\n\nreturn [{ json: { lowStockItems } }];"
+      }
+    },
+    {
+      "name": "Any low stock items?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [840, 220],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "low-stock-count",
+              "leftValue": "={{ $json.lowStockItems.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "name": "Post all-good message",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [1120, 420],
+      "parameters": {
+        "resource": "message",
+        "operation": "post",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "YOUR_SLACK_CHANNEL",
+          "mode": "name"
+        },
+        "text": "✅ All good — no candle variants are below 10 units today.",
+        "otherOptions": {}
+      },
+      "credentials": {
+        "slackApi": {
+          "id": "slack-account",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "name": "Group low-stock items by supplier",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1120, 120],
+      "parameters": {
+        "jsCode": "const items = $json.lowStockItems;\nconst bySupplier = {};\n\nfor (const item of items) {\n  if (!bySupplier[item.supplier]) bySupplier[item.supplier] = [];\n  bySupplier[item.supplier].push(item);\n}\n\nconst output = [];\nfor (const supplier of Object.keys(bySupplier)) {\n  const variants = bySupplier[supplier];\n  const itemsText = variants\n    .map((v) => `- ${v.product} (${v.variant}), SKU ${v.sku}: ${v.quantity} left`)\n    .join('\\n');\n  output.push({\n    json: {\n      supplier,\n      variants,\n      itemsText,\n    },\n  });\n}\n\nreturn output;"
+      }
+    },
+    {
+      "name": "Draft reorder email with Claude",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1400, 120],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "anthropic-version", "value": "2023-06-01" },
+            { "name": "content-type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ model: 'claude-sonnet-5', max_tokens: 400, messages: [ { role: 'user', content: 'Write a short, friendly reorder email (under 120 words) to the supplier ' + $json.supplier + ' asking them to restock these low-inventory candle items:\\n\\n' + $json.itemsText + '\\n\\nSign off with: Thanks, [Your Name].' } ] }) }}",
+        "options": {}
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "anthropic-api-key",
+          "name": "Anthropic API Key"
+        }
+      },
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 3000
+    },
+    {
+      "name": "Extract Claude draft (with fallback)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1680, 120],
+      "parameters": {
+        "jsCode": "const original = $('Group low-stock items by supplier').item.json;\nlet draft;\n\nif ($json.error) {\n  draft = 'Could not generate a draft automatically. Please write a reorder email manually using the items listed above.';\n} else {\n  const content = $json.content;\n  draft = (content && content[0] && content[0].text) ? content[0].text.trim() : 'No draft returned.';\n}\n\nreturn [{\n  json: {\n    supplier: original.supplier,\n    itemsText: original.itemsText,\n    draft,\n  },\n}];"
+      }
+    },
+    {
+      "name": "Combine supplier reports",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [1960, 120],
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "supplierReports"
+      }
+    },
+    {
+      "name": "Build Slack message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2240, 120],
+      "parameters": {
+        "jsCode": "const reports = $json.supplierReports || [];\nconst today = new Date().toISOString().slice(0, 10);\n\nconst sections = reports.map((report) => {\n  const lines = [\n    `*Supplier: ${report.supplier}*`,\n    report.itemsText,\n    '_Suggested reorder email (copy-paste and edit as needed):_',\n    '```',\n    report.draft,\n    '```',\n  ];\n  return lines.join('\\n');\n});\n\nconst text = `*Low stock report — ${today}*\\n\\n` + sections.join('\\n\\n');\n\nreturn [{ json: { text } }];"
+      }
+    },
+    {
+      "name": "Post low-stock report",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [2520, 120],
+      "parameters": {
+        "resource": "message",
+        "operation": "post",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "YOUR_SLACK_CHANNEL",
+          "mode": "name"
+        },
+        "text": "={{ $json.text }}",
+        "otherOptions": {}
+      },
+      "credentials": {
+        "slackApi": {
+          "id": "slack-account",
+          "name": "Slack account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Every morning at 8am": {
+      "main": [
+        [ { "node": "Get products from Shopify", "type": "main", "index": 0 } ]
+      ]
+    },
+    "Get products from Shopify": {
+      "main": [
+        [ { "node": "Flatten and filter low stock (<10)", "type": "main", "index": 0 } ],
+        [ { "node": "Alert: inventory check failed", "type": "main", "index": 0 } ]
+      ]
+    },
+    "Flatten and filter low stock (<10)": {
+      "main": [
+        [ { "node": "Any low stock items?", "type": "main", "index": 0 } ]
+      ]
+    },
+    "Any low stock items?": {
+      "main": [
+        [ { "node": "Group low-stock items by supplier", "type": "main", "index": 0 } ],
+        [ { "node": "Post all-good message", "type": "main", "index": 0 } ]
+      ]
+    },
+    "Group low-stock items by supplier": {
+      "main": [
+        [ { "node": "Draft reorder email with Claude", "type": "main", "index": 0 } ]
+      ]
+    },
+    "Draft reorder email with Claude": {
+      "main": [
+        [ { "node": "Extract Claude draft (with fallback)", "type": "main", "index": 0 } ]
+      ]
+    },
+    "Extract Claude draft (with fallback)": {
+      "main": [
+        [ { "node": "Combine supplier reports", "type": "main", "index": 0 } ]
+      ]
+    },
+    "Combine supplier reports": {
+      "main": [
+        [ { "node": "Build Slack message", "type": "main", "index": 0 } ]
+      ]
+    },
+    "Build Slack message": {
+      "main": [
+        [ { "node": "Post low-stock report", "type": "main", "index": 0 } ]
+      ]
+    }
+  },
+  "settings": {}
+}

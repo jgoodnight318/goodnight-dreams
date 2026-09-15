@@ -1,0 +1,4 @@
+# Real buyer orders contain private data and must never be committed to this public repo.
+orders/*
+!orders/.gitkeep
+!orders/example-shopify-low-stock-alert/

@@ -1,0 +1,107 @@
+{
+  "name": "Inbound lead qualifier (Gmail -> Claude -> Slack + Sheet)",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": { "item": [ { "mode": "everyMinute" } ] },
+        "simple": true,
+        "filters": { "labelIds": [ "INBOX" ], "q": "is:unread (quote OR pricing OR \"interested in\" OR inquiry)" }
+      },
+      "name": "New inbound email",
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.2,
+      "position": [ 0, 300 ],
+      "credentials": { "gmailOAuth2": { "id": "YOUR_GMAIL_CREDENTIAL", "name": "Gmail account" } }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [ { "name": "anthropic-version", "value": "2023-06-01" }, { "name": "content-type", "value": "application/json" } ] },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ model: 'claude-sonnet-5', max_tokens: 400, system: 'You qualify inbound sales emails for a small business. Reply with ONLY a JSON object: {\"score\": 0-100, \"intent\": \"buy|question|spam|other\", \"summary\": \"one line\", \"suggested_reply\": \"2-3 sentences\"}.', messages: [ { role: 'user', content: 'From: ' + $json.from.value[0].address + '\\nSubject: ' + $json.subject + '\\n\\n' + ($json.text || $json.snippet || '') } ] }) }}",
+        "options": { "timeout": 30000 }
+      },
+      "name": "Score lead with Claude",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 260, 300 ],
+      "credentials": { "httpHeaderAuth": { "id": "YOUR_ANTHROPIC_HEADER_CREDENTIAL", "name": "Anthropic x-api-key" } },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const email = $('New inbound email').item.json;\nlet parsed = { score: 0, intent: 'other', summary: 'could not parse model output', suggested_reply: '' };\ntry {\n  const text = $json.content?.[0]?.text ?? '';\n  const m = text.match(/\\{[\\s\\S]*\\}/);\n  if (m) parsed = JSON.parse(m[0]);\n} catch (e) {}\nreturn [{ json: {\n  received: email.date || new Date().toISOString(),\n  from: email.from?.value?.[0]?.address || email.from,\n  subject: email.subject,\n  score: Number(parsed.score) || 0,\n  intent: parsed.intent,\n  summary: parsed.summary,\n  suggested_reply: parsed.suggested_reply,\n  gmail_link: 'https://mail.google.com/mail/u/0/#inbox/' + email.id\n}}];"
+      },
+      "name": "Parse score",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 520, 300 ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [ { "id": "hot", "leftValue": "={{ $json.score }}", "rightValue": 60, "operator": { "type": "number", "operation": "gte" } } ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "name": "Hot lead?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [ 780, 300 ]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": { "__rl": true, "mode": "name", "value": "YOUR_SLACK_CHANNEL" },
+        "text": "=:fire: *Hot lead ({{ $json.score }})* from {{ $json.from }}\n*{{ $json.subject }}*\n{{ $json.summary }}\n\n_Suggested reply:_ {{ $json.suggested_reply }}\n<{{ $json.gmail_link }}|Open in Gmail>",
+        "otherOptions": {}
+      },
+      "name": "Alert sales in Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [ 1040, 200 ],
+      "credentials": { "slackApi": { "id": "YOUR_SLACK_CREDENTIAL", "name": "Slack bot" } }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": { "__rl": true, "mode": "id", "value": "YOUR_SHEET_ID" },
+        "sheetName": { "__rl": true, "mode": "name", "value": "Leads" },
+        "columns": { "mappingMode": "autoMapInputData", "value": {}, "matchingColumns": [], "schema": [] },
+        "options": {}
+      },
+      "name": "Log every lead to Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [ 1040, 420 ],
+      "credentials": { "googleSheetsOAuth2Api": { "id": "YOUR_SHEETS_CREDENTIAL", "name": "Google Sheets account" } }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": { "__rl": true, "mode": "name", "value": "YOUR_SLACK_CHANNEL" },
+        "text": "=:warning: Lead qualifier could not score an email (API error). Subject: {{ $('New inbound email').item.json.subject }}. Check n8n executions.",
+        "otherOptions": {}
+      },
+      "name": "Report API failure",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [ 520, 520 ],
+      "credentials": { "slackApi": { "id": "YOUR_SLACK_CREDENTIAL", "name": "Slack bot" } }
+    }
+  ],
+  "connections": {
+    "New inbound email": { "main": [ [ { "node": "Score lead with Claude", "type": "main", "index": 0 } ] ] },
+    "Score lead with Claude": { "main": [ [ { "node": "Parse score", "type": "main", "index": 0 } ], [ { "node": "Report API failure", "type": "main", "index": 0 } ] ] },
+    "Parse score": { "main": [ [ { "node": "Hot lead?", "type": "main", "index": 0 } ] ] },
+    "Hot lead?": { "main": [ [ { "node": "Alert sales in Slack", "type": "main", "index": 0 }, { "node": "Log every lead to Sheet", "type": "main", "index": 0 } ], [ { "node": "Log every lead to Sheet", "type": "main", "index": 0 } ] ] }
+  },
+  "settings": { "executionOrder": "v1" }
+}
