@@ -25,8 +25,8 @@ $600/day averaged across 30 days is $18,000/month. At $320 per $400 Fiverr order
 A later recurring service can offer defined monitoring and a small allowance of fixes, priced after measuring workload. Monthly billing would require real ongoing value; it is not free margin. Don't sell unlimited support.
 
 ## Current gates
-- Fiverr account @jgoodnight318 created; seller profile and first gig are saved. Identity verification and Form W-9 remain before publication.
-- Existing Upwork ID review and catalog editor setup.
+- Fiverr account @jgoodnight318 created; seller profile and first gig are saved. Phone and identity verification are complete. Form W-9 remains before publication.
+- Existing Upwork ID review. Catalog project 2099999933366679169 has overview and pricing saved; gallery and remaining steps are not complete.
 - IMAP/SMTP credential configuration and a real read/send check before enabling launchd.
 - Live Shopify/Slack/Anthropic acceptance tests on approved test accounts. Fixture tests and import checks do not validate authentication, API access or live side effects.
 - PR review and merge before the public GitHub Pages portfolio is live.

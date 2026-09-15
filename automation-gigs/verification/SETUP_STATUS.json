@@ -4,7 +4,7 @@
     "account_created": true,
     "seller_profile": "complete",
     "listing_live": false,
-    "gig": "created; not visible until identity and W-9 verification",
+    "gig": "created; not visible until W-9 and publication",
     "gig_editor": "https://www.fiverr.com/users/jgoodnight318/manage_gigs/build-and-test-an-n8n-workflow-connecting-your-business-apps/edit",
     "packages_usd": [
       120,
@@ -23,12 +23,18 @@
     ],
     "faq_count": 3,
     "required_questions": 3,
-    "gallery_uploaded": true
+    "gallery_uploaded": true,
+    "identity_verified": true,
+    "phone_verified": true,
+    "tax_form": "contact fields filled; address, tax information and certification remain"
   },
   "upwork": {
     "existing_account": true,
     "identity_review": "pending_last_check",
-    "new_catalog_published": false
+    "new_catalog_published": false,
+    "catalog_draft_id": "2099999933366679169",
+    "catalog_draft_url": "https://www.upwork.com/nx/project-dashboard/2099999933366679169?step=Gallery",
+    "catalog_progress": "overview and pricing saved; gallery and subsequent steps remain"
   },
   "mail": {
     "configured": false,
