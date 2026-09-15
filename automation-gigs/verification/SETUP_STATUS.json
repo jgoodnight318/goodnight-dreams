@@ -26,15 +26,24 @@
     "gallery_uploaded": true,
     "identity_verified": true,
     "phone_verified": true,
-    "tax_form": "contact fields filled; address, tax information and certification remain"
+    "tax_form": "Address completed; actual W-9 requires tax number and certification. Earnings summary showed completed prematurely; gig publishing remains blocked."
   },
   "upwork": {
     "existing_account": true,
     "identity_review": "pending_last_check",
-    "new_catalog_published": false,
+    "new_catalog_published": true,
     "catalog_draft_id": "2099999933366679169",
     "catalog_draft_url": "https://www.upwork.com/nx/project-dashboard/2099999933366679169?step=Gallery",
-    "catalog_progress": "overview and pricing saved; gallery and subsequent steps remain"
+    "catalog_progress": "approved and visible",
+    "catalog_dashboard": "https://www.upwork.com/nx/project-dashboard/?step=approved",
+    "simultaneous_projects": 1,
+    "packages_usd": [
+      150,
+      450,
+      850
+    ],
+    "views": 0,
+    "orders": 0
   },
   "mail": {
     "configured": false,
