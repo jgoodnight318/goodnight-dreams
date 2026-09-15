@@ -2,8 +2,28 @@
   "fiverr": {
     "username": "jgoodnight318",
     "account_created": true,
-    "seller_profile": "in_progress",
-    "listing_live": false
+    "seller_profile": "complete",
+    "listing_live": false,
+    "gig": "created; not visible until identity and W-9 verification",
+    "gig_editor": "https://www.fiverr.com/users/jgoodnight318/manage_gigs/build-and-test-an-n8n-workflow-connecting-your-business-apps/edit",
+    "packages_usd": [
+      120,
+      400,
+      750
+    ],
+    "delivery_days": [
+      3,
+      5,
+      7
+    ],
+    "revisions": [
+      1,
+      1,
+      2
+    ],
+    "faq_count": 3,
+    "required_questions": 3,
+    "gallery_uploaded": true
   },
   "upwork": {
     "existing_account": true,

@@ -4,7 +4,7 @@ The build is a starting point for a service business. There are no verified sale
 
 ## Account status on the Mini
 - Upwork already exists. Do not create a duplicate account. The latest ID submission is awaiting review; existing proposals remain separate from Project Catalog setup.
-- Fiverr: account @jgoodnight318 created with jms.goodnight@gmail.com. Seller onboarding is in progress. Phone/identity checks may require James.
+- Fiverr: account @jgoodnight318 created with jms.goodnight@gmail.com. Seller profile and first gig are complete. The gig is saved but not visible until identity verification and Form W-9 are completed. Phone/identity checks may require James.
 - The portfolio page in this draft PR is not deployed to main yet. Do not advertise links as live before deployment.
 
 ## Local intake
