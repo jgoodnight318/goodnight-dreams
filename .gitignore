@@ -1,3 +1,5 @@
 websites/.impeccable/review/
 websites/sites/*/node_modules/
 .vercel/
+websites/outreach/.venv/
+websites/outreach/.qr_tmp/
