@@ -1,0 +1,52 @@
+{
+  "title": "Google Play Reviews Scraper input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "apps": {
+      "title": "Apps",
+      "type": "array",
+      "description": "Android package IDs (like com.whatsapp) or app names to search for. Package IDs (anything containing a dot) are used directly; names resolve to the top search result.",
+      "editor": "stringList",
+      "prefill": ["com.whatsapp", "Notion"]
+    },
+    "country": {
+      "title": "Country",
+      "type": "string",
+      "editor": "textfield",
+      "description": "Two-letter Play Store country code (the `gl` parameter).",
+      "default": "us"
+    },
+    "language": {
+      "title": "Language",
+      "type": "string",
+      "editor": "textfield",
+      "description": "Two-letter language code for review text and app metadata (the `hl` parameter).",
+      "default": "en"
+    },
+    "maxReviewsPerApp": {
+      "title": "Max reviews per app",
+      "type": "integer",
+      "default": 100,
+      "minimum": 1,
+      "maximum": 5000,
+      "description": "Maximum number of reviews to fetch per app, paginated in batches of 200."
+    },
+    "sort": {
+      "title": "Sort order",
+      "type": "string",
+      "editor": "select",
+      "description": "Review sort order. Google Play only exposes three orders: newest first, highest-rated first, or most relevant (Google's own relevance ranking, generally favors longer/more-helpful reviews).",
+      "enum": ["newest", "rating", "relevance"],
+      "enumTitles": ["Newest", "Rating", "Relevance"],
+      "default": "newest"
+    },
+    "includeAppInfo": {
+      "title": "Also output app metadata",
+      "type": "boolean",
+      "default": true,
+      "description": "Adds one record per app with name, developer, score, rating count, installs, price and current version."
+    }
+  },
+  "required": ["apps"]
+}

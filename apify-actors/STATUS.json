@@ -74,8 +74,40 @@
       }
     }
   ],
+  "batch2": [
+    {
+      "actor": "google-play-reviews",
+      "storeUrl": "https://apify.com/goodnight-dreams/google-play-reviews",
+      "consoleUrl": "https://console.apify.com/actors/vqXJbnxImRSbHx5Ez",
+      "status": "LIVE, monetization Active from day one",
+      "pricing": { "model": "pay-per-event", "event": "review", "priceUsd": 0.002 },
+      "verified": "local apify run (240 reviews, both apps, de-locale guard) + cloud run Succeeded (80 reviews in platform dataset). Fixed two upstream google-play-scraper bugs (hero-hit appId=None recovery; locale TypeError guard) and made dataset fields nullable (cloud validates pushed items against the schema; nulls in title/reply fields failed the first cloud run)."
+    },
+    {
+      "actor": "website-contact-scraper",
+      "storeUrl": "https://apify.com/goodnight-dreams/website-contact-scraper",
+      "consoleUrl": "https://console.apify.com/actors/SG6VmelhLK6jntzdO",
+      "status": "LIVE, monetization Active from day one",
+      "pricing": { "model": "pay-per-event", "event": "site", "priceUsd": 0.005, "note": "charged only on success:true records" },
+      "verified": "local + cloud run Succeeded (real emails/phones/socials for apify.com, allbirds.com, python.org; dead-domain row with success:false). Builder eliminated three phone false-positive classes with evidence (svg path data, Shopify variant IDs, UUID filename slices)."
+    },
+    {
+      "actor": "trustpilot-reviews",
+      "storeUrl": "https://apify.com/goodnight-dreams/trustpilot-reviews (NOT LIVE YET)",
+      "consoleUrl": "https://console.apify.com/actors/Sev8oLpc7IIOzX1gm",
+      "status": "PUBLICATION PENDING: Apify allows 5 Actor publications per day and this was the 6th. Monetization already Active ($2/1k review), icon uploaded, all checks green. ONE remaining step: open the console URL -> Publishing tab -> Publish on Store, after ~2026-09-16 21:00 PT.",
+      "pricing": { "model": "pay-per-event", "event": "review", "priceUsd": 0.002 },
+      "verified": "Playwright-based (Trustpilot sits behind an AWS WAF JS challenge; plain httpx gets 403 forever — headless Chromium auto-solves it). Local run: 120 real reviews + 2 companies. Cloud run Succeeded from Apify datacenter IPs: 40 Monzo reviews + TrustScore 4.6."
+    }
+  ],
   "earned": 0,
-  "blocked": [],
+  "blocked": [
+    {
+      "item": "trustpilot-reviews final Publish on Store click",
+      "why": "Daily publication limit (5/day) hit on 2026-09-15",
+      "action": "Anyone with the console session: actor page -> Publishing -> Publish on Store, after the 24h window. Everything else is already configured."
+    }
+  ],
   "notes": [
     "Daily auto-test: Apify runs each published actor with its default input every day; 3 failed days in a row marks it 'under maintenance'. Default inputs are prefills (310633997/Notion, allbirds.com, Phoenix plumber+electrician) and all return non-empty datasets in seconds.",
     "All three pay-per-event prices became active immediately on September 16, 2026 UTC (September 15 Pacific), confirmed through authenticated API reads. The wizard preview showed a generic 14-day notice, but the saved pricing records have current start times.",

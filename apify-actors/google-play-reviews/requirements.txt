@@ -1,0 +1,2 @@
+apify>=2.0
+google-play-scraper>=1.2

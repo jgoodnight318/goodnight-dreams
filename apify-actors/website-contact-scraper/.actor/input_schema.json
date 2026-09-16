@@ -1,0 +1,23 @@
+{
+  "title": "Website Contact Scraper input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "websites": {
+      "title": "Websites",
+      "type": "array",
+      "description": "List of websites to scan for contact details. Domain or full URL, with or without scheme (e.g. \"apify.com\" or \"https://apify.com\").",
+      "editor": "stringList",
+      "prefill": ["apify.com", "allbirds.com"]
+    },
+    "maxExtraPages": {
+      "title": "Max extra pages per site",
+      "type": "integer",
+      "description": "How many additional same-domain pages to fetch beyond the homepage, chosen from links whose URL or text looks like contact, about, impressum, team, support or kontakt.",
+      "default": 3,
+      "minimum": 0,
+      "maximum": 10
+    }
+  },
+  "required": ["websites"]
+}

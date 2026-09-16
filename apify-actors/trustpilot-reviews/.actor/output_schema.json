@@ -1,0 +1,13 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "title": "Trustpilot Reviews Scraper output",
+  "type": "object",
+  "properties": {
+    "reviews": {
+      "type": "string",
+      "title": "Reviews",
+      "description": "Dataset with one record per review, plus one metadata record per company.",
+      "template": "{{actorRun.defaultDatasetUrl}}?format=json&view=overview"
+    }
+  }
+}
