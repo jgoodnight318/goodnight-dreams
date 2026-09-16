@@ -1,0 +1,13 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "title": "Local Business Finder output",
+  "type": "object",
+  "properties": {
+    "businesses": {
+      "type": "string",
+      "title": "Businesses",
+      "description": "Dataset with one record per business, deduplicated by phone number.",
+      "template": "{{actorRun.defaultDatasetUrl}}?format=json&view=overview"
+    }
+  }
+}

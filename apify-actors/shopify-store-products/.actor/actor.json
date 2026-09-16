@@ -12,17 +12,191 @@
     "dataset": {
       "actorSpecification": 1,
       "title": "Products",
+      "fields": {
+        "type": "object",
+        "properties": {
+          "store": {
+            "type": "string",
+            "description": "Store domain",
+            "example": "allbirds.com"
+          },
+          "productId": {
+            "type": "integer",
+            "description": "Shopify product ID"
+          },
+          "title": {
+            "type": "string",
+            "description": "Product title"
+          },
+          "handle": {
+            "type": "string",
+            "description": "Product handle (URL slug)"
+          },
+          "url": {
+            "type": "string",
+            "description": "Product page URL"
+          },
+          "vendor": {
+            "type": "string",
+            "description": "Vendor / brand"
+          },
+          "productType": {
+            "type": "string",
+            "description": "Product type as set by the store"
+          },
+          "tags": {
+            "type": [
+              "array",
+              "string"
+            ],
+            "description": "Product tags"
+          },
+          "priceMin": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Lowest variant price"
+          },
+          "priceMax": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Highest variant price"
+          },
+          "available": {
+            "type": "boolean",
+            "description": "Any variant in stock"
+          },
+          "images": {
+            "type": "array",
+            "description": "Image URLs",
+            "items": {
+              "type": "string"
+            }
+          },
+          "options": {
+            "type": "array",
+            "description": "Option names (e.g. Size, Color)",
+            "items": {
+              "type": "string"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Product created timestamp"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Product updated timestamp"
+          },
+          "publishedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Product published timestamp"
+          },
+          "variants": {
+            "type": "array",
+            "description": "Variants (per-product mode)",
+            "items": {
+              "type": "object"
+            }
+          },
+          "variantId": {
+            "type": "integer",
+            "description": "Variant ID (flattenVariants mode)"
+          },
+          "variantTitle": {
+            "type": "string",
+            "description": "Variant title (flattenVariants mode)"
+          },
+          "sku": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Variant SKU (flattenVariants mode)"
+          },
+          "price": {
+            "type": "string",
+            "description": "Variant price (flattenVariants mode)"
+          },
+          "compareAtPrice": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Compare-at price (flattenVariants mode)"
+          },
+          "grams": {
+            "type": "integer",
+            "description": "Variant weight in grams (flattenVariants mode)"
+          },
+          "requiresShipping": {
+            "type": "boolean",
+            "description": "Variant requires shipping (flattenVariants mode)"
+          }
+        },
+        "required": [
+          "store",
+          "productId",
+          "title"
+        ]
+      },
       "views": {
         "overview": {
           "title": "Overview",
-          "transformation": { "fields": ["store", "title", "vendor", "productType", "priceMin", "priceMax", "available", "url"] },
-          "display": { "component": "table", "properties": {
-            "store": { "label": "Store" }, "title": { "label": "Product" }, "vendor": { "label": "Vendor" },
-            "productType": { "label": "Type" }, "priceMin": { "label": "Price from", "format": "number" },
-            "priceMax": { "label": "Price to", "format": "number" }, "available": { "label": "In stock", "format": "boolean" },
-            "url": { "label": "URL", "format": "link" } } }
+          "transformation": {
+            "fields": [
+              "store",
+              "title",
+              "vendor",
+              "productType",
+              "priceMin",
+              "priceMax",
+              "available",
+              "url"
+            ]
+          },
+          "display": {
+            "component": "table",
+            "properties": {
+              "store": {
+                "label": "Store"
+              },
+              "title": {
+                "label": "Product"
+              },
+              "vendor": {
+                "label": "Vendor"
+              },
+              "productType": {
+                "label": "Type"
+              },
+              "priceMin": {
+                "label": "Price from",
+                "format": "number"
+              },
+              "priceMax": {
+                "label": "Price to",
+                "format": "number"
+              },
+              "available": {
+                "label": "In stock",
+                "format": "boolean"
+              },
+              "url": {
+                "label": "URL",
+                "format": "link"
+              }
+            }
+          }
         }
       }
     }
-  }
+  },
+  "output": "./output_schema.json"
 }

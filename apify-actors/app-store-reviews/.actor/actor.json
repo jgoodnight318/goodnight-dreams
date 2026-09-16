@@ -12,15 +12,159 @@
     "dataset": {
       "actorSpecification": 1,
       "title": "Reviews",
+      "fields": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Record type: review or app",
+            "example": "review"
+          },
+          "appId": {
+            "type": "string",
+            "description": "App Store ID of the app",
+            "example": "310633997"
+          },
+          "country": {
+            "type": "string",
+            "description": "Two-letter storefront code",
+            "example": "us"
+          },
+          "reviewId": {
+            "type": "string",
+            "description": "Stable review ID for deduplication"
+          },
+          "rating": {
+            "type": "integer",
+            "description": "Star rating 1-5",
+            "example": 5
+          },
+          "title": {
+            "type": "string",
+            "description": "Review title"
+          },
+          "content": {
+            "type": "string",
+            "description": "Review text"
+          },
+          "author": {
+            "type": "string",
+            "description": "Reviewer's display name"
+          },
+          "version": {
+            "type": "string",
+            "description": "App version the review refers to"
+          },
+          "updated": {
+            "type": "string",
+            "description": "Review timestamp (ISO 8601)"
+          },
+          "voteSum": {
+            "type": "string",
+            "description": "Helpfulness vote sum"
+          },
+          "voteCount": {
+            "type": "string",
+            "description": "Helpfulness vote count"
+          },
+          "name": {
+            "type": "string",
+            "description": "App name (app records only)"
+          },
+          "developer": {
+            "type": "string",
+            "description": "Developer name (app records only)"
+          },
+          "price": {
+            "type": "number",
+            "description": "App price (app records only)"
+          },
+          "currency": {
+            "type": "string",
+            "description": "Price currency (app records only)"
+          },
+          "averageRating": {
+            "type": "number",
+            "description": "Average user rating (app records only)"
+          },
+          "ratingCount": {
+            "type": "integer",
+            "description": "Total rating count (app records only)"
+          },
+          "currentVersion": {
+            "type": "string",
+            "description": "Latest app version (app records only)"
+          },
+          "releaseNotes": {
+            "type": "string",
+            "description": "Latest release notes (app records only)"
+          },
+          "genres": {
+            "type": "array",
+            "description": "App genres (app records only)",
+            "items": {
+              "type": "string"
+            }
+          },
+          "url": {
+            "type": "string",
+            "description": "App Store URL (app records only)"
+          },
+          "minimumOs": {
+            "type": "string",
+            "description": "Minimum OS version (app records only)"
+          },
+          "contentRating": {
+            "type": "string",
+            "description": "Content advisory rating (app records only)"
+          }
+        },
+        "required": [
+          "type",
+          "appId",
+          "country"
+        ]
+      },
       "views": {
         "overview": {
           "title": "Overview",
-          "transformation": { "fields": ["appId", "country", "rating", "title", "author", "version", "updated", "content"] },
-          "display": { "component": "table", "properties": {
-            "rating": { "label": "Rating", "format": "number" }, "title": { "label": "Title" }, "content": { "label": "Review" },
-            "version": { "label": "Version" }, "updated": { "label": "Date", "format": "date" } } }
+          "transformation": {
+            "fields": [
+              "appId",
+              "country",
+              "rating",
+              "title",
+              "author",
+              "version",
+              "updated",
+              "content"
+            ]
+          },
+          "display": {
+            "component": "table",
+            "properties": {
+              "rating": {
+                "label": "Rating",
+                "format": "number"
+              },
+              "title": {
+                "label": "Title"
+              },
+              "content": {
+                "label": "Review"
+              },
+              "version": {
+                "label": "Version"
+              },
+              "updated": {
+                "label": "Date",
+                "format": "date"
+              }
+            }
+          }
         }
       }
     }
-  }
+  },
+  "output": "./output_schema.json"
 }

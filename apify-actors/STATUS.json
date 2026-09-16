@@ -1,0 +1,51 @@
+{
+  "lane": "apify-actors",
+  "updated": "2026-09-15T21:00:00-07:00",
+  "account": {
+    "username": "goodnight-dreams",
+    "signIn": "Google OAuth (jms.goodnight@gmail.com), no password set",
+    "plan": "Free ($5/mo platform credit)",
+    "cliLoggedInOn": "mini (token in OS keyring via apify login)"
+  },
+  "live": [
+    {
+      "actor": "app-store-reviews",
+      "storeUrl": "https://apify.com/goodnight-dreams/app-store-reviews",
+      "consoleUrl": "https://console.apify.com/actors/v9Q4IQw7JIaZGrpDS",
+      "verified": "local apify run + cloud run Succeeded against live App Store (name search, ID lookup, 3-page pagination, macSoftware, us/gb storefronts)",
+      "intendedPricing": { "model": "pay-per-event", "event": "review", "price": 0.002 }
+    },
+    {
+      "actor": "shopify-store-products",
+      "storeUrl": "https://apify.com/goodnight-dreams/shopify-store-products",
+      "consoleUrl": "https://console.apify.com/actors/rmgm0gqLSnplW6r3D",
+      "verified": "local + cloud run Succeeded against live allbirds.com (catalog, collectionHandle=mens, flattenVariants=134 records, graceful non-Shopify skip)",
+      "intendedPricing": { "model": "pay-per-event", "event": "product", "price": 0.001 }
+    },
+    {
+      "actor": "local-business-finder",
+      "storeUrl": "https://apify.com/goodnight-dreams/local-business-finder",
+      "consoleUrl": "https://console.apify.com/actors/K7wxrq12dY0Lzn9cl",
+      "verified": "local + cloud run Succeeded against live Overpass (Phoenix plumber+dentist: 43 unique-phone records, 13 with email; Denver cloud run)",
+      "intendedPricing": { "model": "pay-per-event", "event": "business", "price": 0.005 }
+    }
+  ],
+  "earned": 0,
+  "blocked": [
+    {
+      "item": "Pay-per-event pricing not yet enabled on any actor",
+      "why": "Apify requires billing details + a payment method on the account before 'Set up monetization' unlocks. Entering payment details is James-personal.",
+      "action": "James: console.apify.com/billing -> add billing details + card, then each actor -> Publishing tab -> Monetization -> Set up monetization -> pay-per-event with the event names/prices in this file (they must match the Actor.charge event names in code: review/product/business).",
+      "urgency": "Monetization changes take 14 days to take effect AFTER being set, so every day of delay is a day of free usage. Do this first."
+    },
+    {
+      "item": "Payout details (bank/PayPal + tax) for actor earnings",
+      "why": "Needed before Apify can pay out accumulated earnings; also James-personal.",
+      "action": "Same billing/payout section in the console."
+    }
+  ],
+  "notes": [
+    "Daily auto-test: Apify runs each published actor with its default input every day; 3 failed days in a row marks it 'under maintenance'. Default inputs are prefills (310633997/Notion, allbirds.com, Phoenix plumber+electrician) and all return non-empty datasets in seconds.",
+    "Rental pricing ends platform-wide 2026-09-30; these actors were built for pay-per-event from day one."
+  ]
+}

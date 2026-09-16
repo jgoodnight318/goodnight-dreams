@@ -2,7 +2,7 @@
   "actorSpecification": 1,
   "name": "local-business-finder",
   "title": "Local Business Finder (phone, website, email)",
-  "description": "Find local businesses in any city by category — plumbers, dentists, restaurants, gyms, lawyers and 30+ more — with phone, website, email, address and coordinates from OpenStreetMap. Free public data, deduplicated by phone number, ready for CRM import and outreach lists.",
+  "description": "Find local businesses in any city by category \u2014 plumbers, dentists, restaurants, gyms, lawyers and 30+ more \u2014 with phone, website, email, address and coordinates from OpenStreetMap. Free public data, deduplicated by phone number, ready for CRM import and outreach lists.",
   "version": "0.1",
   "buildTag": "latest",
   "input": "./input_schema.json",
@@ -12,16 +12,113 @@
     "dataset": {
       "actorSpecification": 1,
       "title": "Businesses",
+      "fields": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Business name",
+            "example": "Sunrise Plumbing"
+          },
+          "category": {
+            "type": "string",
+            "description": "Search category",
+            "example": "plumber"
+          },
+          "city": {
+            "type": "string",
+            "description": "City searched",
+            "example": "Phoenix"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number (normalized digits, deduplication key)"
+          },
+          "website": {
+            "type": "string",
+            "description": "Website URL if listed"
+          },
+          "email": {
+            "type": "string",
+            "description": "Contact email if listed"
+          },
+          "address": {
+            "type": "string",
+            "description": "Street address composed from OSM addr:* tags"
+          },
+          "latitude": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Latitude"
+          },
+          "longitude": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Longitude"
+          },
+          "openingHours": {
+            "type": "string",
+            "description": "Opening hours in OSM format if listed"
+          },
+          "osmId": {
+            "type": "string",
+            "description": "OpenStreetMap element ID (type/id)"
+          }
+        },
+        "required": [
+          "name",
+          "category",
+          "city"
+        ]
+      },
       "views": {
         "overview": {
           "title": "Overview",
-          "transformation": { "fields": ["name", "category", "city", "phone", "website", "email", "address"] },
-          "display": { "component": "table", "properties": {
-            "name": { "label": "Business" }, "category": { "label": "Category" }, "city": { "label": "City" },
-            "phone": { "label": "Phone" }, "website": { "label": "Website", "format": "link" },
-            "email": { "label": "Email" }, "address": { "label": "Address" } } }
+          "transformation": {
+            "fields": [
+              "name",
+              "category",
+              "city",
+              "phone",
+              "website",
+              "email",
+              "address"
+            ]
+          },
+          "display": {
+            "component": "table",
+            "properties": {
+              "name": {
+                "label": "Business"
+              },
+              "category": {
+                "label": "Category"
+              },
+              "city": {
+                "label": "City"
+              },
+              "phone": {
+                "label": "Phone"
+              },
+              "website": {
+                "label": "Website",
+                "format": "link"
+              },
+              "email": {
+                "label": "Email"
+              },
+              "address": {
+                "label": "Address"
+              }
+            }
+          }
         }
       }
     }
-  }
+  },
+  "output": "./output_schema.json"
 }
