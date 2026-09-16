@@ -1,0 +1,20 @@
+{
+  "business": "Harvey's Auto Service",
+  "verified": "2026-09-16",
+  "claims": {
+    "name": { "value": "Harvey's Auto Service", "source": "OSM tag + Yelp + Groupon + Puget Sound Consumers' Checkbook listings" },
+    "phone": { "value": "(206) 782-6686", "source": "OSM phone tag; matches Yelp, Groupon, Checkbook, and Nextdoor listings for the 9221 Holman Rd NW location specifically" },
+    "address": { "value": "9221 Holman Rd NW, Seattle, WA 98117", "source": "OSM addr tag; matches Yelp, Groupon, Checkbook listings" },
+    "rating": { "value": "90% of customers gave a \"superior\" overall rating, based on 29-30 ratings; Checkbook's Top Rating for both Quality and Price", "source": "Puget Sound Consumers' Checkbook (checkbook.org/wa/seattle/auto-repair-shops/harvey-s-auto-service/roz2o), direct fetch, September 2026" },
+    "priceComparison": { "value": "Prices 23% lower than the Seattle-area average", "source": "Puget Sound Consumers' Checkbook, same listing, direct fetch" },
+    "services": { "value": "Service and repair on all makes of cars and light-to-medium-duty trucks (brakes, tune-ups, timing belts, exhaust)", "source": "Checkbook and Groupon listing descriptions" },
+    "noWebsite": { "value": true, "source": "Live web search 2026-09-16 (multiple queries plus direct domain checks): only directory/listing results found (Yelp, Groupon, Nextdoor, Checkbook, Yellow Pages, AutoCodes, CitySquares, CMac.ws, hub.biz); no first-party domain found for this specific location" }
+  },
+  "removedAsUnsourced": [
+    "Founding year -- sources conflict (one directory says 1946, another says 1954) with no way to directly confirm either via a fetchable primary source; no founding year is shown on the page",
+    "\"4.9 stars, 49 reviews on Google\" -- surfaced only in an AI search summary that could not be corroborated by directly fetching a source page; not used",
+    "technician first names 'Mike' and 'Fred' (mentioned in customer reviews) -- used for internal context only, not shown on the page",
+    "signed first-person quote attribution"
+  ],
+  "note": "IMPORTANT name-collision caution: at least two other, unrelated 'Harvey's Auto Service' businesses exist in the greater Seattle area -- one in Kirkland/Redmond (1015 7th Ave, phone 425-881-1658 / 425-472-8575, WITH first-party websites harveyautoservice.com and harveysautoservicewa.com) and one in Shoreline (14501 15th Ave NE, phone 206-368-0980, 14 years in business). Both were directly checked and confirmed to be different businesses (different phone numbers and addresses) from our target at 9221 Holman Rd NW. Do not conflate facts across these three when reusing this data."
+}
