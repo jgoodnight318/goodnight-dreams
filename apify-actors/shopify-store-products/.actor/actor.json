@@ -1,0 +1,28 @@
+{
+  "actorSpecification": 1,
+  "name": "shopify-store-products",
+  "title": "Shopify Store Products Scraper",
+  "description": "Export every product from any Shopify store as clean JSON: title, vendor, price range, availability, images, tags and all variants with SKUs. Works on the store's public catalog, no login or API key. Optionally scrape a single collection or flatten to one row per variant.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "storages": {
+    "dataset": {
+      "actorSpecification": 1,
+      "title": "Products",
+      "views": {
+        "overview": {
+          "title": "Overview",
+          "transformation": { "fields": ["store", "title", "vendor", "productType", "priceMin", "priceMax", "available", "url"] },
+          "display": { "component": "table", "properties": {
+            "store": { "label": "Store" }, "title": { "label": "Product" }, "vendor": { "label": "Vendor" },
+            "productType": { "label": "Type" }, "priceMin": { "label": "Price from", "format": "number" },
+            "priceMax": { "label": "Price to", "format": "number" }, "available": { "label": "In stock", "format": "boolean" },
+            "url": { "label": "URL", "format": "link" } } }
+        }
+      }
+    }
+  }
+}

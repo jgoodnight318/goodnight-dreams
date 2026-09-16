@@ -1,0 +1,27 @@
+{
+  "actorSpecification": 1,
+  "name": "local-business-finder",
+  "title": "Local Business Finder (phone, website, email)",
+  "description": "Find local businesses in any city by category — plumbers, dentists, restaurants, gyms, lawyers and 30+ more — with phone, website, email, address and coordinates from OpenStreetMap. Free public data, deduplicated by phone number, ready for CRM import and outreach lists.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "storages": {
+    "dataset": {
+      "actorSpecification": 1,
+      "title": "Businesses",
+      "views": {
+        "overview": {
+          "title": "Overview",
+          "transformation": { "fields": ["name", "category", "city", "phone", "website", "email", "address"] },
+          "display": { "component": "table", "properties": {
+            "name": { "label": "Business" }, "category": { "label": "Category" }, "city": { "label": "City" },
+            "phone": { "label": "Phone" }, "website": { "label": "Website", "format": "link" },
+            "email": { "label": "Email" }, "address": { "label": "Address" } } }
+        }
+      }
+    }
+  }
+}

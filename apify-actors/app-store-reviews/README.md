@@ -20,5 +20,5 @@ Pay per event: **$0.002 per review** ($2 per 1,000). App metadata records are fr
 
 ## Example input
 ```json
-{ "apps": ["6737164760", "Notion"], "countries": ["us", "gb"], "maxReviewsPerApp": 200 }
+{ "apps": ["310633997", "Notion"], "countries": ["us", "gb"], "maxReviewsPerApp": 200 }
 ```

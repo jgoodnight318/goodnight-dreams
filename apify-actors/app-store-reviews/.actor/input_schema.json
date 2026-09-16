@@ -8,7 +8,7 @@
       "type": "array",
       "description": "App Store IDs (numbers like 6737164760) or app names to search for. Names resolve to the top search result.",
       "editor": "stringList",
-      "prefill": ["6737164760"]
+      "prefill": ["310633997", "Notion"]
     },
     "countries": {
       "title": "Country storefronts",
@@ -21,6 +21,7 @@
     "platform": {
       "title": "Platform for name search",
       "type": "string",
+      "description": "Which store to search when an app is given by name instead of ID.",
       "enum": ["software", "macSoftware"],
       "enumTitles": ["iOS / iPadOS", "Mac"],
       "default": "software"

@@ -1,0 +1,48 @@
+{
+  "title": "Local Business Finder input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "city": {
+      "title": "City",
+      "type": "string",
+      "description": "City name as it appears on the map, e.g. Phoenix, Manchester, Berlin. Matched against the city's administrative boundary.",
+      "editor": "textfield",
+      "prefill": "Phoenix"
+    },
+    "categories": {
+      "title": "Categories",
+      "type": "array",
+      "description": "One or more business categories to search.",
+      "editor": "select",
+      "items": {
+        "type": "string",
+        "enum": ["plumber", "electrician", "hvac", "roofer", "locksmith", "landscaper", "painter", "carpenter", "dentist", "doctor", "vet", "chiropractor", "physiotherapist", "optician", "pharmacy", "restaurant", "cafe", "bar", "bakery", "hairdresser", "beauty_salon", "tattoo", "gym", "auto_repair", "car_wash", "car_dealer", "lawyer", "accountant", "insurance", "real_estate", "hotel", "florist", "laundry"],
+        "enumTitles": ["Plumber", "Electrician", "HVAC", "Roofer", "Locksmith", "Landscaper", "Painter", "Carpenter", "Dentist", "Doctor", "Veterinarian", "Chiropractor", "Physiotherapist", "Optician", "Pharmacy", "Restaurant", "Cafe", "Bar", "Bakery", "Hairdresser", "Beauty salon", "Tattoo studio", "Gym / fitness", "Auto repair", "Car wash", "Car dealer", "Lawyer", "Accountant", "Insurance agency", "Real estate agency", "Hotel", "Florist", "Laundry / dry cleaning"]
+      },
+      "prefill": ["plumber", "electrician"]
+    },
+    "requirePhone": {
+      "title": "Only businesses with a phone number",
+      "type": "boolean",
+      "description": "Return only businesses that list a phone number (best for call/SMS outreach). Turn off to also get businesses with just a website or address.",
+      "default": true
+    },
+    "maxPerCategory": {
+      "title": "Max results per category",
+      "type": "integer",
+      "description": "Cap on results per category for one city.",
+      "default": 200,
+      "minimum": 1,
+      "maximum": 2000
+    },
+    "overpassUrl": {
+      "title": "Overpass endpoint (advanced)",
+      "type": "string",
+      "description": "Alternative Overpass API endpoint, e.g. a private instance. Leave empty for the public one.",
+      "editor": "textfield",
+      "nullable": true
+    }
+  },
+  "required": ["city", "categories"]
+}
