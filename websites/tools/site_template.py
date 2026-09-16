@@ -300,7 +300,7 @@ Yours to keep: <a href="mailto:jms.goodnight@gmail.com?subject=$mailto_subject">
 <main id="top">
   <div class="door">
     <div class="doorframe panel">
-      <span class="rivet tl"></span><span class="rivet tr"></span>
+      <span class="rivet tl"></span><span class="rivet tr"></span><span class="rivet bl"></span><span class="rivet br"></span>
       <h1>$hero_line1<span class="second">$hero_line2</span></h1>
       <svg class="arc" viewBox="0 0 560 110" role="img" aria-label="$arc_aria">
         <path id="arcpath-$slug" d="M 30 96 Q 280 18 530 96" fill="none"/>
