@@ -56,6 +56,13 @@ ICONS = {
     "prep": _svg('<rect x="4" y="3" width="16" height="18" rx="1.5"/><line x1="8" y1="8" x2="16" y2="8"/>'
                  '<line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/>'),
     "clock": _svg('<circle cx="12" cy="12" r="8.5"/><polyline points="12 7 12 12 15.5 14"/>'),
+    # Mobile diesel / fleet
+    "truck": _svg('<rect x="1" y="9" width="11" height="7" rx="1"/><path d="M12 12h5l4 3v1h-9"/>'
+                  '<circle cx="6" cy="18" r="1.7"/><circle cx="17" cy="18" r="1.7"/>'),
+    "map-pin": _svg('<path d="M12 21s7-7.5 7-12.5A7 7 0 0 0 5 8.5C5 13.5 12 21 12 21z"/><circle cx="12" cy="8.5" r="2.3"/>'),
+    "diagnostic": _svg('<rect x="2" y="4" width="20" height="13" rx="1.5"/><path d="M2 17h20"/>'
+                       '<path d="M6 20h12"/><path d="M6 9l3 3 3-4 3 3 3-3"/>'),
+    "box": _svg('<path d="M3 8l9-4 9 4-9 4-9-4z"/><path d="M3 8v9l9 4V12"/><path d="M21 8v9l-9 4V12"/>'),
 }
 
 
