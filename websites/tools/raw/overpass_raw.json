@@ -1,0 +1,16 @@
+[
+  {
+    "name": "4th Systems",
+    "trade": "electrician",
+    "city": "Seattle",
+    "state": "WA",
+    "phone": "+12068672800",
+    "email": "info@4thsystems.com",
+    "addr": "11235 26th Avenue Southwest",
+    "lat": 47.5018317,
+    "lon": -122.3661683,
+    "osm_id": "node/13414445166",
+    "source_method": "overpass",
+    "source_city": "Seattle"
+  }
+]

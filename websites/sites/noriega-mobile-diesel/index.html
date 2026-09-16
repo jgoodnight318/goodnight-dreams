@@ -133,7 +133,16 @@ a { color: var(--cream); }
 .rivet { position: absolute; width: 11px; height: 11px; border-radius: 50%;
   background: radial-gradient(circle at 35% 30%, #e8d9ae, var(--gold-dim) 70%, #5c4d27);
   box-shadow: 0 1px 2px rgba(0,0,0,.5); }
-.doorframe { position: relative; }
+.doorframe { position: relative; isolation: isolate; }
+.door-photo { position: absolute; inset: 0; z-index: 0; }
+.door-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.door-photo::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(6,13,22,.32) 0%, rgba(13,26,44,.72) 48%, rgba(13,26,44,.92) 100%),
+    radial-gradient(120% 90% at 30% 0%, rgba(27,50,82,.35) 0%, rgba(13,26,44,.55) 70%);
+}
+.doorframe h1, .doorframe > .arc, .doorframe > .since { position: relative; z-index: 1; }
 .rivet.tl { top: 12px; left: 12px; } .rivet.tr { top: 12px; right: 12px; }
 .rivet.bl { bottom: 12px; left: 12px; } .rivet.br { bottom: 12px; right: 12px; }
 
@@ -293,6 +302,7 @@ Yours to keep: <a href="mailto:jms.goodnight@gmail.com?subject=Noriega+Mobile+Di
 <main id="top">
   <div class="door">
     <div class="doorframe panel">
+      <div class="door-photo"><img src="images/auto-900.jpg" srcset="images/auto-900.jpg 900w, images/auto.jpg 1243w" sizes="(max-width: 1060px) 100vw, 1060px" width="1243" height="768" alt="Auto mechanic at work" loading="eager" fetchpriority="high"></div>
       <span class="rivet tl"></span><span class="rivet tr"></span><span class="rivet bl"></span><span class="rivet br"></span>
       <h1>NORIEGA<span class="second">MOBILE DIESEL</span></h1>
       <svg class="arc" viewBox="0 0 560 110" role="img" aria-label="Sacramento, California — mobile diesel truck and trailer repair">

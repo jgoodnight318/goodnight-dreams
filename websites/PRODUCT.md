@@ -21,8 +21,16 @@ Two audiences, one page:
 - Input per site: one prospect record from our lead pipeline (name, trade, city, phone,
   hours, coordinates/address when present) plus whatever is verifiable publicly (Google
   reviews count/rating when we can source it). NEVER invent facts: no fake reviews, fake
-  years-in-business, fake licenses, fake photos of "the team". If a trust element isn't
-  sourced, the design must earn trust without it.
+  years-in-business, fake licenses, fake photos of "the team" presented as real. If a
+  trust element isn't sourced, the design must earn trust without it.
+- Scoped exception, decided 2026-09-16: SPEC PREVIEW sites may carry one hero photo from
+  the approved, AI-generated placeholder set in `websites/assets/heroes/`, chosen by the
+  business's trade (plumber, electrician, auto/car_repair/tint/wraps/diesel/performance,
+  pet grooming; other trades keep the photo-free hero). This is not a trust element and
+  makes no factual claim: it is a clearly generic stand-in for "a photo of this trade,"
+  never presented as this business's real staff, truck, or shop, and it is replaced by
+  the client's own photos the moment the site goes live. It does not relax the
+  no-invented-facts rule anywhere else on the page.
 - Output: static HTML/CSS (+ minimal JS), one page, self-contained, deployed to Vercel
   as <business-slug>.vercel.app previews. Custom domain happens only after purchase.
 - Mobile-first is not a preference, it's the product: the paying visitor is on a phone.

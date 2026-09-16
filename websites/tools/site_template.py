@@ -26,6 +26,70 @@ FONT_CSS = """@font-face { font-family: 'Alfa Slab One'; src: url('fonts/AlfaSla
 @font-face { font-family: 'Barlow Semi Condensed'; src: url('fonts/BarlowSemiCondensed-500.woff2') format('woff2'); font-weight: 500; font-display: swap; }
 @font-face { font-family: 'Barlow Semi Condensed'; src: url('fonts/BarlowSemiCondensed-600.woff2') format('woff2'); font-weight: 600; font-display: swap; }"""
 
+# Hero placeholder photo system -- see DESIGN.md "Signature Component: Doorframe
+# Hero Photo". Approved set lives in websites/assets/heroes/ (AI-generated, generic,
+# uniform patches/name tags blurred). One photo per SPEC PREVIEW site, chosen by
+# trade; a trade with no mapped photo keeps the original photo-free doorframe.
+HERO_PHOTO_DIMS = {
+    "plumber": (1109, 768),
+    "electrician": (1330, 768),
+    "auto": (1243, 768),
+    "pet": (1268, 692),
+}
+HERO_PHOTO_ALT = {
+    "plumber": "Plumber at work",
+    "electrician": "Electrician at work",
+    "auto": "Auto mechanic at work",
+    "pet": "Pet groomer at work",
+}
+# trade string (lowercased, spaces/hyphens normalized to "_") -> hero photo basename
+HERO_PHOTO_TRADES = {
+    "plumber": "plumber",
+    "plumbing": "plumber",
+    "electrician": "electrician",
+    "electrical": "electrician",
+    "car_repair": "auto",
+    "auto": "auto",
+    "auto_repair": "auto",
+    "tint": "auto",
+    "window_tint": "auto",
+    "wraps": "auto",
+    "vehicle_wraps": "auto",
+    "diesel": "auto",
+    "mobile_diesel": "auto",
+    "performance": "auto",
+    "pet_grooming": "pet",
+    "pet_groomer": "pet",
+}
+
+
+def hero_photo_for_trade(trade):
+    """Map a free-text trade to a hero-photo basename, or None. Trades with no
+    approved placeholder (hvac, roofing, landscaping, etc.) return None and the
+    site keeps the existing photo-free doorframe -- this is the expected, common
+    case, not a fallback error."""
+    if not trade:
+        return None
+    key = re.sub(r"[\s-]+", "_", trade.strip().lower())
+    return HERO_PHOTO_TRADES.get(key)
+
+
+def hero_photo_html(base):
+    """Render the door-photo markup for an approved hero-photo basename, or ''
+    when base is None (photo-free doorframe, unchanged from the SYSTEM default)."""
+    if not base:
+        return ""
+    if base not in HERO_PHOTO_DIMS:
+        raise ValueError(f"unknown hero photo basename: {base!r}")
+    w, h = HERO_PHOTO_DIMS[base]
+    alt = esc(HERO_PHOTO_ALT[base])
+    return (
+        f'<div class="door-photo"><img src="images/{base}-900.jpg" '
+        f'srcset="images/{base}-900.jpg 900w, images/{base}.jpg {w}w" '
+        f'sizes="(max-width: 1060px) 100vw, 1060px" '
+        f'width="{w}" height="{h}" alt="{alt}" loading="eager" fetchpriority="high"></div>'
+    )
+
 PAGE = Template(r"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -140,9 +204,22 @@ a { color: var(--cream); }
 .rivet { position: absolute; width: 11px; height: 11px; border-radius: 50%;
   background: radial-gradient(circle at 35% 30%, #e8d9ae, var(--gold-dim) 70%, #5c4d27);
   box-shadow: 0 1px 2px rgba(0,0,0,.5); }
-.doorframe { position: relative; }
+.doorframe { position: relative; isolation: isolate; }
 .rivet.tl { top: 12px; left: 12px; } .rivet.tr { top: 12px; right: 12px; }
 .rivet.bl { bottom: 12px; left: 12px; } .rivet.br { bottom: 12px; right: 12px; }
+/* Hero placeholder photo (SPEC PREVIEW only, replaced by the client's own photos at
+   launch) -- full-bleed behind the doorframe panel, dark enamel gradient on top so
+   the lettering, arc tagline and orange call panel keep contrast. Absent entirely
+   (no .door-photo node) on trades with no approved placeholder. */
+.door-photo { position: absolute; inset: 0; z-index: 0; }
+.door-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.door-photo::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(6,13,22,.32) 0%, rgba(13,26,44,.72) 48%, rgba(13,26,44,.92) 100%),
+    radial-gradient(120% 90% at 30% 0%, rgba(27,50,82,.35) 0%, rgba(13,26,44,.55) 70%);
+}
+.doorframe h1, .doorframe > .arc, .doorframe > .since { position: relative; z-index: 1; }
 
 h1 {
   font-family: var(--display); font-weight: 400;
@@ -300,6 +377,7 @@ Yours to keep: <a href="mailto:jms.goodnight@gmail.com?subject=$mailto_subject">
 <main id="top">
   <div class="door">
     <div class="doorframe panel">
+      $door_photo_html
       <span class="rivet tl"></span><span class="rivet tr"></span><span class="rivet bl"></span><span class="rivet br"></span>
       <h1>$hero_line1<span class="second">$hero_line2</span></h1>
       <svg class="arc" viewBox="0 0 560 110" role="img" aria-label="$arc_aria">
@@ -460,6 +538,13 @@ def render_site(cfg):
     ctx.setdefault("directions_link", "")
     if "directions_query" in cfg and not ctx.get("directions_link"):
         ctx["directions_link"] = f'<a href="https://maps.google.com/?q={cfg["directions_query"]}">Get directions →</a>'
+
+    # Hero placeholder photo: cfg["hero_photo"] names an approved basename directly
+    # (e.g. "electrician"); otherwise it's derived from cfg["trade"]. Most trades
+    # (hvac, roofing, landscaping, ...) map to None and get no photo -- unchanged
+    # doorframe, not an error.
+    hero_base = cfg.get("hero_photo") or hero_photo_for_trade(cfg.get("trade"))
+    ctx["door_photo_html"] = hero_photo_html(hero_base)
 
     out = PAGE.substitute(ctx)
     return out
