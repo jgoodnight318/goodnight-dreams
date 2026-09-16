@@ -1,0 +1,21 @@
+{
+  "business": "Greer's Temptrol, Ltd.",
+  "verified": "2026-09-16",
+  "claims": {
+    "name": { "value": "Greer's Temptrol", "source": "OSM tag + BBB + CCB Lookup + Yelp + BuildZoom listings (legal name 'Greer's Temptrol, Ltd.' per BBB/CCB)" },
+    "phone": { "value": "(503) 253-4475", "source": "OSM phone tag; matches BBB profile and CCB Lookup" },
+    "address": { "value": "6130 SE 128th Ave, Portland, OR 97236", "source": "Oregon CCB Lookup registered business address (ccblookup.com/contractor/greers-temptrol-101241), corroborated as the primary address on the BBB business profile. Note: OSM/BBB also list a second address, 212 SE 12th Ave, Portland, OR 97214, as an associated location; the CCB-registered address is used here as the more authoritative single address." },
+    "license": { "value": "Oregon CCB #101241, Residential Specialty Contractor, active through 2026-10-20, continuously licensed since 1994-08-17 (32 years)", "source": "Oregon CCB Lookup (ccblookup.com/contractor/greers-temptrol-101241): 'Issued: August 17, 1994', 'Status: Active', 'Expires: October 20, 2026', '32 years of continuous licensing since 1994'" },
+    "bonded": { "value": "$20,000 surety bond, Western Surety Company, through 2026-10-20", "source": "Oregon CCB Lookup bonding record" },
+    "insured": { "value": "$1,000,000 liability insurance, Palomar Excess and Surplus Insurance Company, through 2026-09-19", "source": "Oregon CCB Lookup insurance record" },
+    "buildzoom": { "value": "BuildZoom contractor score 98, top 16% of Oregon contractors", "source": "BuildZoom contractor profile, September 2026" },
+    "services": { "value": "Air conditioning and heating sales, repair, installation, and service; commercial refrigeration sales and repair", "source": "BBB business profile business-type description (verbatim)" },
+    "noWebsite": { "value": true, "source": "Live web search 2026-09-16 (multiple queries, including direct domain checks): only directory/listing results found (BBB, Yelp, CCB Lookup, BuildZoom, city-data, generalliabilityinsure.com, CMac.ws); no first-party domain found" }
+  },
+  "removedAsUnsourced": [
+    "BBB's separate 'started January 1, 1984 / 42 years in business' claim -- conflicts with the CCB Lookup's directly-verifiable license issue date (1994-08-17); the harder, state-record-backed figure (CCB since 1994) is used instead and the BBB figure is not shown",
+    "Google star rating (none found in search results)",
+    "owner/RMI name (Andrew A. Greer Jr., listed as Responsible Managing Individual on the active CCB license) -- used for internal verification only, not shown on the page"
+  ],
+  "internalCautionForJames": "Public obituary (legacy.com, dated 2026-03-04) reports the founder/RMI Andrew Aubrey 'Skip' Greer Jr. died March 4, 2026. The CCB license shows Active status through 2026-10-20 with no closure signal found on BBB/Yelp/CCB as of this verification (2026-09-16), and a LinkedIn profile lists someone as currently 'H.V.A.C-R at greers temptrol.' No website exists either way (task requirement met), but business continuity after the founder's death is genuinely unconfirmed. Recommend you personally decide whether to send this outreach email, given that uncertainty."
+}

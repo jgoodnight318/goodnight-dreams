@@ -1,24 +1,44 @@
 {
   "lane": "websites (Cascade Web Design)",
-  "updated": "2026-09-16T00:10:00-07:00",
-  "model": "Preview-first: build + deploy the site BEFORE outreach for businesses with a phone and no website. $500 to keep + $25/mo hosting. Brand: Cascade Web Design LLC (existing). Outreach sending stays James-executed.",
+  "updated": "2026-09-16T11:50:00-07:00",
+  "model": "Preview-first: build + deploy the site BEFORE outreach for businesses with a phone and no website. Outreach copy as of 09-16 quotes $499 setup + $39/mo hosting (supersedes the earlier $500+$25/mo figure below in outbound copy -- reconcile which number is canonical before the next batch). Brand: Cascade Web Design LLC (existing). Outreach sending stays James-executed; this session only drafted files, nothing was sent.",
   "live": [
     {
       "item": "Flagship preview: Jarmer Electric (Portland electrician, est. 1977, verified no first-party website)",
       "url": "https://jarmer-electric.vercel.app",
       "quality": "Full impeccable cycle: concept roll -> direction (truck-door lettering world, user criterion 'whichever gets us paid') -> code-led build -> detector -> independent finish review (disposition: fix, 6 items) -> fix batch -> verdict pass -> SHIP. Every on-page claim sourced and recorded in sites/jarmer-electric/FACTS.json; zero stock photos; zero invented facts; SPEC PREVIEW tape ribbon prevents impersonation reading; ~85KB total, self-hosted subset fonts, JSON-LD Electrician schema, reduced-motion + no-JS safe."
+    },
+    {
+      "item": "Batch 2, site 1: Greer's Temptrol (Portland HVAC/refrigeration, Oregon CCB #101241 licensed since 1994, verified no first-party website)",
+      "url": "https://greers-temptrol.vercel.app",
+      "quality": "Generator-built (websites/tools/site_template.py + icons.py, new this session) from websites/sites/greers-temptrol/FACTS.json; teal enamel triplet, shared fleet gold; trust plates are license/bond/BuildZoom facts (no Google rating exists, so 'Word around town' repurposed as a CCB-license-verification panel with an outbound link, per PRODUCT.md's 'earn trust without it' rule); independent fresh-context reviewer pass run against the live URL; ~67KB total. CAUTION for James: the CCB RMI/founder (Andrew A. Greer Jr.) is publicly reported deceased March 2026; license shows Active through 2026-10-20 with no closure signal found, but business continuity after the founder's death is genuinely unconfirmed -- read the 'internalCautionForJames' field in that site's FACTS.json before deciding whether to send the outreach draft."
+    },
+    {
+      "item": "Batch 2, site 2: Dave's Auto Care (Portland auto repair, A+ BBB, est. 2013, verified no first-party website)",
+      "url": "https://daves-auto-care.vercel.app",
+      "quality": "Generator-built from websites/sites/daves-auto-care/FACTS.json; green enamel triplet; 3 trust plates (A+ BBB, 4.3-star/71-review Birdeye aggregate explicitly NOT labeled as Google, Est. 2013); independent fresh-context reviewer pass run against the live URL; ~67KB total."
+    },
+    {
+      "item": "Batch 2, site 3: Harvey's Auto Service (Seattle auto repair, Puget Sound Consumers' Checkbook top-rated, verified no first-party website)",
+      "url": "https://harveys-auto-service.vercel.app",
+      "quality": "Generator-built from websites/sites/harveys-auto-service/FACTS.json; plum enamel triplet; trust plates are Checkbook's 90%-superior rating and 23%-lower-price figures (a founding year was found but conflicted 1946 vs 1954 across directories with no fetchable primary source to resolve it, so no age claim is shown, per PRODUCT.md's no-invented-facts rule); independent fresh-context reviewer pass run against the live URL; ~67KB total. Name-collision trap recorded in FACTS.json: at least 2 other unrelated 'Harvey's Auto Service' businesses exist in the Seattle metro (Kirkland/Redmond, WITH websites; Shoreline) -- don't reuse facts across them."
     }
   ],
   "pipeline": {
-    "prospects": "no_site_prospects.json: 157 phone-yes/website-no trade businesses from a 20-city sweep (PNW-weighted). Caveats recorded: OSM 'Vancouver' includes Vancouver BC rows (604 numbers); every prospect needs a live web search to confirm no-website before outreach (OSM absence is not proof)."
+    "prospects": "no_site_prospects.json: 157 phone-yes/website-no trade businesses from a 20-city sweep (PNW-weighted). Caveats recorded: OSM 'Vancouver' includes Vancouver BC rows (604 numbers); every prospect needs a live web search to confirm no-website before outreach (OSM absence is not proof). 09-16 batch-2 sweep also found several AI-search-summary false leads that a direct fetch disproved (Reichle -> reichleinc.com IS live, initially misreported as no-website by a first-pass search; Dave's Auto Care Portland falsely matched to unrelated davesauto.com/Willoughby-OH and davesautocare.net/Saco-ME businesses; a Grass Valley, OR vs Grass Valley, CA BBB mixup on Master Mechanics that turned out to be correct on direct fetch). Lesson: always directly fetch any candidate 'has a website' or 'no website' result before trusting an AI search summary's synthesis -- verify domain ownership by matching phone/address, not just the business name."
   },
   "earned": 0,
+  "concurrency_note": "2026-09-16 ~11:35: this session discovered ANOTHER active session working the SAME lane task concurrently in this SAME working directory (not a separate clone) -- it independently built websites/sites/andys-auto-repair (Andy's Auto Repair, Seattle) and websites/sites/pipes-are-us (Pipes Are Us, Fresno plumber), and was mid-build on websites/sites/master-mechanics (Master Mechanics, Portland) when this session had already started the same business -- this session immediately dropped Master Mechanics and substituted Harvey's Auto Service (Seattle) to avoid clobbering/duplicating a real business's outreach. Those three other-session directories were left untouched by this session. James: check whether two 'batch 2' results now exist and reconcile before a batch 3, since both sessions were drawing from the same no_site_prospects.json pool.",
   "next": [
-    "Generator: parametrize the Jarmer page into a template (SYSTEM vs THEME split per DESIGN.md) so each new prospect is a config file + deploy",
-    "Outreach: Jarmer has no listed email; contact is via their phone or Nextdoor/Angi. James decides the channel; a call script + short pitch note can be drafted on request",
-    "Batch 2: pick 3-5 more verified no-website prospects (prefer 360/503 area codes for the local-studio story) and ship their previews"
+    "Generator SHIPPED this session: websites/tools/site_template.py (SYSTEM template) + icons.py (shared SVG icon set) parametrize the design into a config dict per business -- see the 3 batch-2 sites for usage; content-thin businesses use the new .plates.n1/.n2 CSS variants instead of padding to 3 trust plates with an unsourced figure",
+    "Reconcile pricing: outbound copy sent 09-16 says $499 setup + $39/mo; this file's older 'model' line says $500+$25/mo -- pick one canonical number",
+    "Reconcile with the concurrent session's batch (andys-auto-repair, pipes-are-us, and whatever it shipped for master-mechanics) before picking batch-3 prospects, to avoid a third collision",
+    "James: greers-temptrol has a founder-continuity caution (see FACTS.json) -- decide whether to send that outreach draft as-is",
+    "Outreach: none of Jarmer, Greer's Temptrol, Dave's Auto Care, or Harvey's Auto Service have a public email; all four are phone-only. Drafts are staged at websites/outreach/<slug>.md for James to send or adapt into a call script",
+    "Batch 3: pick 3-5 more verified no-website prospects; the PNW non-auto-repair pool (electrician/plumber/HVAC/painter/carpenter) is now largely exhausted in no_site_prospects.json (most remaining non-car_repair PNW rows were disqualified this session: Code Electric and Reichle both have live websites, James F. Peterson Custom Woodworking has a stale/reportedly-cancelled CCB license) -- batch 3 will likely need to lean on car_repair rows or expand beyond the PNW rows in the list"
   ],
   "jamesSteps": [
-    "Nothing blocking. Optional later: custom domain per sold site (bought at sale time per your call), and a cascadewebdesign.com studio one-pager when you want it."
+    "Read the founder-continuity caution on Greer's Temptrol (in its FACTS.json) before sending that one outreach draft.",
+    "Optional later: custom domain per sold site (bought at sale time per your call), and a cascadewebdesign.com studio one-pager when you want it."
   ]
 }
