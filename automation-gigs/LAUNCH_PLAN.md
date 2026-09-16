@@ -8,7 +8,7 @@ A small business wants a daily low-stock report grouped by supplier. Before acce
 A funded platform order enters the private queue. We verify the scope, prepare the brief, run a capped build, import into the correct n8n version, test normal/empty/error cases, and deliver the workflow plus evidence. One revision is included. Avoid activating messaging against real destinations until the customer-approved test is complete.
 
 ## Acquisition experiment: first 14 days after publication
-- Publish one Fiverr gig and one Upwork catalog project with the same focused offer and an honest demo.
+- Upwork Catalog project 2099999933366679169 is approved and visible. After Fiverr finishes reviewing the submitted W-9, publish its saved gig with the same focused offer and honest demo.
 - Reuse the existing Upwork account; don't create a second profile. ID review may limit publishing.
 - Review a small set of recent, relevant buyer requests daily. Draft tailored proposals that reference the exact requested workflow. Paid Connects spend and proposal sending follow the user's existing authorization and any current platform limits; do not buy more without approval.
 - Answer relevant inbound messages, confirm scope, and suggest a small repair when a full build is unnecessary. No bulk unsolicited messages or invented experience.
@@ -25,8 +25,8 @@ $600/day averaged across 30 days is $18,000/month. At $320 per $400 Fiverr order
 A later recurring service can offer defined monitoring and a small allowance of fixes, priced after measuring workload. Monthly billing would require real ongoing value; it is not free margin. Don't sell unlimited support.
 
 ## Current gates
-- Fiverr account @jgoodnight318 created; seller profile and first gig are saved. Phone and identity verification are complete. Form W-9 remains before publication.
-- Existing Upwork ID review. Catalog project 2099999933366679169 has overview and pricing saved; gallery and remaining steps are not complete.
+- Fiverr account @jgoodnight318 created; seller profile and first gig are saved. Phone and identity verification are complete. The W-9 was submitted September 15 and reached Done. Fiverr confirmed receipt and says verification will take the coming days; publication remains locked pending that review.
+- Upwork Catalog project 2099999933366679169 is approved and visible at $150/$450/$850, with one simultaneous project. Existing account ID review remains a separate check.
 - IMAP/SMTP credential configuration and a real read/send check before enabling launchd.
 - Live Shopify/Slack/Anthropic acceptance tests on approved test accounts. Fixture tests and import checks do not validate authentication, API access or live side effects.
 - PR review and merge before the public GitHub Pages portfolio is live.
@@ -36,3 +36,6 @@ A later recurring service can offer defined monitoring and a small allowance of 
 - Upwork fee: https://support.upwork.com/hc/en-us/articles/211062538-Learn-about-the-Freelancer-Service-Fee
 - Fiverr setup/gallery requirements: https://help.fiverr.com/hc/en-us/articles/360010451397-Creating-a-Gig
 - Shopify versioning: https://shopify.dev/docs/api/usage/versioning
+
+## Monitoring
+The existing “Find buyers with paid projects” monitor now checks both marketplaces at 08:00, 14:00 and 20:00 Pacific. It stays quiet when unchanged and notifies about meaningful new inquiries, funded orders or status changes. This browser-based monitor is active; the separate IMAP intake daemon is not configured.

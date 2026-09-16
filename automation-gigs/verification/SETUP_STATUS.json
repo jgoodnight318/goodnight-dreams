@@ -26,15 +26,28 @@
     "gallery_uploaded": true,
     "identity_verified": true,
     "phone_verified": true,
-    "tax_form": "contact fields filled; address, tax information and certification remain"
+    "tax_form": "submitted successfully; Fiverr verification pending",
+    "tax_provider_status": "Done",
+    "tax_review_message": "Thanks for filling out Form W-9! We\u2019ll confirm your details and update you in the coming days.",
+    "publish_status": "locked pending W-9 review",
+    "tax_submission_date": "2026-09-15"
   },
   "upwork": {
     "existing_account": true,
     "identity_review": "pending_last_check",
-    "new_catalog_published": false,
+    "new_catalog_published": true,
     "catalog_draft_id": "2099999933366679169",
     "catalog_draft_url": "https://www.upwork.com/nx/project-dashboard/2099999933366679169?step=Gallery",
-    "catalog_progress": "overview and pricing saved; gallery and subsequent steps remain"
+    "catalog_progress": "approved and visible",
+    "catalog_dashboard": "https://www.upwork.com/nx/project-dashboard/?step=approved",
+    "simultaneous_projects": 1,
+    "packages_usd": [
+      150,
+      450,
+      850
+    ],
+    "views": 0,
+    "orders": 0
   },
   "mail": {
     "configured": false,
