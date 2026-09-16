@@ -64,5 +64,9 @@
   },
   "orders": {
     "verified_paid": 0
+  },
+  "upwork_catalog_2026-09-16": {
+    "cover": "replaced with gallery/n8n-workflow-cover-upwork-4x3.png (1600x1200) 2026-09-16; old 1280x769 removed from the catalog gallery (Upwork crops to 4:3, headline was cut off). Project saved, still Approved + visible.",
+    "profile_overview": "rewritten 2026-09-16 per James (AI slop, AppleInsider line removed); text in automation-gigs/listings/upwork/profile-overview.md; saved on the live profile."
   }
 }
