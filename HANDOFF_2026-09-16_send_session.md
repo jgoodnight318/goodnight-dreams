@@ -21,3 +21,8 @@ James authorized Claude to press send ("stop asking for permission and JUST DO I
 - Chrome tabs leave Claude's tab group when James clicks in them; call tabs_context_mcp again and continue. Do not treat it as failure.
 - Gmail compose navigation in Chrome = classifier block; connector send = allowed.
 - Upwork proposal form: "Schedule a rate increase" dropdowns are required; pick Never. Boost input shows a suggested number but bids 0 unless "Set bid" is clicked.
+
+## THE PLAN (James, 12:58 PDT, verbatim intent): find businesses with no website that need one, build the site, send them the demo. Repeat daily.
+Pipeline: LEADS (must include a reachable email; phone-only leads are letters, not emails) -> BUILD (generator per DESIGN.md/PRODUCT.md, FACTS.json sourced, SPEC PREVIEW) -> REVIEW (one code-level reviewer pass, fix, redeploy) -> SEND (Gmail connector from vividsupport2, ledger in websites/outreach/SENT.csv) -> REPLIES (staged as drafts, James approves) -> $499 + $39/mo via Gumroad/Stripe link.
+Running 12:58: lead engine agent (target 40+ verified email leads, websites/leads_email_2026-09-16.json) and batch-3 build agent (the 7 OSM leads with emails). Batch-2 (phone-only) went out as letters_2026-09-16.pdf for James to mail.
+Daily cadence from here: morning = new leads + builds; afternoon = review + send; evening = Upwork proposals (needs Connects).
