@@ -309,7 +309,7 @@ Yours to keep: <a href="mailto:jms.goodnight@gmail.com?subject=Jarmer%20Electric
         <path id="arcpath" d="M 30 96 Q 280 18 530 96" fill="none"/>
         <text><textPath href="#arcpath" startOffset="50%" text-anchor="middle">PORTLAND · OREGON</textPath></text>
       </svg>
-      <p class="since chip"><span class="rivet cl"></span>LICENSED ELECTRICAL CONTRACTOR · SINCE 1977<span class="rivet cr"></span></p>
+      <p class="since"><span class="rivet cl"></span>LICENSED ELECTRICAL CONTRACTOR · SINCE 1977<span class="rivet cr"></span></p>
       <a class="hero-call" href="tel:+15032465381">
         <span class="lead">CALL THE SHOP</span><br>
         <span class="num">(503) 246-5381</span><br>
@@ -441,14 +441,12 @@ Yours to keep: <a href="mailto:jms.goodnight@gmail.com?subject=Jarmer%20Electric
 
 <script>
 if (matchMedia('(prefers-reduced-motion: no-preference)').matches) {
-  // stacked-panel reveal: panels entering in the same frame settle in sequence
-  let batch = 0, last = 0;
+  // stacked-panel reveal: entries sharing one frame settle in sequence, capped
   const io = new IntersectionObserver(es => {
-    const now = performance.now();
-    if (now - last > 250) batch = 0; last = now;
+    let i = 0;
     es.forEach(e => {
       if (e.isIntersecting) {
-        e.target.style.setProperty('--stagger', (batch++ * 110) + 'ms');
+        e.target.style.setProperty('--stagger', (Math.min(i++, 3) * 110) + 'ms');
         e.target.classList.add('in'); io.unobserve(e.target);
       }
     });

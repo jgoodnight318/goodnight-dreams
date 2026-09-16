@@ -1,0 +1,24 @@
+{
+  "lane": "websites (Cascade Web Design)",
+  "updated": "2026-09-16T00:10:00-07:00",
+  "model": "Preview-first: build + deploy the site BEFORE outreach for businesses with a phone and no website. $500 to keep + $25/mo hosting. Brand: Cascade Web Design LLC (existing). Outreach sending stays James-executed.",
+  "live": [
+    {
+      "item": "Flagship preview: Jarmer Electric (Portland electrician, est. 1977, verified no first-party website)",
+      "url": "https://jarmer-electric.vercel.app",
+      "quality": "Full impeccable cycle: concept roll -> direction (truck-door lettering world, user criterion 'whichever gets us paid') -> code-led build -> detector -> independent finish review (disposition: fix, 6 items) -> fix batch -> verdict pass -> SHIP. Every on-page claim sourced and recorded in sites/jarmer-electric/FACTS.json; zero stock photos; zero invented facts; SPEC PREVIEW tape ribbon prevents impersonation reading; ~85KB total, self-hosted subset fonts, JSON-LD Electrician schema, reduced-motion + no-JS safe."
+    }
+  ],
+  "pipeline": {
+    "prospects": "no_site_prospects.json: 157 phone-yes/website-no trade businesses from a 20-city sweep (PNW-weighted). Caveats recorded: OSM 'Vancouver' includes Vancouver BC rows (604 numbers); every prospect needs a live web search to confirm no-website before outreach (OSM absence is not proof)."
+  },
+  "earned": 0,
+  "next": [
+    "Generator: parametrize the Jarmer page into a template (SYSTEM vs THEME split per DESIGN.md) so each new prospect is a config file + deploy",
+    "Outreach: Jarmer has no listed email; contact is via their phone or Nextdoor/Angi. James decides the channel; a call script + short pitch note can be drafted on request",
+    "Batch 2: pick 3-5 more verified no-website prospects (prefer 360/503 area codes for the local-studio story) and ship their previews"
+  ],
+  "jamesSteps": [
+    "Nothing blocking. Optional later: custom domain per sold site (bought at sale time per your call), and a cascadewebdesign.com studio one-pager when you want it."
+  ]
+}
