@@ -1,0 +1,26 @@
+{
+  "actorSpecification": 1,
+  "name": "app-store-reviews",
+  "title": "App Store Reviews Scraper (iOS + Mac)",
+  "description": "Get the latest customer reviews, ratings and version history for any iOS or Mac app by App Store ID or by searching its name, across any country storefront. Clean JSON, no login, no proxies needed.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "storages": {
+    "dataset": {
+      "actorSpecification": 1,
+      "title": "Reviews",
+      "views": {
+        "overview": {
+          "title": "Overview",
+          "transformation": { "fields": ["appId", "country", "rating", "title", "author", "version", "updated", "content"] },
+          "display": { "component": "table", "properties": {
+            "rating": { "label": "Rating", "format": "number" }, "title": { "label": "Title" }, "content": { "label": "Review" },
+            "version": { "label": "Version" }, "updated": { "label": "Date", "format": "date" } } }
+        }
+      }
+    }
+  }
+}

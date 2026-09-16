@@ -1,0 +1,44 @@
+{
+  "title": "App Store Reviews Scraper input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "apps": {
+      "title": "Apps",
+      "type": "array",
+      "description": "App Store IDs (numbers like 6737164760) or app names to search for. Names resolve to the top search result.",
+      "editor": "stringList",
+      "prefill": ["6737164760"]
+    },
+    "countries": {
+      "title": "Country storefronts",
+      "type": "array",
+      "description": "Two-letter storefront codes.",
+      "editor": "stringList",
+      "default": ["us"],
+      "prefill": ["us", "gb", "de"]
+    },
+    "platform": {
+      "title": "Platform for name search",
+      "type": "string",
+      "enum": ["software", "macSoftware"],
+      "enumTitles": ["iOS / iPadOS", "Mac"],
+      "default": "software"
+    },
+    "maxReviewsPerApp": {
+      "title": "Max reviews per app per country",
+      "type": "integer",
+      "default": 100,
+      "minimum": 1,
+      "maximum": 500,
+      "description": "Apple exposes up to 500 most-recent reviews per app per storefront (10 pages of 50)."
+    },
+    "includeAppInfo": {
+      "title": "Also output app metadata",
+      "type": "boolean",
+      "default": true,
+      "description": "Adds one record per app with name, developer, price, average rating, rating count, current version and release notes."
+    }
+  },
+  "required": ["apps"]
+}
