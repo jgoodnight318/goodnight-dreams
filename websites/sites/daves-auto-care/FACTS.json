@@ -1,0 +1,19 @@
+{
+  "business": "Dave's Auto Care",
+  "verified": "2026-09-16",
+  "claims": {
+    "name": { "value": "Dave's Auto Care", "source": "OSM tag + BBB + Yelp + YellowPages listings (legal name 'Dave's Auto Care Inc' per Dun & Bradstreet)" },
+    "phone": { "value": "(503) 233-3637", "source": "OSM phone tag; matches BBB business profile" },
+    "address": { "value": "8635 SE 17th Ave, Portland, OR 97202", "source": "OSM addr tag; matches BBB business profile" },
+    "founded": { "value": "2013-02-19", "source": "BBB business profile: 'Business started locally on 2/19/2013', approximately 11 years' local operation as of profile date" },
+    "bbbRating": { "value": "A+", "source": "BBB business profile rating" },
+    "bbbAccredited": { "value": false, "source": "BBB business profile: 'NOT a BBB Accredited Business' (has not pursued accreditation, though BBB states it meets BBB standards)" },
+    "specialty": { "value": "General service and repair; noted work on Volvo, Subaru, Nissan, and Dodge Durango vehicles", "source": "Local business directory summary (portlandspotlights.com / Groupon listing description)" },
+    "reviews": { "value": "4.3 stars aggregate, 71 reviews", "source": "Birdeye aggregate business profile (reviews.birdeye.com), pulled September 2026 -- shown as a Birdeye aggregate, not represented as a Google rating since no independent Google figure could be confirmed" },
+    "noWebsite": { "value": true, "source": "Live web search 2026-09-16 (multiple queries plus direct domain checks: davesautocareor.localsearch.com is a directory microsite not a first-party domain; davesautocare.net and davesauto.com both confirmed via direct fetch to be unrelated businesses in Saco, ME and Willoughby, OH respectively); no first-party domain found for the Portland business" }
+  },
+  "removedAsUnsourced": [
+    "owner first name confirmation beyond the trade name 'Dave's' (no principal name listed on the BBB profile)",
+    "signed first-person quote attribution"
+  ]
+}
