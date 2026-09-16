@@ -27,8 +27,8 @@
     },
     {
       "item": "n8n production deployment",
-      "why": "Local import/webhook verification in progress this session (subagent); production hosting + Twilio/Sheets credentials are a later step once Twilio exists.",
-      "action": "See n8n verification result appended below when it lands; then host n8n (or n8n cloud) and wire credentials per SETUP.md step 2."
+      "why": "VERIFIED locally 2026-09-15: workflow imported into local n8n (v2.39.5, Node 24 LTS required — Node 25/26 breaks isolated-vm), activated, and a Twilio-shaped POST to /webhook/missed-call?biz=...&booking=...&tz=...&sms_from=... returned HTTP 200 with valid TwiML (<Say> greeting + <Hangup/>). Credentialed nodes (Twilio SMS, Sheets log) sit AFTER the respond node so the caller-facing reply never depends on them. Fixed in repo: added top-level id + webhookId to the workflow JSON (without webhookId, CLI import registers the wrong webhook path and the documented URL 404s).",
+      "action": "Production step once Twilio exists: host n8n (or n8n cloud), import this JSON, add real Twilio + Google Sheets credentials, activate, and use the production webhook URL as every client's Twilio voice URL per RUNBOOK.md."
     }
   ]
 }

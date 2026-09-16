@@ -1,0 +1,21 @@
+{
+  "lane": "automation-gigs",
+  "updated": "2026-09-15T22:50:00-07:00",
+  "live": [],
+  "verified": [
+    "Fiverr checked on-platform 2026-09-15 22:40 PT (logged-in session, @jgoodnight318): visibility checklist shows Trust&Safety, first service, and ID verification complete; 'Submit your Form W-9' is in review (submitted per repo ledger commit 1240159); 'Publish your service' still locked. Nothing to do but wait for Fiverr's W-9 review."
+  ],
+  "earned": 0,
+  "blocked": [
+    {
+      "item": "Fiverr gig publish",
+      "why": "Gated on Fiverr's W-9 review (their side, not ours).",
+      "action": "Re-check the seller dashboard; when step 4 clears, publish gig-1 from listings/fiverr/."
+    },
+    {
+      "item": "Gmail app password for pipeline/intake.py",
+      "why": "Generating a Google app password and storing it in ~/.config/automation-gigs.env is plain-text credential handling I don't perform.",
+      "action": "James: myaccount.google.com/apppasswords -> create one for 'automation-gigs' -> put it in ~/.config/automation-gigs.env per SETUP_30_MINUTES.md, then: cp automation-gigs/launchd/com.james.automation-gigs.plist ~/Library/LaunchAgents/ && launchctl load it. intake.py is read-only on the mailbox and was regression-tested in the previous session."
+    }
+  ]
+}
