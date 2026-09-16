@@ -6,7 +6,7 @@
    Google Sheets credential, create a sheet tab `Missed calls` with headers
    `when, business, caller, open_hours`, replace `YOUR_SHEET_ID`, activate, copy the production
    webhook URL (this is the base of every client's voice URL).
-3. **Gumroad** (existing account): two membership products, monthly, 14-day free trial:
+3. **Gumroad** (existing account): two membership products, monthly, one-week free trial (Gumroad offers week or month only; week chosen):
    "Missed-Call Text-Back" $149/mo and "Missed-Call Receptionist" $349/mo. Paste their URLs into
    `index.html` in place of `GUMROAD_TEXTBACK_URL` and `GUMROAD_RECEPTIONIST_URL`.
 4. **Outreach mailbox**: a dedicated address, ideally on a domain you own (Google Workspace, $7/mo),

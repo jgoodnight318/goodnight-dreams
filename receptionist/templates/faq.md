@@ -1,4 +1,4 @@
-- Price: text-back $149/month; receptionist tier (answers, takes details, books) $349/month. 14-day free trial, cancel any time by email, no contract.
+- Price: text-back $149/month; receptionist tier (answers, takes details, books) $349/month. one-week free trial, cancel any time by email, no contract.
 - Setup: we provide a number; you set your phone to forward unanswered or busy calls to it (10 seconds, reversible). Your advertised number does not change.
 - What the caller gets: within seconds, a text from your business with your booking link or a promise of a call back. On the receptionist tier, a natural-sounding assistant answers, takes name, number and need, and books into your calendar.
 - Recording: none. We log the caller's number, time and outcome so you can see what you were missing.

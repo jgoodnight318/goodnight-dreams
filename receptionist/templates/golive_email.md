@@ -11,7 +11,7 @@ your business, dial ONE of these (10 seconds, reversible):
   To undo later:                          ##61#  ##67#  (GSM)   or   *73 (Verizon)
 
 Then call your own number from another phone and don't pick up. You should get a text within
-5 seconds. Tier: {tier}. The 14-day trial started today; nothing is billed until it ends, and
+5 seconds. Tier: {tier}. The one-week trial started today; nothing is billed until it ends, and
 you can stop any time by replying to this email.
 
 James

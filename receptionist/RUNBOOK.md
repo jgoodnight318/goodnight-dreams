@@ -21,7 +21,7 @@ When someone answers the three onboarding questions (business number, hours + bo
    `templates/faq.md`'s "Who" line plus their hours and booking link → Phone numbers → Import from
    Twilio → pick the number → attach the assistant. Then set the Twilio voice URL to Vapi's instead
    of the n8n webhook (Vapi shows the URL).
-5. Gumroad membership handles billing and the 14-day trial; cancellation email → cancel in Gumroad
+5. Gumroad membership handles billing and the one-week trial; cancellation email → cancel in Gumroad
    and release the number in Twilio.
 
 ## Monthly
