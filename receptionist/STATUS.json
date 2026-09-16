@@ -1,0 +1,34 @@
+{
+  "lane": "receptionist",
+  "updated": "2026-09-15T22:35:00-07:00",
+  "live": [
+    {
+      "item": "Gumroad membership products (published 2026-09-15)",
+      "textback": "https://goodnightdreams32.gumroad.com/l/missed-call-textback ($149/mo, tier 'Text-Back')",
+      "receptionist": "https://goodnightdreams32.gumroad.com/l/missed-call-receptionist ($349/mo, tier 'Receptionist')",
+      "note": "Free trial is ONE WEEK, not the 14 days in SETUP.md — Gumroad only offers one week or one month; week chosen as the safe option. Both have a members-only onboarding post telling the buyer what to send and what happens next. index.html placeholders replaced with the real URLs."
+    }
+  ],
+  "verified": [
+    "prospect.py live 2026-09-15: 12 Phoenix plumbers with phones from Overpass into data/prospects.csv.",
+    "enrich.py live 2026-09-15: 12 processed, 6 enriched with public contact emails, 6 no_email, 0 skipped for live answering."
+  ],
+  "earned": 0,
+  "blocked": [
+    {
+      "item": "Twilio account + $20 credit + trial upgrade",
+      "why": "Account creation + payment method are James-personal.",
+      "action": "SETUP.md step 1. Nothing can text/answer a real call until this exists."
+    },
+    {
+      "item": "Outreach sending",
+      "why": "By design James-executed (CAN-SPAM address, domain reputation).",
+      "action": "draft_outreach.py fills data/outbox/; James reviews and sends. Also needs ~/.config/receptionist.env (RCP_* values incl. postal address)."
+    },
+    {
+      "item": "n8n production deployment",
+      "why": "Local import/webhook verification in progress this session (subagent); production hosting + Twilio/Sheets credentials are a later step once Twilio exists.",
+      "action": "See n8n verification result appended below when it lands; then host n8n (or n8n cloud) and wire credentials per SETUP.md step 2."
+    }
+  ]
+}
