@@ -1,0 +1,15 @@
+{
+  "business": "Pipes Are Us",
+  "verified": "2026-09-16",
+  "claims": {
+    "name": { "value": "Pipes Are Us", "source": "BBB business profile; Yelp; Nextdoor; YellowPages listings" },
+    "phone": { "value": "(559) 226-1600", "source": "OSM phone tag; matches secondary number on BBB business profile" },
+    "address": { "value": "1885 E Griffith Way, Fresno, CA 93726", "source": "OSM addr tag; BBB profile lists Ste 104 at the same street address" },
+    "started": { "value": "1992-09-18", "source": "BBB business profile: 'Business started: 9/18/1992'" },
+    "owner": { "value": "Todd Gonzales", "source": "BBB business profile (used for internal context only; no signed quotes on the page)" },
+    "bbbFileOpened": { "value": "2008-01-11", "source": "BBB business profile" },
+    "categories": { "value": "Plumber; Air Conditioning Contractor", "source": "BBB business profile category listing" },
+    "noWebsite": { "value": true, "source": "Live web search 2026-09-16: only directory/aggregator listings found (BBB, Yelp, Nextdoor, YellowPages, Yahoo Local, LeadSmart, LinkedIn company page, plumbersworldwide.com); no first-party domain found" }
+  },
+  "removedAsUnsourced": ["CSLB license number (BBB lists an unverified licensing alert, not a confirmed number)", "star rating (no Yelp/Google rating could be confirmed by fetch)", "review count", "signed first-person quote attribution"]
+}
