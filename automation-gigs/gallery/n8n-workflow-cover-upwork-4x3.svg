@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1200" viewBox="0 0 1600 1200">
+<rect width="1600" height="1200" fill="#f5f2eb"/>
+<rect x="0" y="0" width="16" height="1200" fill="#17765b"/>
+<g font-family="Helvetica,Arial,sans-serif" fill="#182d2b">
+<text x="180" y="225" font-size="24" font-weight="700" letter-spacing="3">CUSTOM n8n WORKFLOWS</text>
+<text x="180" y="335" font-size="64" font-weight="700">Your daily stock check,</text>
+<text x="180" y="415" font-size="64" font-weight="700">automated.</text>
+<text x="182" y="465" font-size="26" fill="#526762">Shopify inventory / supplier summaries / Slack</text>
+
+<rect x="180" y="515" width="540" height="300" rx="16" fill="#fff" stroke="#c8d5ce"/>
+<text x="208" y="556" font-size="18" font-weight="700" letter-spacing="1">LOW STOCK · SAMPLE INPUT</text>
+<path d="M208 576 H692" stroke="#e2e7e2"/>
+<text x="208" y="635" font-size="23">Blue candle</text><text x="605" y="635" font-size="23" fill="#17765b" font-weight="700">3 left</text>
+<text x="208" y="690" font-size="23">Cedar candle</text><text x="605" y="690" font-size="23" fill="#17765b" font-weight="700">5 left</text>
+<text x="208" y="750" font-size="18" fill="#526762">Threshold, supplier and schedule set for you</text>
+
+<path d="M740 665 H860 M844 649 L861 665 L844 681" fill="none" stroke="#17765b" stroke-width="6"/>
+
+<rect x="880" y="515" width="540" height="300" rx="16" fill="#183c34"/>
+<text x="908" y="556" font-size="18" fill="#a7d4bd" font-weight="700" letter-spacing="1">YOUR MORNING REPORT</text>
+<text x="908" y="635" font-size="26" fill="#fff" font-weight="700">Two items need attention.</text>
+<text x="908" y="690" font-size="21" fill="#dbe7de">Grouped by supplier. Reorder drafts ready.</text>
+<text x="908" y="740" font-size="19" fill="#a7d4bd">Empty results and failures handled explicitly.</text>
+
+<text x="180" y="915" font-size="23" font-weight="700">Workflow files</text><text x="610" y="915" font-size="23" font-weight="700">Setup guide</text><text x="1040" y="915" font-size="23" font-weight="700">Agreed test cases</text>
+<text x="180" y="975" font-size="17" fill="#526762">Independent demonstration · Customer accounts connected and tested during delivery</text>
+</g></svg>
