@@ -1,0 +1,13 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "title": "Shopify Store Products Scraper output",
+  "type": "object",
+  "properties": {
+    "products": {
+      "type": "string",
+      "title": "Products",
+      "description": "Dataset with one record per product (or per variant with flattenVariants).",
+      "template": "{{actorRun.defaultDatasetUrl}}?format=json&view=overview"
+    }
+  }
+}

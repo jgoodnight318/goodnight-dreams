@@ -1,0 +1,123 @@
+{
+  "lane": "apify-actors",
+  "updated": "2026-09-16T04:20:00+00:00",
+  "account": {
+    "username": "goodnight-dreams",
+    "signIn": "Google OAuth (jms.goodnight@gmail.com), no password set",
+    "plan": "Free ($5/mo platform credit)",
+    "cliLoggedInOn": "mini (token in OS keyring via apify login)",
+    "payoutDetailsConfigured": true,
+    "payoutMethod": "PayPal",
+    "identityVerificationStatus": "verified",
+    "identityVerifiedAt": "2026-09-16T03:59:18.716487+00:00",
+    "payoutReadiness": "Apify confirms identity verified and ready to receive payouts"
+  },
+  "live": [
+    {
+      "actor": "app-store-reviews",
+      "storeUrl": "https://apify.com/goodnight-dreams/app-store-reviews",
+      "consoleUrl": "https://console.apify.com/actors/v9Q4IQw7JIaZGrpDS",
+      "verified": "local apify run + cloud run Succeeded against live App Store (name search, ID lookup, 3-page pagination, macSoftware, us/gb storefronts)",
+      "intendedPricing": {
+        "model": "pay-per-event",
+        "event": "review",
+        "price": 0.002
+      },
+      "activePricing": {
+        "model": "pay-per-event",
+        "event": "review",
+        "priceUsd": 0.002,
+        "startedAt": "2026-09-16T03:47:51.994Z",
+        "platformUsageIncluded": true,
+        "extraStartupOrDatasetEvents": false,
+        "verifiedAt": "2026-09-16T03:59:18.716487+00:00"
+      }
+    },
+    {
+      "actor": "shopify-store-products",
+      "storeUrl": "https://apify.com/goodnight-dreams/shopify-store-products",
+      "consoleUrl": "https://console.apify.com/actors/rmgm0gqLSnplW6r3D",
+      "verified": "local + cloud run Succeeded against live allbirds.com (catalog, collectionHandle=mens, flattenVariants=134 records, graceful non-Shopify skip)",
+      "intendedPricing": {
+        "model": "pay-per-event",
+        "event": "product",
+        "price": 0.001
+      },
+      "activePricing": {
+        "model": "pay-per-event",
+        "event": "product",
+        "priceUsd": 0.001,
+        "startedAt": "2026-09-16T03:47:55.823Z",
+        "platformUsageIncluded": true,
+        "extraStartupOrDatasetEvents": false,
+        "verifiedAt": "2026-09-16T03:59:18.716487+00:00"
+      }
+    },
+    {
+      "actor": "local-business-finder",
+      "storeUrl": "https://apify.com/goodnight-dreams/local-business-finder",
+      "consoleUrl": "https://console.apify.com/actors/K7wxrq12dY0Lzn9cl",
+      "verified": "local + cloud run Succeeded against live Overpass (Phoenix plumber+dentist: 43 unique-phone records, 13 with email; Denver cloud run)",
+      "intendedPricing": {
+        "model": "pay-per-event",
+        "event": "business",
+        "price": 0.005
+      },
+      "activePricing": {
+        "model": "pay-per-event",
+        "event": "business",
+        "priceUsd": 0.005,
+        "startedAt": "2026-09-16T03:46:59.631Z",
+        "platformUsageIncluded": true,
+        "extraStartupOrDatasetEvents": false,
+        "verifiedAt": "2026-09-16T03:59:18.716487+00:00"
+      }
+    }
+  ],
+  "batch2": [
+    {
+      "actor": "google-play-reviews",
+      "storeUrl": "https://apify.com/goodnight-dreams/google-play-reviews",
+      "consoleUrl": "https://console.apify.com/actors/vqXJbnxImRSbHx5Ez",
+      "status": "LIVE, monetization Active from day one",
+      "pricing": { "model": "pay-per-event", "event": "review", "priceUsd": 0.002 },
+      "verified": "local apify run (240 reviews, both apps, de-locale guard) + cloud run Succeeded (80 reviews in platform dataset). Fixed two upstream google-play-scraper bugs (hero-hit appId=None recovery; locale TypeError guard) and made dataset fields nullable (cloud validates pushed items against the schema; nulls in title/reply fields failed the first cloud run)."
+    },
+    {
+      "actor": "website-contact-scraper",
+      "storeUrl": "https://apify.com/goodnight-dreams/website-contact-scraper",
+      "consoleUrl": "https://console.apify.com/actors/SG6VmelhLK6jntzdO",
+      "status": "LIVE, monetization Active from day one",
+      "pricing": { "model": "pay-per-event", "event": "site", "priceUsd": 0.005, "note": "charged only on success:true records" },
+      "verified": "local + cloud run Succeeded (real emails/phones/socials for apify.com, allbirds.com, python.org; dead-domain row with success:false). Builder eliminated three phone false-positive classes with evidence (svg path data, Shopify variant IDs, UUID filename slices)."
+    },
+    {
+      "actor": "trustpilot-reviews",
+      "storeUrl": "https://apify.com/goodnight-dreams/trustpilot-reviews (NOT LIVE YET)",
+      "consoleUrl": "https://console.apify.com/actors/Sev8oLpc7IIOzX1gm",
+      "status": "PUBLICATION PENDING: Apify allows 5 Actor publications per day and this was the 6th. Monetization already Active ($2/1k review), icon uploaded, all checks green. ONE remaining step: open the console URL -> Publishing tab -> Publish on Store, after ~2026-09-16 21:00 PT.",
+      "pricing": { "model": "pay-per-event", "event": "review", "priceUsd": 0.002 },
+      "verified": "Playwright-based (Trustpilot sits behind an AWS WAF JS challenge; plain httpx gets 403 forever — headless Chromium auto-solves it). Local run: 120 real reviews + 2 companies. Cloud run Succeeded from Apify datacenter IPs: 40 Monzo reviews + TrustScore 4.6."
+    }
+  ],
+  "earned": 0,
+  "blocked": [
+    {
+      "item": "trustpilot-reviews final Publish on Store click",
+      "why": "Daily publication limit (5/day) hit on 2026-09-15",
+      "action": "Anyone with the console session: actor page -> Publishing -> Publish on Store, after the 24h window. Everything else is already configured."
+    }
+  ],
+  "notes": [
+    "Daily auto-test: Apify runs each published actor with its default input every day; 3 failed days in a row marks it 'under maintenance'. Default inputs are prefills (310633997/Notion, allbirds.com, Phoenix plumber+electrician) and all return non-empty datasets in seconds.",
+    "All three pay-per-event prices became active immediately on September 16, 2026 UTC (September 15 Pacific), confirmed through authenticated API reads. The wizard preview showed a generic 14-day notice, but the saved pricing records have current start times.",
+    "Saving beneficiary details and PayPal payout email unlocked monetization. No card or paid subscription was required for this setup.",
+    "Pay-per-event platform usage is included for customers; Apify retains 20%, and platform usage costs reduce the developer payout.",
+    "Review pricing includes one event for an app-metadata-only result; Shopify charges per output record, including each flattened variant record.",
+    "Apify Payouts confirmed identity successfully verified and ready to receive payouts; PayPal payout details remain configured.",
+    "2026-09-16 04:20 UTC re-verification, on-platform (not from this ledger): Insights->Payouts shows 'Identity verified / all set to receive payouts', billing details + PayPal jms.goodnight@gmail.com on file; each actor's Publishing tab shows 'Monetization: Active' with $2.00, $1.00, $5.00 per 1,000 in the header; public store pages render the pay-per-event prices.",
+    "MONTHLY HUMAN STEP: payout invoices appear under console.apify.com/actors/insights/payouts and must be APPROVED there before Apify pays out. Check after each month's end.",
+    "Revenue counts only paying users' runs; free-tier users' runs on their monthly credit generate $0 (per the Monetization Insights page).",
+    "2026-09-16: custom icons uploaded for all three actors (generated in apify-actors/_icons/); categories are auto-assigned by Apify and already ideal (local-business-finder: 'Build B2B prospect lists / Generate leads / Local business prospecting')."
+  ]
+}

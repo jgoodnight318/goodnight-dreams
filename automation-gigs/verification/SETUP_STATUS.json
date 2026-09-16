@@ -1,0 +1,72 @@
+{
+  "fiverr": {
+    "username": "jgoodnight318",
+    "account_created": true,
+    "seller_profile": "complete",
+    "listing_live": false,
+    "gig": "created; not visible until W-9 and publication",
+    "gig_editor": "https://www.fiverr.com/users/jgoodnight318/manage_gigs/build-and-test-an-n8n-workflow-connecting-your-business-apps/edit",
+    "packages_usd": [
+      120,
+      400,
+      750
+    ],
+    "delivery_days": [
+      3,
+      5,
+      7
+    ],
+    "revisions": [
+      1,
+      1,
+      2
+    ],
+    "faq_count": 3,
+    "required_questions": 3,
+    "gallery_uploaded": true,
+    "identity_verified": true,
+    "phone_verified": true,
+    "tax_form": "submitted successfully; Fiverr verification pending",
+    "tax_provider_status": "Done",
+    "tax_review_message": "Thanks for filling out Form W-9! We\u2019ll confirm your details and update you in the coming days.",
+    "publish_status": "locked pending W-9 review",
+    "tax_submission_date": "2026-09-15"
+  },
+  "upwork": {
+    "existing_account": true,
+    "identity_review": "pending_last_check",
+    "new_catalog_published": true,
+    "catalog_draft_id": "2099999933366679169",
+    "catalog_draft_url": "https://www.upwork.com/nx/project-dashboard/2099999933366679169?step=Gallery",
+    "catalog_progress": "approved and visible",
+    "catalog_dashboard": "https://www.upwork.com/nx/project-dashboard/?step=approved",
+    "simultaneous_projects": 1,
+    "packages_usd": [
+      150,
+      450,
+      850
+    ],
+    "views": 0,
+    "orders": 0
+  },
+  "mail": {
+    "configured": false,
+    "imap_tested": false,
+    "smtp_tested": false,
+    "launchd_loaded": false
+  },
+  "tests": {
+    "python_regressions": 7,
+    "shopify_logic_scenarios": 10,
+    "n8n_imports": 4,
+    "n8n_stubbed_execution_scenarios": 3,
+    "live_customer_integrations": false
+  },
+  "orders": {
+    "verified_paid": 0
+  },
+  "upwork_catalog_2026-09-16": {
+    "cover": "replaced with gallery/n8n-workflow-cover-upwork-4x3.png (1600x1200) 2026-09-16; old 1280x769 removed from the catalog gallery (Upwork crops to 4:3, headline was cut off). Project saved, still Approved + visible.",
+    "profile_overview": "rewritten 2026-09-16 per James (AI slop, AppleInsider line removed); text in automation-gigs/listings/upwork/profile-overview.md; saved on the live profile."
+  }
+}

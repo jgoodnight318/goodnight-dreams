@@ -1,0 +1,21 @@
+{
+  "lane": "stock",
+  "updated": "2026-09-15T22:35:00-07:00",
+  "live": [],
+  "verified": [
+    "tag.py live 2026-09-15: keyworded 5 real 4K stills from /Users/larry/Projects/digital_products/pack03_4k_stills/stills/3840x2160 (aurora/beach frames) via claude CLI. Titles, 48-49 keywords, valid categories, ai_generated flag, sidecar JSONs written next to images.",
+    "export.py live 2026-09-15: staged /tmp/stock-adobe-batch (adobe.csv, category IDs, Releases col) and /tmp/stock-freepik-batch (freepik.csv with ai_generated=true) from the same 5 images; .exported.json ledger written."
+  ],
+  "earned": 0,
+  "blocked": [
+    {
+      "item": "Adobe Stock / Freepik / Vecteezy contributor accounts",
+      "why": "Account creation plus tax and payout forms are James-personal (identity/tax attestations).",
+      "action": "James: contributor.stock.adobe.com, contributor.freepik.com, vecteezy.com/contributors — create accounts, complete tax+payout (~30 min total per README). Then put Adobe SFTP creds in ~/.config/stock.env (ADOBE_SFTP_USER/ADOBE_SFTP_PASS), set STOCK_IMAGES_DIR, and the nightly launchd plist takes over. First Adobe batch is already staged and upload_adobe.sh is ready.",
+      "note": "After each Adobe batch lands, tick 'Created using generative AI tools' in the contributor portal (cannot be set by CSV)."
+    }
+  ],
+  "notes": [
+    "Image source folder that passes Adobe's 4MP minimum: pack03_4k_stills/stills/3840x2160 (3840x2160). The pack07-09 desktop wallpapers are 2560x1440 = 3.7MP, just under Adobe's minimum; fine for Freepik/Vecteezy."
+  ]
+}

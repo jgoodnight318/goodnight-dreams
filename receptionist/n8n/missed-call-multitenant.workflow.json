@@ -1,0 +1,173 @@
+{
+  "name": "Missed-call text-back (multi-tenant, client config in query string)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "missed-call",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "name": "Forwarded call arrives",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        300
+      ],
+      "id": "c938bf9e-ee68-5af3-ac77-adbb3b17c1d1",
+      "webhookId": "a777db0a-910c-46bc-b21f-4533fddd4129"
+    },
+    {
+      "parameters": {
+        "jsCode": "const q = $json.query || {}; const b = $json.body || {};\nconst biz = q.biz || 'our team'; const booking = q.booking || '';\nconst tz = q.tz || 'America/Phoenix';\nconst hour = Number(new Date().toLocaleString('en-US', { timeZone: tz, hour: 'numeric', hour12: false }));\nconst open = hour >= 8 && hour < 18;\nconst sms = open\n  ? `Hi, this is ${biz}. Sorry we missed your call! Reply here with what you need and we'll get right back to you.` + (booking ? ` Or book online: ${booking}` : '')\n  : `Hi, this is ${biz}. We're closed right now but saw your call. Reply here with what you need and we'll answer first thing.` + (booking ? ` Book any time: ${booking}` : '');\nconst say = `Thanks for calling ${biz}. We can't pick up right now, but we just sent you a text so you can tell us what you need. Goodbye.`;\nreturn [{ json: { to: b.From, from: q.sms_from || b.To, biz, sms, say, when: new Date().toISOString(), open } }];"
+      },
+      "name": "Build text and greeting",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        260,
+        300
+      ],
+      "id": "91cb01e6-7e7b-5267-8c63-3acca0895e0e"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "=<Response><Say voice=\"Polly.Joanna\">{{ $json.say }}</Say><Hangup/></Response>",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/xml"
+              }
+            ]
+          }
+        }
+      },
+      "name": "Answer with TwiML",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        520,
+        300
+      ],
+      "id": "44a3124b-480d-564d-a2be-8db1222815f8"
+    },
+    {
+      "parameters": {
+        "from": "={{ $('Build text and greeting').item.json.from }}",
+        "to": "={{ $('Build text and greeting').item.json.to }}",
+        "message": "={{ $('Build text and greeting').item.json.sms }}",
+        "options": {}
+      },
+      "name": "Text the caller",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        780,
+        300
+      ],
+      "credentials": {
+        "twilioApi": {
+          "id": "YOUR_TWILIO_CREDENTIAL",
+          "name": "Twilio (receptionist)"
+        }
+      },
+      "onError": "continueRegularOutput",
+      "id": "74e49149-11d4-551d-b0b0-2d363d59b61b"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "YOUR_SHEET_ID"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Missed calls"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "when": "={{ $('Build text and greeting').item.json.when }}",
+            "business": "={{ $('Build text and greeting').item.json.biz }}",
+            "caller": "={{ $('Build text and greeting').item.json.to }}",
+            "open_hours": "={{ $('Build text and greeting').item.json.open }}"
+          },
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "name": "Log the miss",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1040,
+        300
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YOUR_SHEETS_CREDENTIAL",
+          "name": "Google Sheets account"
+        }
+      },
+      "id": "2633b3bd-34e6-57e6-8a72-0b3fb8d70ea1"
+    }
+  ],
+  "connections": {
+    "Forwarded call arrives": {
+      "main": [
+        [
+          {
+            "node": "Build text and greeting",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build text and greeting": {
+      "main": [
+        [
+          {
+            "node": "Answer with TwiML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Answer with TwiML": {
+      "main": [
+        [
+          {
+            "node": "Text the caller",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text the caller": {
+      "main": [
+        [
+          {
+            "node": "Log the miss",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "id": "missed-call-multitenant"
+}

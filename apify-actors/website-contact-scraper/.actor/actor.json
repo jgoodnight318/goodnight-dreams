@@ -1,0 +1,148 @@
+{
+  "actorSpecification": 1,
+  "name": "website-contact-scraper",
+  "title": "Website Contact Scraper (email, phone, socials)",
+  "description": "Turn a list of websites into outreach-ready contacts: published emails, phone numbers and social profiles (Facebook, Instagram, LinkedIn, X, YouTube, TikTok) scraped from each site's homepage and contact pages. One clean record per site. Pairs with any lead finder.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "storages": {
+    "dataset": {
+      "actorSpecification": 1,
+      "title": "Contacts",
+      "fields": {
+        "type": "object",
+        "properties": {
+          "website": {
+            "type": "string",
+            "description": "Normalized origin of the input website (scheme + host)",
+            "example": "https://apify.com"
+          },
+          "finalUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "URL the homepage request resolved to after redirects (null on fetch failure)"
+          },
+          "emails": {
+            "type": "array",
+            "description": "Deduplicated, lowercased email addresses found on the scanned pages",
+            "items": {
+              "type": "string"
+            }
+          },
+          "phones": {
+            "type": "array",
+            "description": "Deduplicated phone numbers found on the scanned pages (tel: links and in-page text)",
+            "items": {
+              "type": "string"
+            }
+          },
+          "socials": {
+            "type": "object",
+            "description": "One canonical profile URL per network, or null if not found",
+            "properties": {
+              "facebook": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "instagram": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "linkedin": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "twitter": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "youtube": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "tiktok": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "pagesScanned": {
+            "type": "array",
+            "description": "URLs actually fetched for this site (homepage plus any discovered contact-like pages)",
+            "items": {
+              "type": "string"
+            }
+          },
+          "success": {
+            "type": "boolean",
+            "description": "Whether the homepage fetch succeeded"
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Error message if the site could not be fetched, otherwise null"
+          }
+        },
+        "required": [
+          "website",
+          "emails",
+          "phones",
+          "socials",
+          "success"
+        ]
+      },
+      "views": {
+        "overview": {
+          "title": "Overview",
+          "transformation": {
+            "fields": [
+              "website",
+              "emails",
+              "phones",
+              "success"
+            ]
+          },
+          "display": {
+            "component": "table",
+            "properties": {
+              "website": {
+                "label": "Website",
+                "format": "link"
+              },
+              "emails": {
+                "label": "Emails"
+              },
+              "phones": {
+                "label": "Phones"
+              },
+              "success": {
+                "label": "Success",
+                "format": "boolean"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "output": "./output_schema.json"
+}

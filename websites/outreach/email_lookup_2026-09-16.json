@@ -1,0 +1,50 @@
+[
+  {
+    "business": "Dave's Auto Care",
+    "email": null,
+    "email_source_url": null,
+    "operating_evidence": "Birdeye review posted approximately 3 weeks before 2026-09-16 (roughly late August 2026), plus additional reviews at 2 and 5 months out; address 8635 SE 17th Ave, Portland, OR 97202 and phone (503) 233-3637 confirmed on the same page.",
+    "operating_evidence_url": "https://reviews.birdeye.com/daves-auto-care-167702975225868",
+    "notes": "Sources checked: Facebook (no matching page - only unrelated same-named businesses in Maine/NY/LA/Ontario/OH), Yelp (403 blocked on fetch, search snippet confirmed phone/address, no email), BBB profile, Nextdoor, Yellow Pages (403 blocked), Birdeye, hub.biz directory, Google PDF/flyer search. No public email found on any source. The domain davesauto.com belongs to an unrelated Dave's Auto Care in Willoughby, OH (different phone/address) - explicitly rejected as a same-name conflict. No BBB reviews on file; Nextdoor's latest activity was Aug 2025."
+  },
+  {
+    "business": "Greer's Temptrol",
+    "email": null,
+    "email_source_url": null,
+    "operating_evidence": "Oregon CCB license #101241 shows status Active, expiring 2026-10-20, still listing founder Andrew A. Greer Jr. as Responsible Managing Individual. Founder Andrew Aubrey 'Skip' Greer Jr. confirmed deceased March 4, 2026 via obituary. No 2026-dated reviews (Yelp/Google/Facebook) found after the March 2026 death, no Facebook post about continuation or new ownership, but also no explicit closure notice anywhere.",
+    "operating_evidence_url": "https://www.ccblookup.com/contractor/greers-temptrol-101241/",
+    "notes": "INCONCLUSIVE on post-death operating status - flagging for James's own judgment rather than asserting either way. Founder death obituary: https://www.legacy.com/us/obituaries/name/andrew-greer-obituary?id=61046164 (full obituary text on omegaservices.com could not be fetched due to a redirect loop, so it's unconfirmed whether it mentions business continuation). Sources checked: Facebook (no verified official page - a same-industry page 'Temptrol HVAC' exists but could not be confirmed to be this business), Yelp (403 on fetch; snippet shows 'Updated January 2026', which predates the founder's death and is not usable as post-death evidence), BBB (fetched successfully, phone/address match, explicitly 'Email Address: Not provided'), Nextdoor (no listing found), Yellow Pages/Angi/HomeAdvisor/Thumbtack (no listing surfaced), Oregon CCB (Active, no email field), Google PDF/flyer search (none found). An active CCB license alone does not confirm the shop is currently taking jobs, since license status can lag a death by months."
+  },
+  {
+    "business": "Harvey's Auto Service",
+    "email": null,
+    "email_source_url": null,
+    "operating_evidence": "Yelp listing at the correct address (9221 Holman Rd NW, Seattle, WA 98117, phone (206) 782-6686) shows 'Updated August 2026' with 35 reviews; Birdeye page shows 54 reviews at 4.9 stars. Business established 1954, hours Mon-Fri 9am-6pm.",
+    "operating_evidence_url": "https://www.yelp.com/biz/harveys-auto-service-seattle",
+    "notes": "Sources checked: Facebook (a page exists but WebFetch returned no usable content; a separate Facebook result was explicitly for a Redmond, WA business and was rejected as unrelated), Yelp (403 on direct fetch; search snippet confirmed match, no email), BBB (only found a BBB profile for the unrelated Kirkland, WA Harvey's Auto Service - explicitly rejected per the task's same-name warning), Nextdoor (fetched successfully, confirms phone/address match, explicitly 'Email Address: Not listed on this page'), Yellow Pages (403 on fetch; snippets from Yellow Pages and CMac.ws both show 'Email: N/A'), Birdeye/RepairPal (reviews only, no email field). Also encountered and correctly excluded the unrelated Shoreline, WA listing (yellowpages.com/shoreline-wa/mip/harveys-auto-service-995867) and harveyautoservice.com (the Kirkland, WA shop). WA L&I lookup not applicable (auto repair is not an L&I-licensed trade). No PDF/flyer with an email found. Additional evidence: https://reviews.birdeye.com/harveys-auto-service-166105662562545"
+  },
+  {
+    "business": "Andy's Auto Repair",
+    "email": null,
+    "email_source_url": null,
+    "operating_evidence": "Yelp listing for the matching address/phone shows 'Updated September 2026' with 51 reviews (this is a listing-freshness label, not a confirmed individual review date, since the Yelp page itself 403'd on fetch). BBB profile confirms the same address/phone under the name variant 'Andy's Import Auto Repair' but shows 0 reviews. Nextdoor's most recent recommendation dates found were July 2023, outside the 6-month window. Treat operating status as likely but not conclusively confirmed by a dated review.",
+    "operating_evidence_url": "https://www.yelp.com/biz/andys-auto-repair-seattle",
+    "notes": "Also see BBB profile (name variant 'Andy's Import Auto Repair', same address/phone): https://www.bbb.org/us/wa/seattle/profile/auto-repair/andys-import-auto-repair-1296-27028686. Sources checked: Facebook (no page found for this exact location - only unrelated locations in Elma, WA and Lynnwood, WA, both rejected), Yelp (403 on fetch, phone/address confirmed via search snippet only), BBB, Nextdoor, Yellow Pages (403), Superpages, Groupon, Checkbook.org (confirmed match, no email), Birdeye (confirmed address match, no email, stale Citysearch-era reviews), Mechanic Advisor, Magicpin (confirmed match, no email). WA L&I lookup not attempted (not an L&I-licensed trade). The domain andysautorepair.com appears in aggregator summaries but failed to resolve via WebFetch (connection failure, not a 403) so could not be verified as the real business site. Same-name conflicts explicitly rejected: 'Andy's Auto Repair, Inc.' in Lynnwood, WA (425 area code, different address) and 'Andy's Auto Parts & Service Center' in Elma, WA."
+  },
+  {
+    "business": "Master Mechanics",
+    "email": null,
+    "email_source_url": null,
+    "operating_evidence": "Yelp listing for Master Mechanics Incorporated (8036 SE 17th Ave, Portland, OR 97202, phone (503) 238-8877) shows 'Updated May 2026', 4.2 stars / 9 reviews. Business has operated continuously since 1976 (per BBB); no closure signals found anywhere.",
+    "operating_evidence_url": "https://www.yelp.com/biz/master-mechanics-incorporated-portland",
+    "notes": "Legal entity is Master Mechanics Incorporated, with a second address (PO Box 38, Grass Valley, OR) that is the same company's HQ, not a conflict. Sources checked: Facebook (no page found for this location; only unrelated same-named shops in Spokane WA, Natick MA, New Port Richey FL, Zephyrhills FL, Phoenix AZ, Kalamazoo MI, and South Africa - all rejected), Yelp (403 on direct fetch; search snippet confirmed match), BBB (fetched successfully, confirms phone and both addresses, no email listed), Nextdoor (404 not found), Yellow Pages/Superpages/DexKnows/Chamber of Commerce (all 403), Oregon CCB (not applicable - auto repair shops are not CCB-licensed), AutoRepairKey.com (fetched successfully, confirms match, no email), RepairPal/Birdeye/Carfax (no listings found), Google search for PDF/flyer or personal-email patterns tied to this phone/address (nothing found). No email found on any source."
+  },
+  {
+    "business": "Pipes Are Us",
+    "email": null,
+    "email_source_url": null,
+    "operating_evidence": "BBB profile is live and lists the business as active (not accredited, but not marked closed). Yelp listing title reads 'Updated January 2026' (approximately 8 months before 2026-09-16, the most recent dated evidence found; individual review dates were not retrievable since Yelp blocked direct fetch).",
+    "operating_evidence_url": "https://www.bbb.org/us/ca/fresno/profile/air-conditioning-contractor/pipes-are-us-1126-89014025",
+    "notes": "Business: 1885 E Griffith Way Ste 104, Fresno, CA 93726; owner Todd Gonzales; operating locally since 1992. Sources checked: Facebook (no dedicated business page found), Yelp (403 on fetch, https://www.yelp.com/biz/pipes-are-us-fresno, no email in search snippets), BBB (fetched successfully, explicitly 'Email Address: Not listed'; confirms (559) 226-1600 as an 'Alternative Phone' on the same profile), Nextdoor (fetched successfully, no email listed, phone/address confirmed), Yellow Pages (403), Yahoo Local (fetched successfully, no email, no review dates shown), California CSLB (no license record surfaced under 'Pipes Are Us' or 'Pipes R Us' for Fresno via search; CSLB's lookup form is not GET-fetchable so a license number could not be verified directly), Thumbtack/Angi/HomeAdvisor (no listing found), LinkedIn (minimal profile, no email; its 'website' link incorrectly points to an unrelated 'Pipes-R-Us Plumbing Services' in New Orleans, explicitly rejected as a same-name conflict), plumbersworldwide.com directory (no email or phone shown), Google PDF/flyer search (nothing found). A discrepancy worth flagging: several aggregators list a primary number of (559) 351-5352 with (559) 226-1600 as a secondary/alternate line at the same address - both tie to the same business, not a same-name conflict."
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "business": "Master Mechanics Inc",
+  "verified": "2026-09-16",
+  "claims": {
+    "name": { "value": "Master Mechanics", "source": "OSM tag + BBB + Yelp + YellowPages listings (legal name 'Master Mechanics Inc')" },
+    "phone": { "value": "(503) 238-8877", "source": "OSM phone tag; matches the BBB business profile (same phone number links the Portland location to the company's BBB file)" },
+    "address": { "value": "8036 SE 17th Ave, Portland, OR 97202", "source": "OSM addr tag; listed as a second location on the BBB business profile for Master Mechanics Inc (whose file is registered under a Grass Valley, OR mailing address, PO Box 38, but the phone number (503) 238-8877 is the same for both, confirming one company)" },
+    "founded": { "value": "1976-01-01", "source": "BBB business profile: 'Business Started: 1/1/1976', 'Years in Business: 50'" },
+    "entityType": { "value": "Corporation", "source": "BBB business profile" },
+    "bbbFileOpened": { "value": "2003-01-16", "source": "BBB business profile" },
+    "reviews": { "value": "4.2 stars, 9 reviews", "source": "Yelp listing (yelp.com/biz/master-mechanics-incorporated-portland); direct fetch of the Yelp page returns HTTP 403, but this exact rating/review-count pair was returned consistently across two independently-worded search queries against that specific URL, which is how Jarmer Electric's Google rating was sourced too (search-indexed listing data, not a live scrape)" },
+    "reputation": { "value": "Long-tenured local reputation; a Yelp reviewer reports using the shop for 25 years across family members, describing the owner as a 'straight-shooter'", "source": "Yelp listing for Master Mechanics Incorporated, Portland (customer review text, used as internal color context only -- not quoted on the page)" },
+    "noWebsite": { "value": true, "source": "Live web search 2026-09-16 (multiple queries plus direct domain guesses: mastermechanicsportland.com, mastermechanicsinc.com): only directory/listing results found (BBB, Yelp, Car Talk, Nextdoor, YellowPages, DexKnows, Manta, Chamber of Commerce); mastermechanicsinc.com belongs to an unrelated shop in New Port Richey, FL; no first-party domain found for the Portland business" }
+  },
+  "removedAsUnsourced": [
+    "CSLB/state license number (not found)",
+    "owner first name 'Bill' (mentioned in BBB profile and one customer review) -- used for internal context only, not shown on the page",
+    "signed first-person quote attribution"
+  ]
+}

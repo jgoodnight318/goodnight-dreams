@@ -1,0 +1,17 @@
+{
+  "lane": "pinterest",
+  "updated": "2026-09-15T22:50:00-07:00",
+  "live": [],
+  "verified": [
+    "pin.py --dry-run run live 2026-09-15: generates fresh Claude-written pin copy per product into pinterest/queue/ (see queue files; state.json tracks per-product angle history)."
+  ],
+  "earned": 0,
+  "blocked": [
+    {
+      "item": "Goodnight Dreams Pinterest business account",
+      "why": "The Chrome session's existing Pinterest business account is Vivid Walls (@vividwallsapp). Pinterest's 'Create a free business account' linked-account flow requires setting a NEW password + birthdate, which is credential creation I don't perform.",
+      "action": "James, 2 minutes: pinterest.com (logged in as @vividwallsapp) -> account menu -> Add Pinterest account -> Create a free business account (Goodnight Dreams brand), then create one board 'Ambient wallpapers & sleep sounds'. ALTERNATIVE James may prefer: just use @vividwallsapp for these pins (wallpaper content fits the brand) and skip account creation entirely.",
+      "then": "Once the account+board exist: developers.pinterest.com -> My apps -> Create app -> request Trial access -> generate token with pins:write, boards:read -> put PINTEREST_ACCESS_TOKEN and PINTEREST_BOARD_ID in ~/.config/pinterest.env -> load launchd plist. I can do all of the 'then' steps from the logged-in session on request."
+    }
+  ]
+}

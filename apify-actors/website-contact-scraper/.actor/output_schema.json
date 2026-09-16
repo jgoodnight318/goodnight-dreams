@@ -1,0 +1,13 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "title": "Website Contact Scraper output",
+  "type": "object",
+  "properties": {
+    "contacts": {
+      "type": "string",
+      "title": "Contacts",
+      "description": "Dataset with one record per input website: emails, phones, social links, and success status.",
+      "template": "{{actorRun.defaultDatasetUrl}}?format=json&view=overview"
+    }
+  }
+}

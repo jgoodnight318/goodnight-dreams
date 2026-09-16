@@ -1,0 +1,35 @@
+{
+  "title": "Shopify Store Products Scraper input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "stores": {
+      "title": "Shopify stores",
+      "type": "array",
+      "description": "Store domains or URLs, e.g. allbirds.com or https://shop.example.com. Any Shopify storefront with a public catalog works.",
+      "editor": "stringList",
+      "prefill": ["allbirds.com"]
+    },
+    "collectionHandle": {
+      "title": "Collection handle (optional)",
+      "type": "string",
+      "description": "Scrape only one collection instead of the whole catalog, e.g. mens-shoes (the last part of the /collections/... URL). Applied to every store in the list.",
+      "editor": "textfield",
+      "nullable": true
+    },
+    "flattenVariants": {
+      "title": "One record per variant",
+      "type": "boolean",
+      "description": "Instead of one record per product with a variants array, output one record per variant with the product fields repeated. Handy for spreadsheets and price monitoring.",
+      "default": false
+    },
+    "maxProductsPerStore": {
+      "title": "Max products per store",
+      "type": "integer",
+      "description": "Stop after this many products per store. 0 means the whole catalog.",
+      "default": 0,
+      "minimum": 0
+    }
+  },
+  "required": ["stores"]
+}

@@ -13,10 +13,13 @@ Live: https://jgoodnight318.github.io/goodnight-dreams/
 | `/`             | Storefront — every live Gumroad product, the podcast, YouTube, wallpaper teasers |
 | `/link/`        | Link-in-bio page (Wren Ashby persona) for Instagram/TikTok/YouTube bios |
 | `/wallpapers/`  | Gallery of wallpaper-pack preview covers (no full-res files) |
+| `/vivid-walls/` | Landing page for Ambient Loops Vol. 1 as a Vivid Walls (Mac) content pack — import steps + buy link. Link target for the Vivid Walls site/app "more scenes" |
 | `/tools/`       | Free single-page tools (empty until the problem-miner pipeline ships one) |
 | `/countdown/`   | GTA 6 countdown + news tracker (independent fan project, original art only) |
 | `/podcast/`     | Quiet Hours podcast info + episode list (feed not yet on Spotify/Apple) |
 | `/privacy/`     | Privacy policy — no analytics, no cookies, no tracking |
+| `/automation-gigs/` | Public automation portfolio page. The folder also holds the agent-run Fiverr/Upwork services business: listings, order-fulfillment pipeline, launchd poller. See `automation-gigs/README.md` |
+| `/receptionist/` | Landing page for the missed-call text-back service ($149/$349 per month). The folder holds the prospecting and drafting scripts, the multi-tenant n8n workflow, runbook and setup. See `receptionist/README.md` |
 
 Analytics: **none**. No Plausible, no GA, no pixel of any kind — this
 repo intentionally ships zero analytics rather than a paid or

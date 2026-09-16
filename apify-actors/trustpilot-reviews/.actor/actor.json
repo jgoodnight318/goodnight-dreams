@@ -1,0 +1,198 @@
+{
+  "actorSpecification": 1,
+  "name": "trustpilot-reviews",
+  "title": "Trustpilot Reviews Scraper",
+  "description": "Scrape Trustpilot reviews for any company: rating, title, text, author, country, date, verified flag and business replies, plus TrustScore and review counts. Real-browser engine, no login or API key. Built for reputation monitoring and competitor research.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "storages": {
+    "dataset": {
+      "actorSpecification": 1,
+      "title": "Reviews",
+      "fields": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Record type: review or company",
+            "example": "review"
+          },
+          "domain": {
+            "type": "string",
+            "description": "Normalized company domain, as given in the input",
+            "example": "monzo.com"
+          },
+          "reviewId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Stable Trustpilot review ID for deduplication (review records only)"
+          },
+          "rating": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "Star rating, 1-5 (review records only)",
+            "example": 5
+          },
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Review title (review records only)"
+          },
+          "text": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Review body text (review records only)"
+          },
+          "authorName": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Reviewer's display name (review records only)"
+          },
+          "authorCountry": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Reviewer's country code (review records only)"
+          },
+          "date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Review publish date, ISO 8601 (review records only)"
+          },
+          "verified": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "True if Trustpilot labels the review as verified/invited (review records only)"
+          },
+          "replyText": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The company's reply text, if any (review records only)"
+          },
+          "replyDate": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The company's reply date, ISO 8601, if any (review records only)"
+          },
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Company display name (company records only)"
+          },
+          "trustScore": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Trustpilot TrustScore out of 5 (company records only)"
+          },
+          "totalReviews": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "Total number of reviews the company has ever received (company records only)"
+          },
+          "stars": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Overall star rating shown on the profile (company records only)"
+          },
+          "categories": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "Trustpilot business categories (company records only)",
+            "items": {
+              "type": "string"
+            }
+          },
+          "website": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Company website URL (company records only)"
+          },
+          "trustpilotUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The Trustpilot review page URL that was scraped (company records only)"
+          }
+        },
+        "required": [
+          "type",
+          "domain"
+        ]
+      },
+      "views": {
+        "overview": {
+          "title": "Overview",
+          "transformation": {
+            "fields": [
+              "domain",
+              "rating",
+              "title",
+              "authorName",
+              "date",
+              "verified"
+            ]
+          },
+          "display": {
+            "component": "table",
+            "properties": {
+              "rating": {
+                "label": "Rating",
+                "format": "number"
+              },
+              "title": {
+                "label": "Title"
+              },
+              "authorName": {
+                "label": "Author"
+              },
+              "date": {
+                "label": "Date",
+                "format": "date"
+              },
+              "verified": {
+                "label": "Verified",
+                "format": "boolean"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "output": "./output_schema.json"
+}

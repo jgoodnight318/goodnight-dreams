@@ -1,0 +1,16 @@
+{
+  "business": "Jarmer Electric",
+  "verified": "2026-09-15",
+  "claims": {
+    "name": { "value": "Jarmer Electric", "source": "OSM tag + BBB + Yelp + YellowPages listings" },
+    "phone": { "value": "(503) 246-5381", "source": "OSM phone tag; YellowPages listing" },
+    "address": { "value": "5105 SW 45th Ave, Portland, OR 97221", "source": "Yelp + YellowPages listings" },
+    "founded": { "value": "1977-10-05", "source": "BBB business profile: 'started on 10/5/1977'" },
+    "manager": { "value": "Stu Jarmer", "source": "BBB business profile (used for internal context only; no signed quotes on the page)" },
+    "googleRating": { "value": "4.9 stars, 15 reviews", "source": "Google rating shown in BuildZoom/search results, September 2026" },
+    "permits": { "value": "144 permitted projects in the past 3 years", "source": "BuildZoom permit records" },
+    "license": { "value": "Oregon electrical license (holds Electrical license per Oregon license board)", "source": "BuildZoom / Oregon CCB references in search results; license NUMBER not sourced, so not shown" },
+    "noWebsite": { "value": true, "source": "Live web search 2026-09-15: only directory listings (Nextdoor, Angi, BBB, Yelp, YellowPages, BuildZoom); no first-party domain found" }
+  },
+  "removedAsUnsourced": ["bonded status", "priceRange", "signed first-person quote attribution"]
+}

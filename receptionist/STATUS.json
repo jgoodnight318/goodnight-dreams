@@ -1,0 +1,38 @@
+{
+  "lane": "receptionist",
+  "updated": "2026-09-16T11:05:00-07:00",
+  "live": [
+    {
+      "item": "Gumroad membership products (published 2026-09-15)",
+      "textback": "https://goodnightdreams32.gumroad.com/l/missed-call-textback ($149/mo, tier 'Text-Back')",
+      "receptionist": "https://goodnightdreams32.gumroad.com/l/missed-call-receptionist ($349/mo, tier 'Receptionist')",
+      "note": "Free trial is ONE WEEK, not the 14 days in SETUP.md \u2014 Gumroad only offers one week or one month; week chosen as the safe option. Both have a members-only onboarding post telling the buyer what to send and what happens next. index.html placeholders replaced with the real URLs."
+    }
+  ],
+  "verified": [
+    "prospect.py live 2026-09-15: 12 Phoenix plumbers with phones from Overpass into data/prospects.csv.",
+    "enrich.py live 2026-09-15: 12 processed, 6 enriched with public contact emails, 6 no_email, 0 skipped for live answering."
+  ],
+  "earned": 0,
+  "blocked": [
+    {
+      "item": "Twilio account + $20 credit + trial upgrade",
+      "why": "Account creation + payment method are James-personal.",
+      "action": "SETUP.md step 1. Nothing can text/answer a real call until this exists."
+    },
+    {
+      "item": "n8n production deployment",
+      "why": "VERIFIED locally 2026-09-15: workflow imported into local n8n (v2.39.5, Node 24 LTS required \u2014 Node 25/26 breaks isolated-vm), activated, and a Twilio-shaped POST to /webhook/missed-call?biz=...&booking=...&tz=...&sms_from=... returned HTTP 200 with valid TwiML (<Say> greeting + <Hangup/>). Credentialed nodes (Twilio SMS, Sheets log) sit AFTER the respond node so the caller-facing reply never depends on them. Fixed in repo: added top-level id + webhookId to the workflow JSON (without webhookId, CLI import registers the wrong webhook path and the documented URL 404s).",
+      "action": "Production step once Twilio exists: host n8n (or n8n cloud), import this JSON, add real Twilio + Google Sheets credentials, activate, and use the production webhook URL as every client's Twilio voice URL per RUNBOOK.md."
+    }
+  ],
+  "sent": [
+    {
+      "batch": "2026-09-16 first outreach",
+      "count": 6,
+      "to": "6 Phoenix plumbers (data/outbox/SENT.csv)",
+      "from": "vividsupport2@gmail.com via Gmail connector",
+      "note": "James authorized send 09-16. jms.goodnight compose in Chrome is blocked by the harness classifier; the connector mailbox is the only one Claude can send from. Replies land in vividsupport2 (monitored)."
+    }
+  ]
+}

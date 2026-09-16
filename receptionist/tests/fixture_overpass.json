@@ -1,0 +1,6 @@
+{"elements":[
+ {"type":"node","id":1,"tags":{"name":"Desert Sun Plumbing","craft":"plumber","phone":"(602) 555-0142","website":"https://desertsunplumbing.example"}},
+ {"type":"node","id":2,"tags":{"name":"Camelback Drain Pros","craft":"plumber","contact:phone":"+1 602 555 0177","contact:email":"office@camelbackdrain.example"}},
+ {"type":"way","id":3,"tags":{"name":"No Phone Plumbing","craft":"plumber"}},
+ {"type":"node","id":4,"tags":{"name":"Desert Sun Plumbing (dup)","craft":"plumber","phone":"602-555-0142"}}
+]}

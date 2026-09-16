@@ -1,0 +1,29 @@
+{
+  "title": "Trustpilot Reviews Scraper input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "companies": {
+      "title": "Companies",
+      "type": "array",
+      "description": "Companies to scrape reviews for. Give a bare domain (\"monzo.com\") or a full trustpilot.com/review/... URL - both are normalized to the domain automatically.",
+      "editor": "stringList",
+      "prefill": ["www.notion.so", "monzo.com"]
+    },
+    "maxReviewsPerCompany": {
+      "title": "Max reviews per company",
+      "type": "integer",
+      "description": "Maximum number of reviews to collect per company, newest first. The actor pages through results until it hits this limit or runs out of reviews.",
+      "default": 100,
+      "minimum": 1,
+      "maximum": 2000
+    },
+    "includeCompanyInfo": {
+      "title": "Include company info",
+      "type": "boolean",
+      "description": "Also output one company record per domain with name, Trustpilot score, star rating, categories and total review count. These records are free and don't count toward usage.",
+      "default": true
+    }
+  },
+  "required": ["companies"]
+}

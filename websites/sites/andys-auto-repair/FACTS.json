@@ -1,0 +1,18 @@
+{
+  "business": "Andy's Auto Repair",
+  "verified": "2026-09-16",
+  "claims": {
+    "name": { "value": "Andy's Auto Repair", "source": "BBB business profile (listed as 'Andy's Import Auto Repair'); Yelp; Nextdoor; Groupon; Birdeye listings" },
+    "phone": { "value": "(206) 784-4727", "source": "OSM phone tag; matches BBB business profile and Yelp listing" },
+    "address": { "value": "7919 Aurora Ave N, Seattle, WA 98103", "source": "OSM addr tag; matches BBB business profile" },
+    "started": { "value": "1986-04-01", "source": "BBB business profile: 'Business started: 4/1/1986' (40 years in business)" },
+    "bbbRating": { "value": "A+", "source": "BBB business profile rating" },
+    "bbbAccredited": { "value": false, "source": "BBB business profile: 'This business is not BBB Accredited'" },
+    "businessType": { "value": "Sole Proprietorship", "source": "BBB business profile" },
+    "reviews": { "value": "4.5 stars aggregate, 116 reviews", "source": "Birdeye aggregate business profile (reviews.birdeye.com), pulled September 2026" },
+    "specialty": { "value": "European and Japanese import auto repair, family owned since 1986", "source": "BBB profile services list; Car Talk Mechanics Files listing" },
+    "hours": { "value": "Mon-Fri 8:30am-5:30pm, closed weekends", "source": "BBB business profile hours" },
+    "noWebsite": { "value": true, "source": "Live web search 2026-09-16: only directory/aggregator listings found (BBB, Yelp, Nextdoor, Groupon, Birdeye, Car Talk, Yellow Pages, judysbook, mechanicadvisor); no first-party domain found. Confirmed distinct from an unrelated same-named shop in Lynnwood, WA (different address/phone)" }
+  },
+  "removedAsUnsourced": ["Yelp's own star rating and review count (Yelp page could not be fetched directly; Birdeye aggregate used instead and cited as such)", "owner/technician personal names (kept internal only)", "signed first-person quote attribution"]
+}

@@ -1,0 +1,21 @@
+{
+  "n8n_version": "2.39.5",
+  "external_services": "stubbed; no messages sent",
+  "results": [
+    {
+      "scenario": "two-suppliers",
+      "expected_final_node": "Post low-stock report",
+      "status": "passed"
+    },
+    {
+      "scenario": "empty",
+      "expected_final_node": "Post all-good message",
+      "status": "passed"
+    },
+    {
+      "scenario": "api-error",
+      "expected_final_node": "Alert: inventory check failed",
+      "status": "passed"
+    }
+  ]
+}
